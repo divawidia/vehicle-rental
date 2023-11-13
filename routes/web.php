@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\TransmissionController;
 use App\Http\Controllers\Admin\VehicleBrandController;
@@ -76,4 +78,7 @@ Route::prefix('admin')
         Route::resource('foto-kendaraan', VehiclePhotoController::class);
         Route::resource('bookings', BookingController::class);
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
+
+        Route::resource('blogs', BlogController::class);
+        Route::resource('kategori-blog', BlogCategoryController::class);
     });
