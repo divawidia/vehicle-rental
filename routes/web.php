@@ -83,9 +83,6 @@ Route::prefix('admin')
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
         Route::resource('blogs', BlogController::class);
-        Route::post('/blogs/photo/upload', [BlogController::class, 'uploadPhoto'])->name('blog-photo-upload');
-        Route::get('/blogs/photo/delete/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
-
         Route::resource('kategori-blog', BlogCategoryController::class);
     });
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
