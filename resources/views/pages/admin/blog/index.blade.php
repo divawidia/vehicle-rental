@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.admin.master')
 @section('title')
     Artikel Blog
 @endsection
@@ -32,8 +32,8 @@
 {{--                        </ul>--}}
 {{--                    </div>--}}
                     <div>
-                        <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i
-                                class="bx bx-plus me-1"></i> Add New</a>
+                        <a href="{{ route('blogs.create') }}" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i
+                                class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
                     </div>
                     <div class="dropdown">
                         <a class="btn btn-link text-muted py-1 font-size-16 shadow-none dropdown-toggle" href="#"
@@ -56,46 +56,35 @@
             <div class="col-xl-3 col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <div class="dropdown float-end">
-                            <a class="text-muted dropdown-toggle font-size-16" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true">
-                                <i class="bx bx-dots-horizontal text-muted font-size-20"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Lihat</a>
-                                <a class="dropdown-item" href="#">Hapus</a>
-                            </div>
-                        </div>
                         <div class="d-flex align-items-center">
                             <div>
                                 <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt=""
-                                     class="avatar-md rounded-circle img-thumbnail">
+                                     class="img-thumbnail">
                             </div>
-                            <div class="flex-1 ms-3">
-                                <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">Phyllis Gatlin</a></h5>
-                                <span class="badge badge-soft-success mb-0">Full Stack Developer</span>
-                            </div>
+                        </div>
+                        <h5 class="font-size-16 py-2"><a href="#" class="text-dark">Phyllis Gatlin</a></h5>
+                        <div class="mt-2">
+                            <span class="badge badge-soft-success mb-0">Full Stack Developer</span>
+                            <span class="badge badge-soft-success mb-0">Full Stack</span>
+                            <span class="badge badge-soft-success mb-0">Full Stack</span>
                         </div>
 
                         <p class="text-muted mt-3 mb-0">Curabitur non magna lobortis tempus gravida ornare libero sed diam
                             sed fringilla est.</p>
 
                         <div class="mt-3 pt-1">
-                            <p class="mb-0"><i class="mdi mdi-phone font-size-15 align-middle pe-2 text-primary"></i>
+                            <p class="mb-0"><i class="bx bx-user font-size-15 align-middle pe-2 text-primary"></i>
                                 070 2860 5375</p>
-                            <p class="mb-0 mt-2"><i class="mdi mdi-email font-size-15 align-middle pe-2 text-primary"></i>
+                            <p class="mb-0 mt-2"><i class="bx bx-calendar font-size-15 align-middle pe-2 text-primary"></i>
                                 PhyllisGatlin@spy.com</p>
-                            <p class="mb-0 mt-2"><i
-                                    class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>
-                                52 Ilchester MYBSTER 9WX</p>
                         </div>
 
-                        <div class="d-flex gap-2 pt-4">
-                            <button type="button" class="btn btn-soft-primary btn-sm w-50"><i class="bx bx-user me-1"></i>
-                                Profile</button>
-                            <button type="button" class="btn btn-primary btn-sm w-50"><i
-                                    class="bx bx-message-square-dots me-1"></i> Contact</button>
+                        <div class="d-flex justify-content-center gap-2 pt-4">
+                            <a href="" class="btn btn-success me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Edit Blog"><i class="fa fa-edit"></i></a>
+                            <a href="" class="btn btn-primary me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Lihat Blog"><i class="fa fa-eye"></i></a>
+                            <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </div>
 
 

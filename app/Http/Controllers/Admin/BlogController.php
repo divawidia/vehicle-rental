@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogCategory;
+use App\Models\Transmission;
+use App\Models\VehicleBrand;
+use App\Models\VehicleType;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -24,7 +28,11 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        $categories = BlogCategory::all();
+
+        return view('pages.admin.blog.create',[
+            'categories' => $categories
+        ]);
     }
 
     /**
