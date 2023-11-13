@@ -71,7 +71,7 @@
                         <span class="menu-item" data-key="t-blog">Artikel Blog</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('kategori-blog.index') }}">Kategori Blog</a></li>
+                        <li><a href="{{ route('tags.index') }}">Kategori Blog</a></li>
                         <li><a href="{{ route('blogs.index') }}">List Blog</a></li>
                     </ul>
                 </li>

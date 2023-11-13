@@ -136,15 +136,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label for="weekly_price" class="col-md-2 col-form-label">Harga Mingguan</label>
-                                <div class="col-md-10">
-                                    <div class="input-group">
-                                        <div class="input-group-text">Rp.</div>
-                                        <input class="form-control" type="number" autocomplete="off" name="weekly_price" id="weekly_price">
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div class="mb-3 row">--}}
+{{--                                <label for="weekly_price" class="col-md-2 col-form-label">Harga Mingguan</label>--}}
+{{--                                <div class="col-md-10">--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <div class="input-group-text">Rp.</div>--}}
+{{--                                        <input class="form-control" type="number" autocomplete="off" name="weekly_price" id="weekly_price">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="mb-3 row">
                                 <label for="monthly_price" class="col-md-2 col-form-label">Harga Bulanan</label>
                                 <div class="col-md-10">

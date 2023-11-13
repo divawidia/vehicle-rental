@@ -1833,7 +1833,7 @@ header.header-light .logo-2 {
 /* ================================================== */
 
 
-/* blog */
+/* blog_images */
 
 
 /* ================================================== */
@@ -1843,7 +1843,7 @@ header.header-light .logo-2 {
     padding: 0;
 }
 
-/* blog list */
+/* blog_images list */
 
 .blog-list>div {
     list-style: none;
@@ -2097,7 +2097,7 @@ header.header-light .logo-2 {
     width: 100%;
 }
 
-/* blog comment */
+/* blog_images comment */
 
 #blog-comment {
     margin-top: 40px;
@@ -2386,7 +2386,7 @@ header.header-light .logo-2 {
     content: "By: ";
 }
 
-/* blog comment form */
+/* blog_images comment form */
 
 #commentform label {
     display: block;

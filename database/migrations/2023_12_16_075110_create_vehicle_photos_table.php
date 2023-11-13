@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('vehicle_photos', function (Blueprint $table) {
             $table->id();
-            $table->integer('vehicle_id');
+            $table->unsignedBigInteger('vehicle_id');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->string('photo_url');
             $table->softDeletes();
             $table->timestamps();

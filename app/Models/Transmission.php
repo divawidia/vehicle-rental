@@ -17,4 +17,9 @@ class Transmission extends Model
     protected $hidden = [
 
     ];
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'transmission_id', 'id');
+    }
 }

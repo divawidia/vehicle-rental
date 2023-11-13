@@ -209,475 +209,180 @@
                     <div class="clearfix"></div>
 
                     <div id="items-carousel" class="owl-carousel wow fadeIn">
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/scoopy.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Honda Scoopy</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
+                        @foreach($vehicles as $vehicle)
+                            <div class="col-lg-12">
+                                <div class="de-item mb30">
+                                    <div class="d-img">
+                                        <img
+                                            src="{{ Storage::url($vehicle->photos->first()->photo_url) }}"
+                                            class="img-fluid"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="d-info">
+                                        <div class="d-text">
+                                            <h4>{{ $vehicle->vehicle_name }}</h4>
+                                            <!-- <div class="d-item_like">
+                                              <i class="fa fa-heart"></i><span>74</span>
+                                            </div> -->
+                                            <div class="d-atr-group">
                                           <span class="d-atr"
-                                          ><img src="images/icons/1.svg" alt="" />2</span
+                                          ><img src="images/icons/1.svg" alt="" />{{ $vehicle->passenger }}</span
                                           >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />110cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 80K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/techno.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Honda Vario 125</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />125cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 80K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
+                                                <span class="d-atr"
+                                                ><img
+                                                        src="images/icons/engine.svg"
+                                                        alt=""
+                                                    />{{ $vehicle->engine_capacity }}cc</span
+                                                >
+                                                <span class="d-atr"
+                                                ><img
+                                                        src="images/icons/transmission.svg"
+                                                        alt=""
+                                                    />{{ $vehicle->transmission->transmission_type }}</span
+                                                >
+                                                <span class="d-atr"
+                                                ><img
+                                                        src="images/icons/scooter.svg"
+                                                        alt=""
+                                                        height="25px"
+                                                    />{{ $vehicle->vehicle_type->vehicle_type_name }}</span
+                                                >
+                                            </div>
+                                            <div class="d-price">
+                                                Daily rate from <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                <a class="btn-main" href="{{ route('vehicle-detail', $vehicle->slug) }}"
+                                                >Rent Now</a
+                                                >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/techno.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Honda Vario 150</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />150cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 90K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/fazzio.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Yamaha Fazzio</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />125cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 80K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/gear.png"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Yamaha Gear</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />125cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 80K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/nmax-new.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Yamaha All New Nmax</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />155cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 150K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/nmax-old.jpg"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Yamaha Nmax</h4>
-                                        <!-- <div class="d-item_like">
-                                          <i class="fa fa-heart"></i><span>74</span>
-                                        </div> -->
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />2</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />155cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/scooter.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Scooter</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 125K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="section-cars" class="no-top">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 offset-lg-3 text-center">
-                        <h2>Our Cars Fleet</h2>
-                        <p>
-                            Driving your dreams to reality with an exquisite fleet of
-                            versatile vehicles for unforgettable journeys.
-                        </p>
-                        <div class="spacer-20"></div>
-                    </div>
+{{--        <section id="section-cars" class="no-top">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row align-items-center">--}}
+{{--                    <div class="col-lg-6 offset-lg-3 text-center">--}}
+{{--                        <h2>Our Cars Fleet</h2>--}}
+{{--                        <p>--}}
+{{--                            Driving your dreams to reality with an exquisite fleet of--}}
+{{--                            versatile vehicles for unforgettable journeys.--}}
+{{--                        </p>--}}
+{{--                        <div class="spacer-20"></div>--}}
+{{--                    </div>--}}
 
-                    <div class="clearfix"></div>
+{{--                    <div class="clearfix"></div>--}}
 
-                    <div id="items-carousel2" class="owl-carousel wow fadeIn">
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/avanza.png"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Toyota All New Avanza</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>74</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />7</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />1500cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/4.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />MPV</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 250K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+{{--                    <div id="items-carousel2" class="owl-carousel wow fadeIn">--}}
+{{--                        <div class="col-lg-12">--}}
+{{--                            <div class="de-item mb30">--}}
+{{--                                <div class="d-img">--}}
+{{--                                    <img--}}
+{{--                                        src="images/cars/avanza.png"--}}
+{{--                                        class="img-fluid"--}}
+{{--                                        alt=""--}}
+{{--                                    />--}}
+{{--                                </div>--}}
+{{--                                <div class="d-info">--}}
+{{--                                    <div class="d-text">--}}
+{{--                                        <h4>Toyota All New Avanza</h4>--}}
+{{--                                        <div class="d-item_like">--}}
+{{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-atr-group">--}}
+{{--                      <span class="d-atr"--}}
+{{--                      ><img src="images/icons/1.svg" alt="" />7</span--}}
+{{--                      >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/engine.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                />1500cc</span--}}
+{{--                                            >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/transmission.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                />automatic</span--}}
+{{--                                            >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/4.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                    height="25px"--}}
+{{--                                                />MPV</span--}}
+{{--                                            >--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-price">--}}
+{{--                                            Daily rate from <span>Rp. 250K</span>--}}
+{{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
+{{--                                            >Rent Now</a--}}
+{{--                                            >--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="col-lg-12">
-                            <div class="de-item mb30">
-                                <div class="d-img">
-                                    <img
-                                        src="images/cars/agya.png"
-                                        class="img-fluid"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="d-info">
-                                    <div class="d-text">
-                                        <h4>Toyota All New Agya</h4>
-                                        <div class="d-item_like">
-                                            <i class="fa fa-heart"></i><span>74</span>
-                                        </div>
-                                        <div class="d-atr-group">
-                      <span class="d-atr"
-                      ><img src="images/icons/1.svg" alt="" />5</span
-                      >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/engine.svg"
-                                                    alt=""
-                                                />1200cc</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/transmission.svg"
-                                                    alt=""
-                                                />automatic</span
-                                            >
-                                            <span class="d-atr"
-                                            ><img
-                                                    src="images/icons/4.svg"
-                                                    alt=""
-                                                    height="25px"
-                                                />Hatchback</span
-                                            >
-                                        </div>
-                                        <div class="d-price">
-                                            Daily rate from <span>Rp. 200K</span>
-                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"
-                                            >Rent Now</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+{{--                        <div class="col-lg-12">--}}
+{{--                            <div class="de-item mb30">--}}
+{{--                                <div class="d-img">--}}
+{{--                                    <img--}}
+{{--                                        src="images/cars/agya.png"--}}
+{{--                                        class="img-fluid"--}}
+{{--                                        alt=""--}}
+{{--                                    />--}}
+{{--                                </div>--}}
+{{--                                <div class="d-info">--}}
+{{--                                    <div class="d-text">--}}
+{{--                                        <h4>Toyota All New Agya</h4>--}}
+{{--                                        <div class="d-item_like">--}}
+{{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-atr-group">--}}
+{{--                      <span class="d-atr"--}}
+{{--                      ><img src="images/icons/1.svg" alt="" />5</span--}}
+{{--                      >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/engine.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                />1200cc</span--}}
+{{--                                            >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/transmission.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                />automatic</span--}}
+{{--                                            >--}}
+{{--                                            <span class="d-atr"--}}
+{{--                                            ><img--}}
+{{--                                                    src="images/icons/4.svg"--}}
+{{--                                                    alt=""--}}
+{{--                                                    height="25px"--}}
+{{--                                                />Hatchback</span--}}
+{{--                                            >--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-price">--}}
+{{--                                            Daily rate from <span>Rp. 200K</span>--}}
+{{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
+{{--                                            >Rent Now</a--}}
+{{--                                            >--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
 
         <section aria-label="section" class="no-top">
             <div class="container">

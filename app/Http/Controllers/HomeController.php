@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,10 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +20,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
+        return view('pages.home',[
+            'vehicles' => $vehicles
+        ]);
+    }
+    public function vehicleList()
+    {
+        $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
+        return view('pages.vehicle-list', compact('vehicles'));
+    }
+    public function vehicleDetail(string $slug)
+    {
+        return view('pages.vehicle-detail')->with('vehicle', Vehicle::where('slug', $slug)->first());
     }
 }

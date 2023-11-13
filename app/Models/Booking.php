@@ -36,7 +36,7 @@ class Booking extends Model
         'transaction_code',
         'shipping_status',
         'return_status',
-        'booking_status',
+        'rent_status',
         'insurance_price',
         'shipping_price',
         'booking_price',

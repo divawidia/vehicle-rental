@@ -17,4 +17,8 @@ class VehicleType extends Model
     protected $hidden = [
 
     ];
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'vehicle_type_id', 'id');
+    }
 }

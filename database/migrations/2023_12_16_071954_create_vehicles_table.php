@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->integer('vehicle_type_id');
-            $table->integer('brand_id');
-            $table->integer('transmission_id');
+            $table->unsignedBigInteger('vehicle_type_id');
+            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('transmission_id');
+            $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('vehicle_brands')->onDelete('cascade');
+            $table->foreign('transmission_id')->references('id')->on('transmissions')->onDelete('cascade');
             $table->string('vehicle_name');
             $table->string('slug');
             $table->text('description');
@@ -29,7 +32,7 @@ return new class extends Migration
             $table->year('year');
             $table->string('color');
             $table->integer('daily_price');
-            $table->integer('weekly_price');
+            $table->integer('weekly_price')->nullable();
             $table->integer('monthly_price');
             $table->integer('unit_quantity');
             $table->softDeletes();

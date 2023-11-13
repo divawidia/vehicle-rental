@@ -138,8 +138,9 @@ class BookingController extends Controller
     public function userPageBooking1(Request $request){
         $booking = $request->session()->get('booking');
         $vehicleTypes = VehicleType::all();
+        $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
 
-        return view('pages.home', compact('booking', 'vehicleTypes'));
+        return view('pages.home', compact(['booking', 'vehicleTypes', 'vehicles']));
     }
 
     public function postUserPageBooking1(Request $request){

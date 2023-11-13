@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\BlogCategory;
+use App\Models\Tag;
 use App\Models\BlogPhoto;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
@@ -19,7 +19,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::with(['user', 'photos', 'categories'])->get();
+        $blogs = Blog::with(['user', 'tags'])->get();
         return view('pages.admin.blog.index', [
             'blogs' => $blogs
         ]);
@@ -30,10 +30,10 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = BlogCategory::all();
+        $tags = Tag::all();
 
         return view('pages.admin.blog.create',[
-            'categories' => $categories
+            'tags' => $tags
         ]);
     }
 
@@ -46,15 +46,10 @@ class BlogController extends Controller
 
         $data['slug'] = Str::slug($request->title);
         $data['user_id'] = Auth::user()->id;
+        $data['thumbnail_photo'] = $request->file('thumbnail_photo')->store('assets/blog-thumbnail', 'public');
 
         $blog = Blog::create($data);
-
-        $gallery = [
-            'blog_id' => $blog->id,
-            'photo_url' => $request->file('photo_url')->store('assets/blog-photo', 'public')
-        ];
-
-        BlogPhoto::create($gallery);
+        $blog->tags()->sync((array)$request->input('tag_id'));
 
         return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
     }
@@ -64,31 +59,43 @@ class BlogController extends Controller
      */
     public function show(string $slug)
     {
-        return view('pages.admin.blog.detail')->with('blog', Blog::where('slug', $slug)->first());
+        return view('pages.admin.blog.detail')->with('blog', Blog::where('slug', $slug)->where('deleted_at', null)->first());
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $slug)
+    public function edit(string $id)
     {
-        $blog = Blog::with((['photos', 'categories']))->findOrFail($slug);
-        $categories = BlogCategory::all();
+        $blog = Blog::with((['tags']))->findOrFail($id);
+        $tags = Tag::all();
 
-        return view('pages.admin.vehicle.edit',[
+        return view('pages.admin.blog.edit',[
             'blog' => $blog,
-            'categories' => $categories
+            'tags' => $tags
         ]);
     }
 
-    public function uploadPhoto(Request $request){
+    public function uploadPhotoThumbnail(Request $request){
         $data = $request->all();
-
-        $data['photo_url'] = $request->file('photo_url')->store('assets/blog-photo', 'public');
-
+        $data['thumbnail_photo'] = $request->file('thumbnail_photo')->store('assets/blog-thumbnail', 'public');
         BlogPhoto::create($data);
+        return redirect()->route('blogs.edit', $data['blog_id']);
+    }
 
-        return redirect()->route('blogs.edit', $request->slug);
+    public function uploadPhoto(Request $request){
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+            $request->file('upload')->move(public_path('assets/blog-photo'), $fileName);
+
+            $url = asset('assets/blog-photo/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+
+        }
     }
 
     public function deletePhoto(Request $request, $id)
@@ -96,21 +103,22 @@ class BlogController extends Controller
         $item = BlogPhoto::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('blogs.edit', $item->blog->slug);
+        return redirect()->route('blogs.edit', $item->blog_id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, string $id)
     {
         $data = $request->all();
 
-        $blog = Blog::findOrFail($slug);
+        $blog = Blog::findOrFail($id);
 
         $data['slug'] = Str::slug($request->title);
 
         $blog->update($data);
+//        $blog->categories()->synch($data['blog_categories_id']);
 
         return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil diedit!');
     }
@@ -118,9 +126,10 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $slug)
+    public function destroy(string $id)
     {
-        $blog = Blog::findOrFail($slug);
+        $blog = Blog::findOrFail($id);
+        $blog->categories()->detach();
         $blog->delete();
 
         return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil dihapus!');

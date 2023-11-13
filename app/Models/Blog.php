@@ -11,7 +11,7 @@ class Blog extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id','title', 'slug', 'body'
+        'user_id','title', 'slug', 'body', 'thumbnail_photo', 'status'
     ];
 
     protected $hidden = [
@@ -22,13 +22,9 @@ class Blog extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function photos(){
-        return $this->hasMany(BlogPhoto::class, 'blog_id', 'id');
-    }
-
-    public function categories()
+    public function tags()
     {
-        return $this->belongsToMany(BlogCategory::class, 'blog_category_details', 'blog_categories_id', 'blog_id', 'id');
+        return $this->belongsToMany(Tag::class, 'blog_tag', 'blog_id', 'tag_id', 'id');
     }
 }
 

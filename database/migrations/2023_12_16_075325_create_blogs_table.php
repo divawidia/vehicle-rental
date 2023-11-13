@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->string('title');
             $table->string('slug');
             $table->text('body');
+            $table->string('thumbnail_photo')->nullable();
+            $table->enum('status', [0,1]);
             $table->softDeletes();
             $table->timestamps();
         });
