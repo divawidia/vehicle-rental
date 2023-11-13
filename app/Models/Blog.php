@@ -25,5 +25,10 @@ class Blog extends Model
     public function photos(){
         return $this->hasMany(BlogPhoto::class, 'blog_id', 'id');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(BlogCategory::class, 'blog_category_details', 'blog_categories_id', 'blog_id', 'id');
+    }
 }
 
