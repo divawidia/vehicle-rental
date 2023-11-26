@@ -93,8 +93,6 @@
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
         <script>
             ClassicEditor.create( document.querySelector( '#body' ),{
                 ckfinder: {
