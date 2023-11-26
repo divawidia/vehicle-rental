@@ -39,14 +39,14 @@
                                 <a href="{{ route('home') }}">
                                     <img
                                         class="logo-1"
-                                        src="/images/Logo - white.png"
+                                        src="/images/logo-with-text.png"
                                         alt=""
                                         height="60px"
                                     />
-                                    <img class="logo-2" src="/images/logo.png" alt="" height="60px"/>
+                                    <img class="logo-2" src="/images/logo-with-text.png" alt="" height="60px"/>
                                 </a>
                             </div>
-                            <!-- logo close -->
+                            <!-- logo close --> 
                         </div>
                     </div>
                     <div class="de-flex-col header-col-mid">
@@ -61,7 +61,7 @@
                                 <a class="menu-item" href="{{ route('vehicle-list') }}">Our Vehicles</a>
                             </li>
                             <li>
-                                <a class="menu-item" href="{{ route('blog') }}">Blog</a>
+                                <a class="menu-item" href="{{ route('blog-list') }}">Blog</a>
                             </li>
                             <li>
                                 <a class="menu-item" href="{{ route('contact-us') }}">Contact Us</a>

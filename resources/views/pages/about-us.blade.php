@@ -32,36 +32,37 @@
                         <h2>We offer customers a wide range of <span class="id-color">scooters, motorbike</span> and <span class="id-color">cars</span> for any occasion.</h2>
                     </div>
                     <div class="col-lg-6 wow fadeInRight" data-wow-delay=".25s">
-                        Lorem ipsum non aliquip esse do eu ad amet laboris do labore reprehenderit mollit exercitation cillum irure fugiat magna laboris aliquip adipisicing consectetur officia dolor minim ea enim amet in ut non non excepteur anim magna dolor nostrud commodo qui irure deserunt adipisicing nisi ex nostrud sunt officia in aliquip velit anim id aliqua qui do sed non ad qui sed in eu in aliqua sunt pariatur occaecat in ullamco deserunt dolor consectetur laborum non duis occaecat nulla ut sed qui sunt id ex sint sed eu excepteur minim nulla minim excepteur exercitation.
+                        Welcome to Bali Batur Rental, your one-stop destination for scooter and car rental in Bali. We provide a best car and scooter rental in Bali with a wide selection of well-maintained scooters and cars to suit your needs.
+                        Whether you’re cruising down the coastal highways on a scooter or exploring Bali’s lush green forests in a car, we’ve got you covered. We offer affordable scooter rental price, and flexible rental periods to fit your schedule. Our team is dedicated to ensuring your safety and comfort throughout your rental period. So, what are you waiting for? Book your bike or car rental with Taman Sari Batur Rental today and experience the freedom of exploring Bali on your terms.
                     </div>
                 </div>
                 <div class="spacer-double"></div>
-                <div class="row text-center">
-                    <div class="col-md-3 col-sm-6 mb-sm-30">
-                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">
-                            <h3 class="timer" data-to="12000" data-speed="3000">0</h3>
-                            Completed Orders
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-sm-30">
-                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">
-                            <h3 class="timer" data-to="10000" data-speed="3000">0</h3>
-                            Happy Customers
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-sm-30">
-                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">
-                            <h3 class="timer" data-to="120" data-speed="3000">0</h3>
-                            Vehicles Fleet
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-sm-30">
-                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">
-                            <h3 class="timer" data-to="23" data-speed="3000">0</h3>
-                            Years Experience
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="row text-center">--}}
+{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+{{--                            <h3 class="timer" data-to="12000" data-speed="3000">0</h3>--}}
+{{--                            Completed Orders--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+{{--                            <h3 class="timer" data-to="10000" data-speed="3000">0</h3>--}}
+{{--                            Happy Customers--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+{{--                            <h3 class="timer" data-to="120" data-speed="3000">0</h3>--}}
+{{--                            Vehicles Fleet--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+{{--                            <h3 class="timer" data-to="23" data-speed="3000">0</h3>--}}
+{{--                            Years Experience--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </section>
 

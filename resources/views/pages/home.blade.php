@@ -20,7 +20,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="spacer-double sm-hide"></div>
-                    <div class="col-lg-7">
+                    <div class="col-lg-6">
                         <div class="spacer-single sm-hide"></div>
                         <h2 class="mb-2" style="color: var(--primary-color)">
                             Looking for a <span class="id-color">vehicle</span>? Book now
@@ -138,9 +138,9 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <img
-                            src="images/misc/Group-24-2.png"
+                            src="images/misc/Group-152.png"
                             class="img-fluid"
                             alt=""
                         />
@@ -216,7 +216,7 @@
                                 <div class="de-item mb30">
                                     <div class="d-img">
                                         <img
-                                            src="{{ Storage::url($vehicle->photos->first()->photo_url) }}"
+                                            src="{{ Storage::url($vehicle->thumbnail) }}"
                                             class="img-fluid"
                                             alt=""
                                         />
