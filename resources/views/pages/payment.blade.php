@@ -31,34 +31,111 @@
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
+                            <h2 class="mb-2">Customer Information</h2>
+                            <p class="mb-4 border-bottom-padding">Please input your data</p>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>First Name:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your first name"
+                                               id="first_name" name="first_name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Last Name:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your last name"
+                                               id="last_name" name="last_name" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label for="no_hp_wa">Mobile Number (Whatsapp):*</label>
+                                        <input type="tel" class="form-control" required placeholder="eg +6283213123221"
+                                               id="no_hp_wa" name="no_hp_wa">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Email Address:*</label>
+                                        <input type="email" class="form-control" placeholder="Input your email address"
+                                               id="email" name="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Instagram Account:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your instagram username"
+                                               id="instagram" name="instagram">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Facebook Account:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your facebook username"
+                                               id="facebook" name="facebook">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Home Address:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your home address"
+                                               id="home_address" name="home_address" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Country:*</label>
+                                        <input type="text" class="form-control" placeholder="Input your country of origin"
+                                               id="country" name="country" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Name on Hotel Booking (optional):</label>
+                                        <input type="text" class="form-control" placeholder="Input your name on hotel booking"
+                                               id="hotel_booking_name" name="hotel_booking_name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="field-set">
+                                        <label>Room Number (optional):</label>
+                                        <input type="text" class="form-control" placeholder="Input your room number"
+                                               id="room_number" name="room_number">
+                                    </div>
+                                </div>
+                                <label>Booking Note (optional):</label>
+                                <div class="col-12">
+                                    <div class="field-set">
+                                    <textarea  class="form-control w-100"
+                                               id="note" name="note" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2 class="border-bottom-padding mb-2">Booking Summary</h2>
                             <div class="text-muted">
-                                <h3 class="font-size-16 mb-3">Billed To:</h3>
-                                <h5 class="font-size-15 mb-2">{{ $booking->first_name }} {{ $booking->last_name }}</h5>
-                                <p class="mb-0">{{ $booking->home_address }}, {{ $booking->country }}</p>
-                                <div>
-                                    <h5 class="font-size-15 mt-3 mb-1">Phone Number/Whatsapp:</h5>
-                                    <p>{{ $booking->no_hp_wa }}</p>
-                                </div>
-                                <div class="mt-4">
-                                    <h5 class="font-size-15 mt-3 mb-1">Email:</h5>
-                                    <p>{{ $booking->email }}</p>
-                                </div>
-                                <div class="mt-4">
-                                    <h5 class="font-size-16 mt-3 mb-2">Booking Note:</h5>
-                                    <p class="mb-1">{{ $booking->note == null ? '-' : $booking->note }}</p>
-                                </div>
                                 <h3 class="font-size-16 mt-3 mb-2">Pick Up:</h3>
                                 @php $pick_up_date = strtotime($booking->pick_up_datetime) @endphp
                                 <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }} @ {{ date('g:i A',$pick_up_date) }}</p>
                                 <p class="mb-0">{{ $booking->pick_up_loc }}</p>
-                                <p class="mb-0">Hotel Booking Name : {{ $booking->hotel_booking_name }}</p>
-                                <p class="mb-0">Room Number : {{ $booking->room_number }}</p>
                                 <h3 class="font-size-16 mt-3 mb-2">Drop Off:</h3>
                                 @php $return_date = strtotime($booking->return_datetime) @endphp
                                 <p class="mb-0">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_date) }}</p>
                                 <p class="mb-0">{{ $booking->return_loc }}</p>
                             </div>
-                            <h3 class="text-truncate font-size-14 mb-1">{{ $booking->vehicle->vehicle_name }}</h3>
+                            <h3 class="text-truncate font-size-14 mt-3 mb-0">{{ $booking->vehicle->vehicle_name }}</h3>
                             <p class="text-muted mb-0">{{ $booking->vehicle->color }}, {{ $booking->vehicle->year }}</p>
                             <div class="col-3">
                                 <h5 class="font-size-15 mt-3 mb-1">Total Days Rent:</h5>
@@ -85,16 +162,18 @@
                                         <td>{{ $booking->day_rent }} Day</td>
                                         <td class="text-end">Rp. {{ number_format($booking->daily_rent_price ?? 0) }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div>
-                                                <p class="text-muted mb-0">Monthly</p>
-                                            </div>
-                                        </td>
-                                        <td>Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
-                                        <td>{{ $booking->month_rent }} Month</td>
-                                        <td class="text-end">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
-                                    </tr>
+                                    @if($booking->monthly_rent_price > 0)
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p class="text-muted mb-0">Monthly</p>
+                                                </div>
+                                            </td>
+                                            <td>Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
+                                            <td>{{ $booking->month_rent }} Month</td>
+                                            <td class="text-end">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
+                                        </tr>
+                                    @endif
                                     <tr class="py-0">
                                         <th scope="row" colspan="3" class="text-end fw-bold">Sub Total :</th>
                                         <td class="text-end">Rp. {{ number_format($booking->booking_price ?? 0) }}</td>
@@ -145,15 +224,8 @@
                                             Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000):</th>
                                         <td class="border-0 text-end">Rp. {{ number_format($booking->shipping_price) }}</td>
                                     </tr>
-
                                     <tr>
-                                        <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                            Collection Charge ({{ $booking->rounded_distance_return }} KM x Rp. 10.000):</th>
-                                        <td class="border-0 text-end">Rp. {{ number_format($booking->collection_price) }}</td>
-                                    </tr>
-                                    <!-- end tr -->
-                                    <tr>
-                                        <th scope="row" colspan="3" class="border-0 text-end fw-bold">Total :</th>
+                                        <th scope="row" colspan="3" class="border-0 text-end fw-bold"><h4 class="m-0 fw-semibold">Total :</h4></th>
                                         <td class="border-0 text-end">
                                             <h4 class="m-0 fw-semibold">Rp. {{ number_format($booking->total_price ?? 0) }}</h4>
                                         </td>
@@ -162,24 +234,37 @@
                                     </tbody><!-- end tbody -->
                                 </table><!-- end table -->
                             </div><!-- end table responsive -->
-                        </div>
-                        <div class="col-lg-6">
-                            <h3 class="border-bottom-padding mb-4">Please Select your Payment Method</h3>
-                            <div class="form-check mb-3 form-check-inline">
+                            <h3 class="border-bottom-padding my-4">Please Select your Payment Method</h3>
+                            <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" value="COD" type="radio" name="transaction_type"
                                        id="COD">
-                                <label class="form-check-label" for="COD">
-                                    Cash on Delivery
-                                </label>
+{{--                                <div class="rounded border d-flex w-100 mx-2 px-2">--}}
+                                    <div class="row rounded border d-flex w-100 mx-2 p-3">
+                                        <div class="col-6">
+                                            <p class="mb-0">Cash on Delivery</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <img class="float-end" width="25px" src="/images/icons/cash.png">
+                                        </div>
+                                    </div>
+{{--                                    <div class="py-2"><p class="mb-0">Cash on Delivery  <img class="float-end" width="25px" src="/images/icons/cash.png"></p></div>--}}
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" value="Transfer" type="radio" name="transaction_type"
                                        id="Transfer">
-                                <label class="form-check-label" for="Transfer">
-                                    Transfer
-                                </label>
+                                <div class="row rounded border d-flex w-100 mx-2 p-3">
+                                    <div class="col-6">
+                                        <p class="mb-0">Bank Transfer</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <img class="float-end" width="150px" src="/images/icons/bank-logo.png">
+                                    </div>
+                                </div>
+{{--                                <div class="rounded border d-flex w-100 mx-2 px-2">--}}
+{{--                                    <div class="py-2"><p class="mb-0">Bank Transfer  <img class="float-end w-50" src="/images/icons/bank-logo.png"></p></div>--}}
+{{--                                </div>--}}
                             </div>
-                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-toolbar d-flex justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                 <div class="btn-group mx-2" role="group" aria-label="First group">
                                     <a class="btn-main color-2 ml-5" href="{{ route('home') }}">Back</a>
                                 </div>
@@ -203,76 +288,61 @@
 
 @push('addon-script')
     <script>
-        $('.btn-number').click(function(e){
-            e.preventDefault();
+        const input = document.querySelector("#no_hp_wa");
+        const countryData = window.intlTelInputGlobals.getCountryData();
+        const addressDropdown = document.querySelector("#country");
+        const output = document.querySelector("#output");
 
-            fieldName = $(this).attr('data-field');
-            type      = $(this).attr('data-type');
-            var input = $("input[name='"+fieldName+"']");
-            var currentVal = parseInt(input.val());
-            if (!isNaN(currentVal)) {
-                if(type == 'minus') {
-
-                    if(currentVal > input.attr('min')) {
-                        input.val(currentVal - 1).change();
-                    }
-                    if(parseInt(input.val()) == input.attr('min')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                } else if(type == 'plus') {
-
-                    if(currentVal < input.attr('max')) {
-                        input.val(currentVal + 1).change();
-                    }
-                    if(parseInt(input.val()) == input.attr('max')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                }
-            } else {
-                input.val(0);
-            }
+        const iti = window.intlTelInput(input, {
+            nationalMode: true,
+            initialCountry: "auto",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("id"));
+            },
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/utils.js",
         });
-        $('.input-number').focusin(function(){
-            $(this).data('oldValue', $(this).val());
-        });
-        $('.input-number').change(function() {
 
-            minValue =  parseInt($(this).attr('min'));
-            maxValue =  parseInt($(this).attr('max'));
-            valueCurrent = parseInt($(this).val());
+        for (let i = 0; i < countryData.length; i++) {
+            const country = countryData[i];
+            const optionNode = document.createElement("option");
+            optionNode.value = country.iso2;
+            const textNode = document.createTextNode(country.name);
+            optionNode.appendChild(textNode);
+            addressDropdown.appendChild(optionNode);
+        }
 
-            name = $(this).attr('name');
-            if(valueCurrent >= minValue) {
-                $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        const handleChange = () => {
+            let text;
+            if (input.value) {
+                text = iti.isValidNumber()
+                    ? "Valid number! Full international format: " + iti.getNumber()
+                    : "Invalid number - please try again";
+                input.value = iti.getNumber();
             } else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
+                text = "Please enter a valid number below";
             }
-            if(valueCurrent <= maxValue) {
-                $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-            } else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
+            const textNode = document.createTextNode(text);
+            output.innerHTML = "";
+            output.appendChild(textNode);
+        };
+        // listen to "keyup", but also "change" to update when the user selects a country
+        input.addEventListener('change', handleChange);
+        input.addEventListener('keyup', handleChange);
 
+        // set it's initial value
+        addressDropdown.value = iti.getSelectedCountryData().name;
 
+        // listen to the telephone input for changes
+        input.addEventListener('countrychange', () => {
+            addressDropdown.value = iti.getSelectedCountryData().name;
         });
-        $(".input-number").keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
+
+        // listen to the address dropdown for changes
+        addressDropdown.addEventListener('change', () => {
+            iti.setCountry(this.value);
         });
     </script>
 

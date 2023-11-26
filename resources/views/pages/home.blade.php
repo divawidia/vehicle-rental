@@ -42,6 +42,7 @@
                                                     name="vehicle_type_id"
                                                     type="radio"
                                                     value="{{ $vehicleType->id }}"
+                                                    required
                                                 />
                                                 <label for="{{ $vehicleType->id }}"
                                                 ><img
@@ -66,6 +67,8 @@
                                             id="autocomplete_pickup"
                                             autocomplete="on"
                                             class="form-control"
+                                            value="{{ old('pick_up_loc') }}"
+                                            required
                                         />
                                         <div class="form-group d-none" id="pickupLatitudeArea">
                                             <label>Latitude</label>
@@ -75,11 +78,6 @@
                                             <label>Longitude</label>
                                             <input type="text" name="longitude_pickup" id="longitude_pickup" class="form-control">
                                         </div>
-{{--                                        <div--}}
-{{--                                            class="jls-address-preview jls-address-preview--hidden"--}}
-{{--                                        >--}}
-{{--                                            <div class="jls-address-preview__header"></div>--}}
-{{--                                        </div>--}}
                                     </div>
 
                                     <div class="col-lg-6 mb20">
@@ -91,6 +89,8 @@
                                             id="autocomplete_return"
                                             autocomplete="on"
                                             class="form-control"
+                                            value="{{ old('return_loc') }}"
+                                            required
                                         />
                                         <div class="form-group d-none" id="returnLatitudeArea">
                                             <label>Latitude</label>
@@ -109,7 +109,8 @@
                                                         class="form-control"
                                                         id="pick_up_datetime"
                                                         name="pick_up_datetime"
-                                                        value=""
+                                                        value="{{ old('pick_up_datetime') }}"
+                                                        required
                                                     />
                                     </div>
                                     <div class="col-lg-6 mb20">
@@ -119,7 +120,8 @@
                                                     class="form-control"
                                                     id="return_datetime"
                                                     name="return_datetime"
-                                                    value=""
+                                                    value="{{ old('return_datetime') }}"
+                                                    required
                                                 />
                                     </div>
                                 </div>
@@ -602,5 +604,22 @@
                 $('#longitude_return').val(place.geometry['location'].lng());
             });
         }
+    </script>
+    <script>
+        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        const localTime = date.toLocaleString();
+        $("input[name='pick_up_datetime']").attr({
+            "min" : localTime
+        });
+    </script>
+    <script>
+        $("input[name='pick_up_datetime']").change(function() {
+            var date = new Date($(this).val());
+            var date = date.setDate(date.getDate()+1);
+            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
+            $("input[name='return_datetime']").attr({
+                "min" : date
+            });
+        })
     </script>
 @endpush
