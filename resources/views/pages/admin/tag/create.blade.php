@@ -22,7 +22,10 @@
                             <div class="mb-3 row">
                                 <label for="example-text-input" class="col-md-2 col-form-label">Nama Tag</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="tag_name" id="tag_name" placeholder="Isikan nama tag">
+                                    <input class="form-control" type="text" autocomplete="off" name="tag_name" id="tag_name" placeholder="Isikan nama tag" value="{{ old('tag_name') }}">
+                                    @error('tag_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mt-4">

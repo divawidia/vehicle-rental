@@ -12,7 +12,7 @@
     @section('content')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('tags.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('tags.update', ['tag' => $tag]) }}" method="post" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="card">
@@ -23,7 +23,10 @@
                             <div class="mb-3 row">
                                 <label for="example-text-input" class="col-md-2 col-form-label">Nama Tag</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="tag_name" id="tag_name" value="{{ $item->tag_name }}">
+                                    <input class="form-control" type="text" autocomplete="off" name="tag_name" id="tag_name" value="{{ $tag->tag_name }}">
+                                    @error('tag_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mt-4">
