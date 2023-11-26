@@ -42,7 +42,7 @@ class VehicleRequest extends FormRequest
             'unit_quantity' => ['required', 'numeric'],
             'vehicle_type_id' => ['required', 'exists:vehicle_types,id'],
             'brand_id' => ['required', 'exists:vehicle_brands,id'],
-            'transmission_id' => ['required', 'exists:transmissions,id'],
+            'transmission_id' => ['required', 'exists:transmissions,id']
         ];
     }
 }

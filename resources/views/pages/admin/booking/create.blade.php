@@ -2,6 +2,9 @@
 @section('title')
     Tambah Invoice Booking
 @endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/css/intlTelInput.css">
+@endsection
 @section('page-title')
     Tambah Invoice Booking
 @endsection
@@ -27,12 +30,18 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="autocomplete_pickup">Lokasi Pengambilan</label>
                                         <input type="text" class="form-control" placeholder="Masukan Lokasi Pengambilan"
-                                               id="autocomplete_pickup" name="pick_up_loc">
+                                               id="autocomplete_pickup" name="pick_up_loc" required>
+                                        @error('pick_up_loc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="pick_up_datetime">Tanggal dan Waktu Pengambilan</label>
-                                        <input type="datetime-local" class="form-control" placeholder="Masukan Lokasi Pengambilan"
-                                               id="pick_up_datetime" name="pick_up_datetime">
+                                        <input type="datetime-local" class="form-control" required placeholder="Masukan Lokasi Pengambilan"
+                                               id="pick_up_datetime" name="pick_up_datetime" min=<?php echo date('Y-m-d\TH:i');;?>>
+                                        @error('pick_up_datetime')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group d-none" id="pickupLatitudeArea">
                                         <label>Latitude</label>
@@ -48,13 +57,20 @@
                                 <div class="mt-5 mt-lg-4 mt-xl-0">
                                     <div class="mb-3">
                                         <label class="form-label" for="autocomplete_return">Lokasi Pengembalian</label>
-                                        <input type="text" class="form-control" placeholder="Masukan Lokasi Pengembalian"
+                                        <input type="text" class="form-control" required placeholder="Masukan Lokasi Pengembalian"
                                                id="autocomplete_return" name="return_loc">
+                                        @error('return_loc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="return_datetime">Tanggal dan Waktu Pengembalian</label>
-                                        <input type="datetime-local" class="form-control" placeholder="Masukan Lokasi Pengambilan"
+                                        <p id="demo"></p>
+                                        <input type="datetime-local" class="form-control" required placeholder="Masukan Tanggal dan Waktu Pengambilan"
                                                id="return_datetime" name="return_datetime">
+                                        @error('return_datetime')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group d-none" id="returnLatitudeArea">
                                         <label>Latitude</label>
@@ -76,28 +92,49 @@
                                     <div class="mt-4 mt-xl-0">
                                         <div class="mb-3">
                                             <label class="form-label" for="first_name">Nama Depan</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Nama Depan"
+                                            <input type="text" class="form-control" required placeholder="Masukan Nama Depan"
                                                    id="first_name" name="first_name">
+                                            @error('first_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="no_hp_wa">No. HP/WA</label>
-                                            <input type="tel" class="form-control" placeholder="Masukan No. HP/WA"
-                                                   id="no_hp_wa" name="no_hp_wa">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label class="form-label" for="no_hp_wa">No. HP/Whatsapp</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="tel" class="form-control" required placeholder="Masukan No. HP/WA"
+                                                           id="no_hp_wa" name="no_hp_wa">
+                                                    @error('no_hp_wa')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="instagram">Akun Instagram</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Instagram"
+                                            <input type="text" class="form-control" required placeholder="Masukan Instagram"
                                                    id="instagram" name="instagram">
+                                            @error('instagram')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="country">Asal Negara</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Asal Negara"
-                                                   id="country" name="country">
+                                            <select class="form-control" required data-placeholder="Masukan Asal Negara"
+                                                    id="country" name="country"></select>
+                                            @error('country')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="hotel_booking_name">Nama di Booking Hotel</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nama di Booking Hotel"
                                                    id="hotel_booking_name" name="hotel_booking_name">
+                                            @error('hotel_booking_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -105,35 +142,53 @@
                                     <div class="mt-5 mt-lg-4 mt-xl-0">
                                         <div class="mb-3">
                                             <label class="form-label" for="last_name">Nama Belakang</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Nama Belakang"
+                                            <input type="text" class="form-control" required placeholder="Masukan Nama Belakang"
                                                    id="last_name" name="last_name">
+                                            @error('last_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
-                                            <input type="email" class="form-control" placeholder="Masukan Email"
+                                            <input type="email" class="form-control" required placeholder="Masukan Email"
                                                    id="email" name="email">
+                                            @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="facebook">Akun Facebook</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Akun Facebook"
+                                            <input type="text" class="form-control" required placeholder="Masukan Akun Facebook"
                                                    id="facebook" name="facebook">
+                                            @error('facebook')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="home_address">Alamat Asal</label>
-                                            <input type="text" class="form-control" placeholder="Masukan Alamat Asal"
+                                            <input type="text" class="form-control" required placeholder="Masukan Alamat Asal"
                                                    id="home_address" name="home_address">
+                                            @error('home_address')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="room_number">Nomor Kamar</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nomor Kamar"
                                                    id="room_number" name="room_number">
+                                            @error('room_number')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="note">Booking Note</label>
+                                    <label class="form-label" for="note">Booking Note (Opsional)</label>
                                     <textarea class="form-control"
                                               id="note" name="note"></textarea>
+                                    @error('note')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -142,12 +197,15 @@
                                 Kendaraan Booking</h5>
                             <div class="mt-4 mb-3">
                                 <label class="form-label" for="vehicle_id">Pilih Kendaraan yang Dibooking</label>
-                                <select class="form-select" name="vehicle_id" id="vehicle_id">
+                                <select class="form-select" required name="vehicle_id" id="vehicle_id">
                                     <option>Pilih Kendaraan</option>
                                     @foreach($vehicles as $vehicle)
                                         <option value="{{ $vehicle->id }}">{{ $vehicle->vehicle_name }}</option>
                                     @endforeach
                                 </select>
+                                @error('vehicle_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -156,6 +214,9 @@
                                             <label class="form-label" for="vehicle_license_plate">Plat Kendaraan</label>
                                             <input type="text" class="form-control" placeholder="Masukan PLat Kendaraan"
                                                    id="vehicle_license_plate" name="vehicle_license_plate">
+                                            @error('vehicle_license_plate')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
@@ -167,24 +228,36 @@
                                                     <label class="form-check-label" for="insurance">
                                                         Asuransi
                                                     </label>
+                                                    @error('insurance')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" value="include" id="first_aid_kit" name="first_aid_kit">
                                                     <label class="form-check-label" for="first_aid_kit">
                                                         First Aid Kit
                                                     </label>
+                                                    @error('first_aid_kit')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" value="include" id="phone_holder" name="phone_holder">
                                                     <label class="form-check-label" for="phone_holder">
                                                         Phone Holder
                                                     </label>
+                                                    @error('phone_holder')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" value="include" id="raincoat" name="raincoat">
                                                     <label class="form-check-label" for="raincoat">
                                                         Jas Hujan
                                                     </label>
+                                                    @error('raincoat')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -196,11 +269,17 @@
                                             <label class="form-label" for="start_km_vehicle">Start KM Kendaraan</label>
                                             <input type="number" class="form-control" placeholder="Masukan Jumlah Awal KM Kendaraan"
                                                    id="start_km_vehicle" name="start_km_vehicle">
+                                            @error('start_km_vehicle')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="helmet">Helm</label>
-                                            <input type="number" class="form-control" placeholder="Masukan Jumlah Helm"
-                                                   id="helmet" name="helmet" min="1" max="2">
+                                            <input type="number" class="form-control" value="1"
+                                                   id="helmet" name="helmet" min="1" max="2" required>
+                                            @error('helmet')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -220,6 +299,9 @@
                                             Transfer
                                         </label>
                                     </div>
+                                    @error('transaction_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -235,6 +317,56 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $("input[name='pick_up_datetime']").change(function() {
+            var date = new Date($(this).val());
+            var date = date.setDate(date.getDate()+1);
+            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
+            $("input[name='return_datetime']").attr({
+                "min" : date
+            });
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/intlTelInput.min.js"></script>
+    <script>
+        const input = document.querySelector("#no_hp_wa");
+        const countryData = window.intlTelInputGlobals.getCountryData();
+        const addressDropdown = document.querySelector("#country");
+
+        const iti = window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("id"));
+            },
+            nationalMode: true,
+            showSelectedDialCode: true,
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/utils.js",
+        });
+
+        for (let i = 0; i < countryData.length; i++) {
+            const country = countryData[i];
+            const optionNode = document.createElement("option");
+            optionNode.value = country.iso2;
+            const textNode = document.createTextNode(country.name);
+            optionNode.appendChild(textNode);
+            addressDropdown.appendChild(optionNode);
+        }
+        // set it's initial value
+        addressDropdown.value = iti.getSelectedCountryData().iso2;
+
+        // listen to the telephone input for changes
+        input.addEventListener('countrychange', () => {
+            addressDropdown.value = iti.getSelectedCountryData().iso2;
+        });
+
+        // listen to the address dropdown for changes
+        addressDropdown.addEventListener('change', () => {
+            iti.setCountry(this.value);
+        });
+    </script>
     <!-- App js -->
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
