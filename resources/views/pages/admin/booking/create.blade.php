@@ -65,7 +65,6 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="return_datetime">Tanggal dan Waktu Pengembalian</label>
-                                        <p id="demo"></p>
                                         <input type="datetime-local" class="form-control" required placeholder="Masukan Tanggal dan Waktu Pengambilan"
                                                id="return_datetime" name="return_datetime">
                                         @error('return_datetime')
