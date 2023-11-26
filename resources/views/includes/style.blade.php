@@ -21,3 +21,7 @@
     type="image/x-icon"
 />
 <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" type="text/javascript"></script>
+
+<!-- nanogallery2 -->
+<link  href="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css">
