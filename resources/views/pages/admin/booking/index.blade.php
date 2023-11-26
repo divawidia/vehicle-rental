@@ -37,15 +37,17 @@
                                     <th>Nama Customer</th>
                                     <th>Tanggal & Waktu Booking</th>
                                     <th>Lokasi Pengantaran</th>
+                                    <th>Google Maps Pengantaran</th>
                                     <th>Tanggal & Waktu Pengambilan</th>
                                     <th>Lokasi Pengembalian</th>
+                                    <th>Google Maps Pengembalian</th>
                                     <th>Tanggal & Waktu Pengembalian</th>
                                     <th>No. HP/WA</th>
                                     <th>Whatsapp</th>
                                     <th>Email</th>
                                     <th>Total Biaya</th>
                                     <th>Tipe Pembayaran</th>
-                                    <th>Status Booking</th>
+                                    <th>Status Rental</th>
                                     <th>Status Pembayaran</th>
                                     <th>Status Pengantaran</th>
                                     <th>Status Pengembalian</th>
@@ -80,15 +82,17 @@
                     { data: 'name', name: 'name' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'pick_up_loc', name: 'pick_up_loc' },
+                    { data: 'maps_pickup', name: 'maps_pickup' },
                     { data: 'pick_up_datetime', name: 'pick_up_datetime' },
                     { data: 'return_loc', name: 'return_loc' },
+                    { data: 'maps_return', name: 'maps_return' },
                     { data: 'return_datetime', name: 'return_datetime' },
                     { data: 'no_hp_wa', name: 'no_hp_wa' },
                     { data: 'whatsapp', name: 'whatsapp' },
                     { data: 'email', name: 'email' },
                     { data: 'total_price', name: 'total_price' },
                     { data: 'transaction_type', name: 'transaction_type' },
-                    { data: 'booking_status', name: 'booking_status' },
+                    { data: 'rent_status', name: 'rent_status' },
                     { data: 'transaction_status', name: 'transaction_status' },
                     { data: 'shipping_status', name: 'shipping_status' },
                     { data: 'return_status', name: 'return_status' },
