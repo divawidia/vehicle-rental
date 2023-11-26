@@ -72,7 +72,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('tags.index') }}">Tag Blog</a></li>
-                        <li><a href="{{ route('artikel-blog.index') }}">Artikel Blog</a></li>
+                        <li><a href="{{ route('artikel.index') }}">Artikel Blog</a></li>
                     </ul>
                 </li>
 

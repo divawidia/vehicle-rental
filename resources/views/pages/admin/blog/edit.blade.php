@@ -16,29 +16,38 @@
                 <a href="{{ url()->previous() }}" class="btn btn-secondary w-auto my-3"><i class="fa fa-arrow-left"></i>  Kembali</a>
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit artikel {{ $blog->title }}</h4>
+                            <h4 class="card-title">Edit artikel {{ $artikel->title }}</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('artikel-blog.update', $blog->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('artikel.update', ['artikel'=>$artikel]) }}" method="post" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
                                 <div class="mb-3 row">
                                     <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
                                     <div class="col-md-10">
-                                        <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required value="{{ $blog->thumbnail_photo }}"/>
-                                        <img id="preview" class="rounded img-thumbnail mt-3" src="{{ Storage::url($blog->thumbnail_photo ?? '') }}" alt="image thumbnail"/>
+                                        <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required value="{{ $artikel->thumbnail_photo }}"/>
+                                        <img id="preview" class="rounded img-thumbnail mt-3" src="{{ Storage::url($artikel->thumbnail_photo ?? '') }}" alt="image thumbnail"/>
+                                        @error('thumbnail_photo')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="title" class="col-md-2 col-form-label">Judul Artikel</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text" autocomplete="off" name="title" id="title" value="{{ $blog->title }}" required>
+                                        <input class="form-control" type="text" autocomplete="off" name="title" id="title" value="{{ $artikel->title }}" required>
+                                        @error('title')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="body" class="col-md-2 col-form-label">Isi Konten Artikel</label>
                                     <div class="col-md-10">
-                                        <textarea class="form-control" id="body" name="body">@php echo $blog->body @endphp</textarea>
+                                        <textarea class="form-control" id="body" name="body">@php echo $artikel->body @endphp</textarea>
+                                        @error('body')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -48,13 +57,16 @@
                                             @php
                                                 $tag_id = [];
                                             @endphp
-                                            @foreach($blog->tags as $tag)
+                                            @foreach($artikel->tags as $tag)
                                                 @php(array_push($tag_id, $tag->id))
                                             @endforeach
                                             @foreach($tags as $tag)
                                                 <option value="{{ $tag->id }}" {{ in_array($tag->id,$tag_id) ? 'selected' : '' }}>{{ $tag->tag_name }}</option>
                                             @endforeach
                                         </select>
+                                        @error('tags')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -62,9 +74,12 @@
                                     <div class="col-md-10">
                                         <select class="form-select" name="status" data-placeholder="Pilih status publish artikel" id="status" required>
                                             @foreach([1 => "Publish", 0 => "Private"] AS $status => $status_label)
-                                                <option value="{{ $status }}" {{ old("status", $blog->status) == $status ? "selected" : "" }}>{{ $status_label }}</option>
+                                                <option value="{{ $status }}" {{ old("status", $artikel->status) == $status ? "selected" : "" }}>{{ $status_label }}</option>
                                             @endforeach
                                         </select>
+                                        @error('status')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="mt-4">

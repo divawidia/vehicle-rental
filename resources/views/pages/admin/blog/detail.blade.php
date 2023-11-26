@@ -21,7 +21,7 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <form action="{{ route('artikel-blog.destroy', $blog->id) }}" method="POST">
+                        <form action="{{ route('artikel.destroy', $blog->id) }}" method="POST">
                             @method('delete')
                             @csrf
                             <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Booking">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-6">
                         <div class="btn-toolbar float-end" role="toolbar">
-                            <a href="{{ route('artikel-blog.edit', $blog->id) }}" class="btn btn-success me-1" data-toggle="tooltip" data-placement="bottom" title="Edit Artikel"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('artikel.edit', $blog->id) }}" class="btn btn-success me-1" data-toggle="tooltip" data-placement="bottom" title="Edit Artikel"><i class="fa fa-edit"></i></a>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -106,7 +106,7 @@
                                         @if($blog->status == 1)
                                             <span class="badge badge-soft-success mb-0">Published</span>
                                         @elseif($blog->status == 0)
-                                            <span class="badge badge-soft-info mb-0">Private</span>
+                                            <span class="badge badge-soft-secondary mb-0">Private</span>
                                         @endif
                                     </div>
                                 </div>
