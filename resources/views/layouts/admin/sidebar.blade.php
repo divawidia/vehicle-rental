@@ -63,16 +63,16 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Artikel Blog</li>
+                <li class="menu-title" data-key="t-applications">Blog</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="bx bx-text icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-blog">Artikel Blog</span>
+                        <span class="menu-item" data-key="t-blog">Blog</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('tags.index') }}">Kategori Blog</a></li>
-                        <li><a href="{{ route('blogs.index') }}">List Blog</a></li>
+                        <li><a href="{{ route('tags.index') }}">Tag Blog</a></li>
+                        <li><a href="{{ route('artikel-blog.index') }}">Artikel Blog</a></li>
                     </ul>
                 </li>
 

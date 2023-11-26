@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                     <div>
-                        <a href="{{ route('blogs.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
+                        <a href="{{ route('artikel-blog.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,8 @@
                             </div>
 
                             <div class="d-flex justify-content-center gap-2 pt-4">
-                                <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-success me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Edit Blog"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('blogs.show', $blog->slug) }}" class="btn btn-primary me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Lihat Blog"><i class="fa fa-eye"></i></a>
+                                <a href="{{ route('artikel-blog.edit', $blog->id) }}" class="btn btn-success me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Edit Blog"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('artikel-blog.show', $blog->slug) }}" class="btn btn-primary me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Lihat Blog"><i class="fa fa-eye"></i></a>
                                 <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST">
+                                    <form action="{{ route('artikel-blog.destroy', $blog->id) }}" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Booking">

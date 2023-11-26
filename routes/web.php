@@ -79,12 +79,14 @@ Route::prefix('admin')
         Route::resource('bookings', BookingController::class);
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
-        Route::resource('blogs', BlogController::class);
-        Route::post('upload-blog-photo', [BlogController::class, 'uploadPhoto'])->name('blog-photo-upload');
-        Route::post('upload-blog-thumbnail', [BlogController::class, 'uploadPhotoThumbnail'])->name('blog-thumbnail-upload');
-        Route::get('delete-blog-photo/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
-
-        Route::resource('tags', TagController::class);
+        Route::prefix('blogs')
+            ->group(function () {
+                Route::resource('tags', TagController::class);
+                Route::resource('artikel-blog', BlogController::class);
+                Route::post('upload-blog-photo', [BlogController::class, 'uploadPhoto'])->name('blog-photo-upload');
+                Route::post('upload-blog-thumbnail', [BlogController::class, 'uploadPhotoThumbnail'])->name('blog-thumbnail-upload');
+                Route::get('delete-blog-photo/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
+            });
     });
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
 Auth::routes();
