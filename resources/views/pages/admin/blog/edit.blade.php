@@ -3,9 +3,6 @@
 @section('title')
     Edit Artikel Blog
 @endsection
-{{--@section('css')--}}
-{{--    <link rel="stylesheet" href="{{ URL::asset('build/js/jpreview/jpreview.css') }}" type="text/css" />--}}
-{{--    @endsection--}}
 @section('page-title')
     Edit Artikel Blog
 @endsection
@@ -16,61 +13,22 @@
     @section('content')
         <div class="row">
             <div class="col-12">
+                <a href="{{ url()->previous() }}" class="btn btn-secondary w-auto my-3"><i class="fa fa-arrow-left"></i>  Kembali</a>
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit {{ $blog->title }}</h4>
+                            <h4 class="card-title">Edit artikel {{ $blog->title }}</h4>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
-                                <div class="col-md-10">
-                                        <div class="col-md-4">
-                                            <div class="gallery-container">
-                                                <img
-                                                    src="{{ Storage::url($blog->thumbnail_photo ?? '') }}"
-                                                    alt=""
-                                                    class="w-100"
-                                                />
-                                                <a href="{{ route('blog-photo-delete', $blog->thumbnail_photo) }}" class="delete-gallery">
-                                                    <img src="/images/icon-delete.svg" alt="" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    <div class="col-12">
-                                        <form action="{{ route('blog-thumbnail-upload') }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="hidden" value="{{ $blog->id }}" name="blog_id">
-                                            <input
-                                                type="file"
-                                                name="photo_url"
-                                                id="file"
-                                                style="display: none;"
-                                                multiple
-                                                onchange="form.submit()"
-                                            />
-                                            <button
-                                                type="button"
-                                                class="btn btn-secondary btn-block mt-3"
-                                                onclick="thisFileUpload()"
-                                            >
-                                                Add Photo
-                                            </button>
-                                        </form>
-                                    </div>
-{{--                                    <img--}}
-{{--                                        src="{{ Storage::url($blog->photos->photo_url ?? '') }}"--}}
-{{--                                        alt=""--}}
-{{--                                        class="w-100"--}}
-{{--                                    />--}}
-{{--                                    <a href="{{ route('blog-photo-delete', $blog->photos->id) }}" class="delete-gallery">--}}
-{{--                                        <img src="/images/icon-delete.svg" alt="" />--}}
-{{--                                    </a>--}}
-{{--                                    <input type="file" name="photo_url" class="form-control" accept="image/*" required/>--}}
-                                </div>
-                            </div>
-                            <form action="{{ route('blogs.update', $blog->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('artikel-blog.update', $blog->id) }}" method="post" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
+                                    <div class="col-md-10">
+                                        <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required value="{{ $blog->thumbnail_photo }}"/>
+                                        <img id="preview" class="rounded img-thumbnail mt-3" src="{{ Storage::url($blog->thumbnail_photo ?? '') }}" alt="image thumbnail"/>
+                                    </div>
+                                </div>
                                 <div class="mb-3 row">
                                     <label for="title" class="col-md-2 col-form-label">Judul Artikel</label>
                                     <div class="col-md-10">
@@ -110,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                    <button type="submit" class="btn btn-primary w-md float-end">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -124,7 +82,6 @@
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
         <script>
             ClassicEditor.create( document.querySelector( '#body' ),{
@@ -146,8 +103,13 @@
             });
         </script>
         <script>
-            function thisFileUpload() {
-                document.getElementById("file").click();
+            thumbnail_photo.onchange = evt => {
+                preview = document.getElementById('preview');
+                preview.style.display = 'block';
+                const [file] = thumbnail_photo.files
+                if (file) {
+                    preview.src = URL.createObjectURL(file)
+                }
             }
         </script>
 @endsection

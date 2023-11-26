@@ -16,7 +16,7 @@
     @section('content')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('blogs.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('artikel-blog.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -26,7 +26,8 @@
                             <div class="mb-3 row">
                                 <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
                                 <div class="col-md-10">
-                                    <input type="file" name="thumbnail_photo" class="form-control" accept="image/*" required/>
+                                    <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required/>
+                                    <img id="preview" class="rounded img-thumbnail mt-3" src="#" alt="image thumbnail" style="display:none;"/>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -52,9 +53,10 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label" for="status">Status Publish Artikel</label>
+                                <label class="col-md-2 col-form-label" for="status_artikel">Status Publish Artikel</label>
                                 <div class="col-md-10">
-                                    <select class="form-select" name="status" data-placeholder="Pilih status publish artikel" id="status" required>
+                                    <select class="form-select" name="status" id="status_artikel" data-placeholder="Pilih Status Artikel Blog" required>
+                                        <option value="" selected disabled>Pilih Status Artikel Blog</option>
                                         @foreach([1 => "Publish", 0 => "Private"] AS $status => $status_label)
                                             <option value="{{ $status }}">{{ $status_label }}</option>
                                         @endforeach
@@ -94,6 +96,20 @@
                     width:'100%',
                     theme: 'bootstrap-5'
                 });
+                $('#status_artikel').select2({
+                    width:'100%',
+                    theme: 'bootstrap-5'
+                });
             });
+        </script>
+        <script>
+            thumbnail_photo.onchange = evt => {
+                preview = document.getElementById('preview');
+                preview.style.display = 'block';
+                const [file] = thumbnail_photo.files
+                if (file) {
+                    preview.src = URL.createObjectURL(file)
+                }
+            }
         </script>
 @endsection
