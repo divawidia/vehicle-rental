@@ -17,7 +17,6 @@ class Vehicle extends Model
         'vehicle_name',
         'slug',
         'description',
-        'features',
         'body',
         'passenger',
         'fuel_capacity',

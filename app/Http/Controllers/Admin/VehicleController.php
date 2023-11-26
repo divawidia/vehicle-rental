@@ -9,6 +9,7 @@ use App\Models\ProductGallery;
 use App\Models\Transmission;
 use App\Models\Vehicle;
 use App\Models\VehicleBrand;
+use App\Models\VehicleFeature;
 use App\Models\VehiclePhoto;
 use App\Models\VehicleType;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class VehicleController extends Controller
                         </div>';
                 })
                 ->editColumn('foto', function ($item) {
-                    return $item->photos[0]->photo_url ? '<img src="' . Storage::url($item->photos[0]->photo_url) . '" style="max-height: 80px;"/>' : '';
+                    return $item->thumbnail ? '<img src="' . Storage::url($item->thumbnail) . '" style="max-height: 80px;"/>' : '';
                 })
                 ->rawColumns(['action', 'foto'])
                 ->make();
@@ -80,14 +81,19 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VehicleRequest $request)
     {
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->vehicle_name);
         $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
-        dd($data);
-        Vehicle::create($data);
+//        dd($data);
+        $vehicle = Vehicle::create($data);
+        foreach($request->features as $feature) {
+            $vehicle_feature['vehicle_id'] = $vehicle->id;
+            $vehicle_feature['feature'] = $feature;
+            VehicleFeature::create($vehicle_feature);
+        }
 
         return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil ditambahkan!');
     }
@@ -201,13 +207,13 @@ class VehicleController extends Controller
      */
     public function edit(string $id)
     {
-        $vehicle = Vehicle::with((['photos', 'vehicle_type', 'brand', 'transmission']))->findOrFail($id);
+        $kendaraan = Vehicle::with((['photos', 'vehicle_type', 'brand', 'transmission', 'features']))->findOrFail($id);
         $vehicleTypes = VehicleType::all();
         $transmissions = Transmission::all();
         $brands = VehicleBrand::all();
 
         return view('pages.admin.vehicle.edit',[
-            'vehicle' => $vehicle,
+            'kendaraan' => $kendaraan,
             'vehicleTypes' => $vehicleTypes,
             'transmissions' => $transmissions,
             'brands' => $brands
@@ -223,19 +229,22 @@ class VehicleController extends Controller
 //
 //        return redirect()->route('kendaraan.edit', $request->vehicle_id);
 //    }
-    public function uploadPhoto(Request $request, Vehicle $vehicle){
+    public function uploadDescPhoto(Request $request, Vehicle $vehicle){
         if ($request->hasFile('upload')) {
-            $originName = $request->file('upload')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
+            $photo = $request->file('upload')->store('assets/vehicle-photo', 'public');
+            $filename = pathinfo($photo, PATHINFO_FILENAME);
+            $extension = pathinfo($photo, PATHINFO_EXTENSION);
 
-            $request->file('upload')->move(public_path('assets/vehicle-photo'), $fileName);
-
-            $url = asset('assets/vehicle-photo/' . $fileName);
-            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
-
+            return response()->json(['fileName'=>$filename . '.' . $extension, 'uploaded' => 1, 'url' => Storage::url($photo)]);
         }
+    }
+
+    public function uploadPhoto(Request $request) {
+        $data = [];
+            $data['photo_url'] = $request->file('file')->store('assets/vehicle-photo', 'public');
+            $data['vehicle_id'] = $request->vehicle_id;
+            VehiclePhoto::create($data);
+        return response()->json(['success'=>$data['photo_url']]);
     }
 
     public function deletePhoto(Request $request, $id)
@@ -244,6 +253,24 @@ class VehicleController extends Controller
         $item->delete();
 
         return redirect()->route('kendaraan.edit', $item->vehicle_id);
+    }
+
+    public function addFeature(Request $request)
+    {
+//        dd($request);
+        $feature['vehicle_id'] = $request->vehicle_id;
+        $feature['feature'] = $request->features;
+        VehicleFeature::create($feature);
+
+        return redirect()->route('kendaraan.edit', $feature['vehicle_id']);
+    }
+
+    public function deleteFeature(Request $request, $id)
+    {
+        $feature = VehicleFeature::findOrFail($id);
+        $feature->delete();
+
+        return redirect()->route('kendaraan.edit', $feature->vehicle_id);
     }
 
     /**
@@ -256,6 +283,9 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
 
         $data['slug'] = Str::slug($request->vehicle_name);
+        if ($request->hasFile('thumbnail')){
+            $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
+        }
 
         $vehicle->update($data);
 

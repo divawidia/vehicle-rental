@@ -73,7 +73,10 @@ Route::prefix('admin')
             });
         Route::resource('kendaraan', VehicleController::class);
         Route::post('/kendaraan/photo/upload', [VehicleController::class, 'uploadPhoto'])->name('vehicle-photo-upload');
+        Route::post('/kendaraan-desc/photo/upload', [VehicleController::class, 'uploadDescPhoto'])->name('vehicle-desc-photo-upload');
         Route::get('/kendaraan/photo/delete/{id}', [VehicleController::class, 'deletePhoto'])->name('vehicle-photo-delete');
+        Route::post('/kendaraan-tambah-fitur', [VehicleController::class, 'addFeature'])->name('tambah-fitur');
+        Route::get('/kendaraan-hapus-fitur/{id}', [VehicleController::class, 'deleteFeature'])->name('hapus-fitur');
 
         Route::resource('foto-kendaraan', VehiclePhotoController::class);
         Route::resource('bookings', BookingController::class);
