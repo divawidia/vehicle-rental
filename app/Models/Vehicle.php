@@ -30,6 +30,7 @@ class Vehicle extends Model
         'weekly_price',
         'monthly_price',
         'unit_quantity',
+        'thumbnail'
     ];
 
     protected $hidden = [
@@ -38,6 +39,10 @@ class Vehicle extends Model
 
     public function photos(){
         return $this->hasMany(VehiclePhoto::class, 'vehicle_id', 'id');
+    }
+
+    public function features(){
+        return $this->hasMany(VehicleFeature::class, 'vehicle_id', 'id');
     }
 
     public function vehicle_type(){
