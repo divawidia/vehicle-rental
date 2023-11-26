@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VehicleRequest;
 use App\Models\Booking;
 use App\Models\ProductGallery;
 use App\Models\Transmission;
@@ -84,21 +85,10 @@ class VehicleController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->vehicle_name);
+        $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
+        dd($data);
+        Vehicle::create($data);
 
-        $vehicle = Vehicle::create($data);
-
-        $gallery = [
-            'vehicle_id' => $vehicle->id,
-            'photo_url' => $request->file('photo_url')->store('assets/vehicle-photo', 'public')
-        ];
-
-        VehiclePhoto::create($gallery);
-
-//        foreach ($request->file('photo_url') as $photo){
-//            $dataPhoto['vehicle_id'] = $vehicle->id;
-//            $dataPhoto['photo_url'] = $photo->store('assets/vehicle-photo', 'public');
-//            VehiclePhoto::create($dataPhoto);
-//        }
         return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil ditambahkan!');
     }
 
@@ -224,14 +214,28 @@ class VehicleController extends Controller
         ]);
     }
 
-    public function uploadPhoto(Request $request){
-        $data = $request->all();
+//    public function uploadPhoto(Request $request){
+//        $data = $request->all();
+//
+//        $data['photo_url'] = $request->file('photo_url')->store('assets/vehicle-photo', 'public');
+//
+//        VehiclePhoto::create($data);
+//
+//        return redirect()->route('kendaraan.edit', $request->vehicle_id);
+//    }
+    public function uploadPhoto(Request $request, Vehicle $vehicle){
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
 
-        $data['photo_url'] = $request->file('photo_url')->store('assets/vehicle-photo', 'public');
+            $request->file('upload')->move(public_path('assets/vehicle-photo'), $fileName);
 
-        VehiclePhoto::create($data);
+            $url = asset('assets/vehicle-photo/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
 
-        return redirect()->route('kendaraan.edit', $request->vehicle_id);
+        }
     }
 
     public function deletePhoto(Request $request, $id)
@@ -245,7 +249,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VehicleRequest $request, string $id)
     {
         $data = $request->all();
 

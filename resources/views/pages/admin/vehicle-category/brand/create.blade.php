@@ -22,7 +22,7 @@
                             <div class="mb-3 row">
                                 <label for="example-text-input" class="col-md-2 col-form-label">Nama Brand Kendaraan</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="brand_name" id="brand_name" placeholder="Isikan nama brand kendaraan">
+                                    <input class="form-control" type="text" autocomplete="off" name="brand_name" id="brand_name" placeholder="Isikan nama brand kendaraan" required>
                                 </div>
                             </div>
                             <div class="mt-4">
