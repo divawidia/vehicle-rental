@@ -92,6 +92,11 @@
                         <div class="spacer-single"></div>
 
                         <h4>Features</h4>
+                        <ul class="ul-style-2">
+                            @foreach($vehicle->features as $feature)
+                                <li>{{ $feature->feature }}</li>
+                            @endforeach
+                        </ul>
                         @php echo $vehicle->features @endphp
                     </div>
 
