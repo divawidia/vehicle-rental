@@ -1,9 +1,12 @@
 @extends('layouts.admin.master')
 @section('title')
-    Foto Kendaraan
+    Gallery Batur Sari Rental
+@endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.min.css">
 @endsection
 @section('page-title')
-    Foto Kendaraan
+    Gallery Batur Sari Rental
 @endsection
 @section('body')
 
@@ -16,23 +19,44 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    <div id="addModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content d-flex justify-content-center">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100">Upload Foto Baru</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('gallery-photo-upload') }}" method="post" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                        @csrf
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a class="btn btn-success" href="{{ route('galleries.index') }}">Selesai</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Foto Kendaraan</h4>
+                    <h4 class="card-title">Gallery</h4>
                 </div>
                 <div class="card-body">
-                    <a href="{{  route('foto-kendaraan.create') }}" class="btn btn-primary mb-3">
-                        + Tambah Foto Kendaraan Baru
-                    </a>
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+                        <i class="fa fa-plus"></i> Tambah Foto
+                    </button>
+{{--                    <a href="{{  route('galleries.create') }}" class="btn btn-primary mb-3">--}}
+{{--                        + Tambah Foto--}}
+{{--                    </a>--}}
                     <div class="table-responsive">
                         <table class="table table-hover mb-0" id="crudTable">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Kendaraan</th>
                                 <th>Foto</th>
+                                <th>Diunggah oleh</th>
+                                <th>Tanggal Unggah</th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>
@@ -59,8 +83,9 @@
             },
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'vehicle.vehicle_name', name: 'vehicle.vehicle_name' },
                 { data: 'photo_url', name: 'photo_url' },
+                { data: 'user.name', name: 'user.name' },
+                { data: 'created_at', name: 'created_at' },
                 {
                     data: 'action',
                     name: 'action',
@@ -70,5 +95,26 @@
                 },
             ]
         });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.js"></script>
+    <script type="text/javascript">
+        Dropzone.options.dropzone =
+            {
+                maxFilesize: 12,
+                renameFile: function(file) {
+                    var dt = new Date();
+                    var time = dt.getTime();
+                    return time+file.name;
+                },
+                acceptedFiles: ".jpeg,.jpg,.png",
+                addRemoveLinks: true,
+                timeout: 5000,
+                success: function(file, response) {
+                    console.log(response);
+                },
+                error: function(file, response){
+                    return false;
+                }
+            };
     </script>
 @endpush
