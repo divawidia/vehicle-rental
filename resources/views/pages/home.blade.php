@@ -75,7 +75,6 @@
                                             autocomplete="on"
                                             class="form-control"
                                             value="{{ old('pick_up_loc') }}"
-                                            required
                                         />
                                         <div class="form-group d-none" id="pickupLatitudeArea">
                                             <label>Latitude</label>
@@ -103,7 +102,6 @@
                                             autocomplete="on"
                                             class="form-control"
                                             value="{{ old('return_loc') }}"
-                                            required
                                         />
                                         <div class="form-group d-none" id="returnLatitudeArea">
                                             <label>Latitude</label>
@@ -130,7 +128,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 mb20">
-                                        <h5>Pick Up Date & time</h5>
+                                        <h5>Delivery Date & time</h5>
                                         <input
                                             type="datetime-local"
                                             class="form-control"
@@ -141,7 +139,7 @@
                                         />
                                     </div>
                                     <div class="col-lg-6 mb20">
-                                        <h5>Drop Off Date & Time</h5>
+                                        <h5>Return Date & Time</h5>
                                         <input
                                             type="datetime-local"
                                             class="form-control"

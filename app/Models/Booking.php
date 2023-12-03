@@ -62,7 +62,11 @@ class Booking extends Model
         'rounded_distance_pickup',
         'distance_return',
         'rounded_distance_return',
-        'vehicle_detail_id'
+        'vehicle_detail_id',
+        'country_code',
+        'snap_token',
+        'pickup_location_type',
+        'return_location_type'
     ];
 
     protected $hidden = [

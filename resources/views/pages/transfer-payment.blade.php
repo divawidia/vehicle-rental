@@ -19,7 +19,7 @@
                             <h1>Thankyou, {{ $booking->first_name }}!</h1>
                         </div>
                         <div class="col-md-12 text-center">
-                            <p>Please pay your rental booking with total amount of Rp. {{ number_format($booking->total_price) }}</p>
+                            <h5 class="mt-3 mb-4">Please pay your rental booking with total amount of Rp. {{ number_format($booking->total_price) }}</h5>
                             <button
                                 type="button"
                                 id="pay-button"
@@ -48,12 +48,18 @@
                 // Optional
                 onSuccess: function(result){
                     /* You may add your own js here, this is just example */
-                    window.location.href = '{{ route('pay-success', $booking->transaction_code) }}'
+                    fetch('{{ url()->route('update-payment-booking-status', $booking->transaction_code) }}', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(window.location.href = '{{ route('pay-success', $booking->transaction_code) }}')
                 },
                 // Optional
                 onPending: function(result){
                     /* You may add your own js here, this is just example */
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                    window.location.href = '{{ route('pay-booking', $booking->transaction_code) }}'
                 },
                 // Optional
                 onError: function(result){

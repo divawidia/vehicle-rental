@@ -19,7 +19,7 @@
                             <h1>Thankyou, {{ $booking->first_name }}!</h1>
                         </div>
                         <div class="col-md-12 text-center">
-                            <p>Your order has been processed, We will Contact you shortly</p>
+                            <h5 class="mt-3 mb-4">Your order has been processed, We will Contact you shortly</h5>
                             <a
                                 type="button"
                                 href="{{ route('home') }}"

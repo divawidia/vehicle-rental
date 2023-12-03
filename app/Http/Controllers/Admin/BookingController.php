@@ -164,19 +164,21 @@ class BookingController extends Controller
     }
 
     public function postUserPageBooking1(Request $request){
-        $validatedData = $request->validate([
-            'vehicle_type_id' => 'required',
-            'pick_up_loc' => 'required',
-            'return_loc' => 'required',
-            'pick_up_datetime' => 'required',
-            'return_datetime' => 'required',
-            'latitude_pickup' => 'required',
-            'longitude_pickup' => 'required',
-            'latitude_return' => 'required',
-            'longitude_return' => 'required',
-        ]);
+//        $validatedData = $request->validate([
+//            'vehicle_type_id' => 'required',
+//            'pisckup_location_type' => 'required',
+//            'return_location_type' => 'required',
+//            'pick_up_loc' => '',
+//            'return_loc' => '',
+//            'pick_up_datetime' => 'required',
+//            'return_datetime' => 'required',
+//            'latitude_pickup' => 'required',
+//            'longitude_pickup' => 'required',
+//            'latitude_return' => 'required',
+//            'longitude_return' => 'required',
+//        ]);
 
-        $request->session()->put('booking', $validatedData);
+        $request->session()->put('booking', $request->all());
 
         return redirect()->route('choose-vehicle');
     }
@@ -290,7 +292,7 @@ class BookingController extends Controller
         $response_pickup = \GoogleMaps::load('distancematrix')
             ->setParam ([
                 'origins'    =>'Batur Sari Rental',
-                'destinations' => $booking['pick_up_loc'],
+                'destinations' => $booking['latitude_pickup'] .','. $booking['longitude_pickup'],
                 'units' => 'metrics',
                 'mode' => 'driving ',
                 'avoid' => 'tolls'
@@ -298,8 +300,8 @@ class BookingController extends Controller
             ->get();
         $response_return = \GoogleMaps::load('distancematrix')
             ->setParam ([
-                'origins'    => $booking['return_loc'],
-                'destinations' => 'Batur Sari Rental',
+                'origins'    => 'Batur Sari Rental',
+                'destinations' => $booking['latitude_return'] .','. $booking['longitude_return'],
                 'units' => 'metrics',
                 'mode' => 'driving ',
                 'avoid' => 'tolls'
@@ -308,10 +310,13 @@ class BookingController extends Controller
 
         $response_pickup = json_decode($response_pickup, true);
         $distance_pickup = $response_pickup["rows"][0]["elements"][0]["distance"]["value"] / 1000;
+        $pickup_loc = $response_pickup["destination_addresses"][0];
         $rounded_distance_pickup = round($distance_pickup);
+//        dd($pickup_loc);
 
         $response_return = json_decode($response_return, true);
         $distance_return = $response_return["rows"][0]["elements"][0]["distance"]["value"] / 1000;
+        $return_loc = $response_return["destination_addresses"][0];
         $rounded_distance_return = round($distance_return);
 
         $pickup_date = new DateTime($booking['pick_up_datetime']);
@@ -383,14 +388,16 @@ class BookingController extends Controller
         $data['distance_return'] = $distance_return;
         $data['rounded_distance_return'] = $rounded_distance_return;
 
-        $data['pick_up_loc'] = $booking['pick_up_loc'];
-        $data['return_loc'] = $booking['return_loc'];
+        $data['pick_up_loc'] = $pickup_loc;
+        $data['return_loc'] = $return_loc;
         $data['latitude_pickup'] = $booking['latitude_pickup'];
         $data['longitude_pickup'] = $booking['longitude_pickup'];
         $data['latitude_return'] = $booking['latitude_return'];
         $data['longitude_return'] = $booking['longitude_return'];
         $data['pick_up_datetime'] = $booking['pick_up_datetime'];
         $data['return_datetime'] = $booking['return_datetime'];
+        $data['pickup_location_type'] = $booking['pickup_location_type'];
+        $data['return_location_type'] = $booking['return_location_type'];
 
         $vehicleDetail = VehicleDetail::where('vehicle_id', '=', $request->vehicle_id)->where('status', '=', 'tersedia')->first();
         $data['vehicle_detail_id'] = $vehicleDetail->id;
@@ -400,6 +407,7 @@ class BookingController extends Controller
 
         $newBooking->fill($data);
         $request->session()->put('booking', $newBooking);
+//        dd($newBooking);
 
         return redirect()->route('booking-payment');
     }
@@ -412,6 +420,8 @@ class BookingController extends Controller
 
     public function postUserPageBooking3(Request $request){
         $data = $request->all();
+        $data['country_code'] = strtoupper($request->country_code);
+//        dd($data);
         $booking = $request->session()->get('booking');
 
         if ($request->transaction_type == 'COD') {
@@ -471,13 +481,24 @@ class BookingController extends Controller
         }
     }
 
-    public function successPayment(string $transaction_code){
+    public function updateStatusIfSuccess(string $transaction_code){
         $booking = Booking::where('transaction_code', $transaction_code)->first();
         $booking->transaction_status = 'Sudah Dibayar';
         $booking->update();
         VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
+        return response()->json('success',200);
+    }
+    public function successPayment(string $transaction_code){
+        $booking = Booking::where('transaction_code', $transaction_code)->first();
+        if ($booking->transaction_status == 'Belum Dibayar'){
+//            $booking->transaction_status = 'Sudah Dibayar';
+//            $booking->update();
+//            VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
 
-        return view('pages.finish-payment', compact('booking'));
+            return redirect()->route('pay-booking',$transaction_code);
+        }elseif ($booking->transaction_status == 'Sudah Dibayar'){
+            return view('pages.finish-payment', compact('booking'));
+        }
     }
 
     public function userPageBooking4(Request $request){
