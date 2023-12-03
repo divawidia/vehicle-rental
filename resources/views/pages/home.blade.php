@@ -103,26 +103,26 @@
                                     </div>
 
                                     <div class="col-lg-6 mb20">
-                                                <h5>Pick Up Date & time</h5>
-                                                    <input
-                                                        type="datetime-local"
-                                                        class="form-control"
-                                                        id="pick_up_datetime"
-                                                        name="pick_up_datetime"
-                                                        value="{{ old('pick_up_datetime') }}"
-                                                        required
-                                                    />
+                                        <h5>Pick Up Date & time</h5>
+                                            <input
+                                                type="datetime-local"
+                                                class="form-control"
+                                                id="pick_up_datetime"
+                                                name="pick_up_datetime"
+                                                value="{{ old('pick_up_datetime') }}"
+                                                required
+                                            />
                                     </div>
                                     <div class="col-lg-6 mb20">
-                                                <h5>Drop Off Date & Time</h5>
-                                                <input
-                                                    type="datetime-local"
-                                                    class="form-control"
-                                                    id="return_datetime"
-                                                    name="return_datetime"
-                                                    value="{{ old('return_datetime') }}"
-                                                    required
-                                                />
+                                        <h5>Drop Off Date & Time</h5>
+                                        <input
+                                            type="datetime-local"
+                                            class="form-control"
+                                            id="return_datetime"
+                                            name="return_datetime"
+                                            value="{{ old('return_datetime') }}"
+                                            required
+                                        />
                                     </div>
                                 </div>
 

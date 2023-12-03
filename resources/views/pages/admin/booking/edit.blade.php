@@ -206,17 +206,18 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="mt-4 mb-3">
+                                <label class="form-label" for="vehicle_detail_id">Pilih Plat Nomor Kendaraan</label>
+                                <select class="form-select" required name="vehicle_detail_id" id="vehicle_detail_id">
+                                    <option value="{{ $booking->vehicle_detail_id }}">{{ $booking->vehicle_detail->plate_number }}</option>
+                                </select>
+                                @error('vehicle_detail_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mt-4 mt-xl-0">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="vehicle_license_plate">Plat Kendaraan</label>
-                                            <input type="text" class="form-control" placeholder="Masukan PLat Kendaraan"
-                                                   id="vehicle_license_plate" name="vehicle_license_plate" value="{{ $booking->vehicle_license_plate }}">
-                                            @error('vehicle_license_plate')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
                                         <div class="row">
                                             <div class="col-12">
                                                 <label class="form-label" >Fitur Booking</label>
@@ -468,6 +469,44 @@
         // listen to the address dropdown for changes
         addressDropdown.addEventListener('change', () => {
             iti.setCountry(this.value);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            {{--var vehicleId = getElementById('vehicle_id').value;--}}
+            {{--$.ajax({--}}
+            {{--    url: "{{ url()->route('fetch-vehicle-detail')}}",--}}
+            {{--    type: "POST",--}}
+            {{--    data: {--}}
+            {{--        vehicle_id: vehicleId,--}}
+            {{--        _token: '{{csrf_token()}}'--}}
+            {{--    },--}}
+            {{--    dataType: 'json',--}}
+            {{--    success: function (result) {--}}
+            {{--        --}}{{--                        $('#vehicle_detail_id').html('<option value="{{ $booking->vehicle_detail_id }}">{{ $booking->vehicle_detail->plate_number }}</option>');--}}
+            {{--        $.each(result.vehicleDetails, function (key, value) {--}}
+            {{--            $("#vehicle_detail_id").append('<option value="' + value.id + '">' + value.plate_number + '</option>');--}}
+            {{--        });--}}
+            {{--    }--}}
+            {{--});--}}
+            $('#vehicle_id').on('change', function () {
+                var vehicleId = this.value;
+                $.ajax({
+                    url: "{{ url()->route('fetch-vehicle-detail')}}",
+                    type: "POST",
+                    data: {
+                        vehicle_id: vehicleId,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+{{--                        $('#vehicle_detail_id').html('<option value="{{ $booking->vehicle_detail_id }}">{{ $booking->vehicle_detail->plate_number }}</option>');--}}
+                        $.each(result.vehicleDetails, function (key, value) {
+                            $("#vehicle_detail_id").append('<option value="' + value.id + '">' + value.plate_number + '</option>');
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endsection

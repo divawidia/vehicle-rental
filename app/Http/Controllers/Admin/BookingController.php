@@ -195,6 +195,93 @@ class BookingController extends Controller
         return view('pages.choose-vehicle', compact('booking', 'vehicles'));
     }
 
+    public function getRentPrice(Request $request){
+        $data = $request->all();
+        $response_pickup = \GoogleMaps::load('distancematrix')
+            ->setParam ([
+                'origins'    =>'Batur Sari Rental',
+                'destinations' => $data['pick_up_loc'],
+                'units' => 'metrics',
+                'mode' => 'driving ',
+                'avoid' => 'tolls'
+            ])
+            ->get();
+        $response_return = \GoogleMaps::load('distancematrix')
+            ->setParam ([
+                'origins'    => $data['return_loc'],
+                'destinations' => 'Batur Sari Rental',
+                'units' => 'metrics',
+                'mode' => 'driving ',
+                'avoid' => 'tolls'
+            ])
+            ->get();
+
+        $response_pickup = json_decode($response_pickup, true);
+        $distance_pickup = $response_pickup["rows"][0]["elements"][0]["distance"]["value"] / 1000;
+        $rounded_distance_pickup = round($distance_pickup);
+
+        $response_return = json_decode($response_return, true);
+        $distance_return = $response_return["rows"][0]["elements"][0]["distance"]["value"] / 1000;
+        $rounded_distance_return = round($distance_return);
+
+        $pickup_date = new DateTime($data['pick_up_datetime']);
+        $return_date = new DateTime($data['return_datetime']);
+        $total_days_rent = $pickup_date->diff($return_date)->format('%a');
+        $vehicle = Vehicle::where('id', $request->vehicle_id)->get();
+
+        $month_rent = 0;
+        $monthly_rent_price = 0;
+        $week_rent = 0;
+        $weekly_rent_price = 0;
+
+        if ($total_days_rent >= 30){
+            $month_rent = floor($total_days_rent/30);
+            $monthly_rent_price = $vehicle[0]['monthly_price'] * $month_rent;
+
+            $days_rent = $total_days_rent-($month_rent*30);
+            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+
+            $rent_price = $monthly_rent_price + $daily_rent_price;
+        } else {
+            $days_rent = $total_days_rent;
+            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+
+            $rent_price = $daily_rent_price;
+        }
+
+        if ($rounded_distance_pickup <= 5){
+            $shipping_price = 0;
+        }else{
+            $distance_pickup_pay = $rounded_distance_pickup - 5;
+            $shipping_price = $distance_pickup_pay * 10000;
+        }
+
+        $collection_price = 0;
+
+        if ($request->insurance){
+            $insurance_price = $rent_price * 25/100;
+            $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
+        } else{
+            $insurance_price = 0;
+            $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
+        }
+        $data['total_days_rent'] = $total_days_rent;
+        $data['month_rent'] = $month_rent;
+        $data['monthly_rent_price'] = $monthly_rent_price;
+        $data['week_rent'] = $week_rent;
+        $data['weekly_rent_price'] = $weekly_rent_price;
+        $data['day_rent'] = $days_rent;
+        $data['daily_rent_price'] = $daily_rent_price;
+        $data['insurance_price'] = $insurance_price;
+        $data['shipping_price'] = $shipping_price;
+        $data['collection_price'] = $collection_price;
+        $data['booking_price'] = $rent_price;
+        $data['total_price'] = $total_price;
+        $data['rounded_distance_pickup'] = $rounded_distance_pickup;
+
+        return response()->json($data);
+    }
+
     public function postUserPageBooking2(Request $request){
 
         $data = $request->all();
@@ -629,12 +716,6 @@ class BookingController extends Controller
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
         }
 
-        if ($request->rent_status == 'Selesai' || $request->rent_status == 'Batal' || $request->transaction_status == 'Batal' || $request->return_status == 'Sudah'){
-            DB::table('vehicle_details')
-                ->where('id', '=', $request->vehicle_detail_id)
-                ->update(['status' => 'tersedia']);
-        }
-
         $data = $request->all();
         $data['insurance'] = $insurance_status;
         $data['first_aid_kit'] = $first_aid_kit_status;
@@ -658,10 +739,16 @@ class BookingController extends Controller
         $data['rounded_distance_return'] = $rounded_distance_return;
 
         $booking = Booking::findOrFail($id);
-
+//        dd($request->vehicle_detail_id);
+        if ($request->rent_status == 'Selesai' || $request->rent_status == 'Batal' || $request->transaction_status == 'Batal' || $request->return_status == 'Sudah'){
+            $vehicleDetail = VehicleDetail::find($request->vehicle_detail_id);
+//            dd($vehicleDetail);
+            $vehicleDetail->status = "tersedia";
+            $vehicleDetail->save();
+        }
         $booking->update($data);
 
-        return redirect()->route('bookings.show', [$booking->id])->with('status', 'Data Booking berhasil diupdate!');
+        return redirect()->route('bookings.show', $booking->id)->with('status', 'Data Booking berhasil diupdate!');
     }
 
     /**
