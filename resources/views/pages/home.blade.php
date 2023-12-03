@@ -669,6 +669,13 @@
                     $('#map').hide();
                     $('#infowindow-content').hide();
                 } else if (document.getElementById("return_location_type").value === 'hotel_villa'){
+                    if (document.getElementById("pickup_location_type").value === 'custom_address'){
+                        $('#pickupAddressLabel').show();
+                        $('#autocomplete_pickup').val('').show();
+                        $('#latitude_pickup').val('');
+                        $('#longitude_pickup').val('');
+                        $('#pickup_location_type').val('hotel_villa');
+                    }
                     $('#returnAddressLabel').show();
                     $('#autocomplete_return').val('').show();
                     $('#latitude_return').val('');
