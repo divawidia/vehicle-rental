@@ -48,9 +48,6 @@ Route::prefix('vehicles')
 Route::prefix('blogs')
     ->group(function () {
         Route::get('/', [HomeController::class, 'blogList'])->name('blog-list');
-//        Route::get('/', function () {
-//            return view('pages.blog');
-//        })->name('blog');
         Route::get('/{slug}', [HomeController::class, 'blogDetail'])->name('blog-detail');
     });
 
