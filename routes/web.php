@@ -121,4 +121,4 @@ Route::prefix('admin')
         Route::resource('users', UserController::class);
     });
 Route::get('/waiting-for-approval', function () {return view('auth.verify');})->name('waiting-for-approval');
-Auth::routes((array)'/');
+Auth::routes();
