@@ -54,7 +54,7 @@ class VehicleController extends Controller
                         </div>';
                 })
                 ->editColumn('foto', function ($item) {
-                    return $item->thumbnail ? '<img src="' . $item->thumbnail . '" style="max-height: 80px;"/>' : '';
+                    return $item->thumbnail ? '<img src="' . Storage::url($item->thumbnail) . '" style="max-height: 80px;"/>' : '';
                 })
                 ->rawColumns(['action', 'foto'])
                 ->make();
@@ -86,18 +86,8 @@ class VehicleController extends Controller
     {
         $data = $request->all();
         $data['slug'] = Str::slug($request->vehicle_name);
-        if ($request->hasFile('thumbnail')) {
-            $originName = $request->file('thumbnail')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('thumbnail')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
 
-            $request->file('thumbnail')->move(public_path('assets/vehicle-photo'), $fileName);
-
-            $url = asset('assets/vehicle-photo/' . $fileName);
-            $data['thumbnail'] = $url;
-        }
-//        $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
+        $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
         $vehicle = Vehicle::create($data);
         foreach($request->features as $feature) {
             $vehicle_feature['vehicle_id'] = $vehicle->id;
@@ -312,21 +302,10 @@ class VehicleController extends Controller
     }
 
     public function uploadPhoto(Request $request) {
-        if ($request->hasFile('file')) {
-            $data = [];
-            $originName = $request->file('file')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('file')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
-
-            $request->file('file')->move(public_path('assets/vehicle-photo'), $fileName);
-
-            $url = asset('assets/vehicle-photo/' . $fileName);
-            $data['photo_url'] = $url;
+        $data = [];
+            $data['photo_url'] = $request->file('file')->store('assets/vehicle-photo', 'public');
             $data['vehicle_id'] = $request->vehicle_id;
             VehiclePhoto::create($data);
-        }
-
         return response()->json(['success'=>$data['photo_url']]);
     }
 
@@ -366,16 +345,8 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
 
         $data['slug'] = Str::slug($request->vehicle_name);
-        if ($request->hasFile('thumbnail')) {
-            $originName = $request->file('thumbnail')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('thumbnail')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
-
-            $request->file('thumbnail')->move(public_path('assets/vehicle-photo'), $fileName);
-
-            $url = asset('assets/vehicle-photo/' . $fileName);
-            $data['thumbnail'] = $url;
+        if ($request->hasFile('thumbnail')){
+            $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
         }
 
         $vehicle->update($data);
