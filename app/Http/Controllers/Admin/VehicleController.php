@@ -85,10 +85,8 @@ class VehicleController extends Controller
     public function store(VehicleRequest $request)
     {
         $data = $request->all();
-
         $data['slug'] = Str::slug($request->vehicle_name);
         $data['thumbnail'] = $request->file('thumbnail')->store('assets/vehicle-photo', 'public');
-//        dd($data);
         $vehicle = Vehicle::create($data);
         foreach($request->features as $feature) {
             $vehicle_feature['vehicle_id'] = $vehicle->id;
