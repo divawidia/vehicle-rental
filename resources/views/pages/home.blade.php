@@ -684,10 +684,10 @@
                     $('#map').hide();
                     $('#infowindow-content').hide();
                 } else if (document.getElementById("return_location_type").value === 'custom_address'){
+                    $('#pickupAddressLabel').hide();
                     $('#returnAddressLabel').hide();
                     $('#autocomplete_pickup').val('').hide();
                     $('#autocomplete_return').val('').hide();
-                    $('#infowindow-content-return').show();
                     $('#latitude_return').val('');
                     $('#longitude_return').val('');
                     $('#mapLabel').show();
