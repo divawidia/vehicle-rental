@@ -65,19 +65,26 @@
                                                                 alt=""
                                                             />{{ $vehicle->engine_capacity }}</span
                                                         >
-                                                        <span class="d-atr"
-                                                        ><img
+                                                        <span class="d-atr">
+                                                            <img
                                                                 src="images/icons/transmission.svg"
                                                                 alt=""
-                                                            />{{ $vehicle->transmission->transmission_type }}</span
-                                                        >
-                                                        <span class="d-atr"
-                                                        ><img
+                                                            @php
+                                                                $transmission = \App\Models\Transmission::findOrFail($vehicle->transmission_id)
+                                                            @endphp
+                                                            {{ $transmission->transmission_type }}
+                                                        </span>
+                                                        <span class="d-atr">
+                                                            <img
                                                                 src="images/icons/scooter.svg"
                                                                 alt=""
                                                                 height="25px"
-                                                            />{{ $vehicle->vehicle_type->vehicle_type_name }}</span
-                                                        >
+                                                            />
+                                                            @php
+                                                                $vehicle_type = \App\Models\VehicleType::findOrFail($vehicle->vehicle_type_id)
+                                                            @endphp
+                                                            {{ $vehicle_type->vehicle_type_name }}
+                                                        </span>
                                                     </div>
                                                     <div class="d-price">
                                                         <div class="row d-flex align-items-center">

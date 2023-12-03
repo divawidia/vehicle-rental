@@ -61,7 +61,8 @@ class Booking extends Model
         'distance_pickup',
         'rounded_distance_pickup',
         'distance_return',
-        'rounded_distance_return'
+        'rounded_distance_return',
+        'vehicle_detail_id'
     ];
 
     protected $hidden = [
@@ -70,5 +71,9 @@ class Booking extends Model
 
     public function vehicle(){
         return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
+    }
+
+    public function vehicle_detail(){
+        return $this->belongsTo(VehicleDetail::class, 'vehicle_detail_id', 'id');
     }
 }

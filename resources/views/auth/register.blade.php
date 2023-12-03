@@ -19,9 +19,9 @@
 
                             <div class="mb-4 pb-2">
                                 <a href="index" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('img/logo-2.png') }}" alt="" height="80"
+                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
                                          class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('img/logo-2') }}" alt="" height="80"
+                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
                                          class="auth-logo-light me-start">
                                 </a>
                             </div>
@@ -106,7 +106,7 @@
                                 <p>©
                                     <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Rhapsody Hospitality Development Center.
+                                    </script> Batur Sari Rental.
                                 </p>
                             </div>
                         </div>

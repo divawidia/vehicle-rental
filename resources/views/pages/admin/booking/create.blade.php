@@ -206,6 +206,15 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="mt-4 mb-3">
+                                <label class="form-label" for="vehicle_detail_id">Pilih Plat Nomor Kendaraan</label>
+                                <select class="form-select" required name="vehicle_detail_id" id="vehicle_detail_id">
+                                    <option>Pilih Plat Nomor Kendaraan</option>
+                                </select>
+                                @error('vehicle_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mt-4 mt-xl-0">
@@ -422,5 +431,34 @@
                 $('#longitude_return').val(place.geometry['location'].lng());
             });
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('#vehicle_id').on('change', function () {
+                var vehicleId = this.value;
+                $("#vehicle_detail_id").html('');
+                $.ajax({
+                    url: "{{ url()->route('fetch-vehicle-detail')}}",
+                    type: "POST",
+                    data: {
+                        vehicle_id: vehicleId,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#vehicle_detail_id').html('<option>Pilih plat nomor kendaraan</option>');
+                        $.each(result.vehicleDetails, function (key, value) {
+                            $("#vehicle_detail_id").append('<option value="' + value.id + '">' + value.plate_number + '</option>');
+                        });
+                    }
+                });
+            });
+        });
     </script>
 @endsection

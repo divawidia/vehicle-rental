@@ -11,7 +11,7 @@ class VehicleDetail extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'vehicle_id', 'plate_number', 'odometer', 'status'
+        'vehicles_id', 'plate_number', 'odometer', 'status'
     ];
 
     protected $hidden = [

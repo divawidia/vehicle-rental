@@ -9,6 +9,7 @@ use App\Models\ProductGallery;
 use App\Models\Transmission;
 use App\Models\Vehicle;
 use App\Models\VehicleBrand;
+use App\Models\VehicleDetail;
 use App\Models\VehicleFeature;
 use App\Models\VehiclePhoto;
 use App\Models\VehicleType;
@@ -96,6 +97,24 @@ class VehicleController extends Controller
         }
 
         return redirect()->route('kendaraan.index')->with('status', 'Data Kendaraan berhasil ditambahkan!');
+    }
+
+    public function storeVehicleDetail(Request $request, $id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+
+        $data = $request->all();
+        $data['vehicles_id'] = $vehicle->id;
+
+//        dd($data);
+        VehicleDetail::create($data);
+//        foreach($request->features as $feature) {
+//            $vehicle_feature['vehicle_id'] = $vehicle->id;
+//            $vehicle_feature['feature'] = $feature;
+//            VehicleFeature::create($vehicle_feature);
+//        }
+
+        return redirect()->route('kendaraan.show', $vehicle->id)->with('status', 'Data detail kendaraan berhasil ditambahkan!');
     }
 
     /**
@@ -202,6 +221,40 @@ class VehicleController extends Controller
         return view('pages.admin.vehicle.detail')->with('vehicle', Vehicle::where('id', $id)->first());
     }
 
+    public function indexVehicleDetail($id)
+    {
+        if (request()->ajax()) {
+            $query = VehicleDetail::where('vehicles_id', $id)->get();
+
+            return Datatables::of($query)
+                ->addColumn('action', function ($item) {
+                    return '
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bx bx-dots-horizontal-rounded"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="' . route('edit-detail-kendaraan',['vehicles_id' => $item->vehicles_id, 'id'=>$item->id]) . '">Edit</a>
+                                </li>
+                                <li>
+                                <form action="' . route('hapus-detail-kendaraan', ['vehicles_id' => $item->vehicles_id, 'id'=>$item->id]) . '" method="POST">
+                                    ' . method_field('delete') . csrf_field() . '
+                                    <button type="submit" class="dropdown-item">
+                                        Hapus
+                                    </button>
+                                </form>
+                                </li>
+                            </ul>
+                        </div>';
+                })
+                ->rawColumns(['action'])
+                ->make();
+        }
+
+        return route('kendaraan.show', $id);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -217,6 +270,16 @@ class VehicleController extends Controller
             'vehicleTypes' => $vehicleTypes,
             'transmissions' => $transmissions,
             'brands' => $brands
+        ]);
+    }
+
+    public function editVehicleDetail(string $vehicles_id, string $id)
+    {
+        $vehicleDetail = VehicleDetail::findOrFail($id);
+//        dd($vehicleDetail);
+
+        return view('pages.admin.vehicle.edit-vehicle-detail',[
+            'vehicleDetail' => $vehicleDetail
         ]);
     }
 
@@ -265,7 +328,7 @@ class VehicleController extends Controller
         return redirect()->route('kendaraan.edit', $feature['vehicle_id']);
     }
 
-    public function deleteFeature(Request $request, $id)
+    public function deleteFeature($id)
     {
         $feature = VehicleFeature::findOrFail($id);
         $feature->delete();
@@ -292,6 +355,17 @@ class VehicleController extends Controller
         return redirect()->route('kendaraan.index')->with('status', 'Data kendaraan berhasil diedit!');
     }
 
+    public function updateVehicleDetail(Request $request, string $id)
+    {
+        $data = $request->all();
+
+        $vehicleDetail = VehicleDetail::findOrFail($id);;
+        $kendaraan = Vehicle::findOrFail($vehicleDetail->vehicles_id);
+        $vehicleDetail->update($data);
+
+        return redirect()->route('kendaraan.show', ["kendaraan"=>$kendaraan])->with('status', 'Data detail kendaraan berhasil diedit!');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -301,5 +375,16 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return redirect()->route('kendaraan.index')->with('status', 'Data kendaraan berhasil dihapus!');
+    }
+
+    public function destroyVehicleDetail(string $vehicles_id,string $id)
+    {
+        $vehicle = Vehicle::findOrFail($vehicles_id);
+
+        $vehicleDetail = VehicleDetail::findOrFail($id);
+
+        $vehicleDetail->delete();
+
+        return redirect()->route('kendaraan.show', $vehicle->id)->with('status', 'Data detail kendaraan berhasil dihapus!');
     }
 }
