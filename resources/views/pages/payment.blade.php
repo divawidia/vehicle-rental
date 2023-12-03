@@ -54,7 +54,7 @@
                                 <div class="col-md-6">
                                     <div class="field-set">
                                         <label for="no_hp_wa">Mobile Number (Whatsapp):*</label>
-                                        <input type="tel" class="form-control" required placeholder="eg +6283213123221"
+                                        <input type="text" class="form-control" required placeholder="eg +6283213123221"
                                                id="no_hp_wa" name="no_hp_wa">
                                     </div>
                                 </div>
@@ -97,23 +97,28 @@
                                         <input type="text" class="form-control" placeholder="Input your country of origin"
                                                id="country" name="country" required>
                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="field-set">
-                                        <label>Name on Hotel Booking (optional):</label>
-                                        <input type="text" class="form-control" placeholder="Input your name on hotel booking"
-                                               id="hotel_booking_name" name="hotel_booking_name">
+                                    <div class="field-set d-none">
+                                        <input type="text" class="form-control"
+                                               id="country_code" name="country_code" required>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="field-set">
-                                        <label>Room Number (optional):</label>
-                                        <input type="text" class="form-control" placeholder="Input your room number"
-                                               id="room_number" name="room_number">
+                                @if($booking->pickup_location_type == 'hotel_villa' || $booking->return_location_type == 'hotel_villa')
+                                    <div class="col-md-6">
+                                        <div class="field-set">
+                                            <label>Name on Hotel Booking (optional):</label>
+                                            <input type="text" class="form-control" placeholder="Input your name on hotel booking"
+                                                   id="hotel_booking_name" name="hotel_booking_name">
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="col-md-6">
+                                        <div class="field-set">
+                                            <label>Room Number (optional):</label>
+                                            <input type="text" class="form-control" placeholder="Input your room number"
+                                                   id="room_number" name="room_number">
+                                        </div>
+                                    </div>
+                                @endif
                                 <label>Booking Note (optional):</label>
                                 <div class="col-12">
                                     <div class="field-set">
@@ -291,6 +296,7 @@
         const input = document.querySelector("#no_hp_wa");
         const countryData = window.intlTelInputGlobals.getCountryData();
         const addressDropdown = document.querySelector("#country");
+        const countryCodeInput = document.querySelector("#country_code");
         const output = document.querySelector("#output");
 
         const iti = window.intlTelInput(input, {
@@ -334,14 +340,20 @@
 
         // set it's initial value
         addressDropdown.value = iti.getSelectedCountryData().name;
+        countryCodeInput.value = iti.getSelectedCountryData().iso2;
+
 
         // listen to the telephone input for changes
         input.addEventListener('countrychange', () => {
             addressDropdown.value = iti.getSelectedCountryData().name;
+            countryCodeInput.value = iti.getSelectedCountryData().iso2;
         });
 
         // listen to the address dropdown for changes
         addressDropdown.addEventListener('change', () => {
+            iti.setCountry(this.value);
+        });
+        countryCodeInput.addEventListener('change', () => {
             iti.setCountry(this.value);
         });
     </script>
