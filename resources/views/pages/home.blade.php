@@ -20,7 +20,7 @@
             <div class="container pt-5">
                 <div class="row align-items-center">
                     <div class="spacer-double sm-hide"></div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-7">
                         <div class="spacer-single sm-hide"></div>
                         <h2 class="mb-2" style="color: var(--primary-color)">
                             Looking for a <span class="id-color">vehicle</span>? Book now
@@ -36,7 +36,7 @@
                                 <h5>What is your vehicle type?</h5>
                                 <div class="de_form de_radio row g-3">
                                         @foreach($vehicleTypes as $vehicleType)
-                                            <div class="radio-img col-6 col-sm-4">
+                                            <div class="radio-img col-4 col-sm-4">
                                                 <input
                                                     id="{{ $vehicleType->id }}"
                                                     name="vehicle_type_id"
@@ -44,24 +44,22 @@
                                                     value="{{ $vehicleType->id }}"
                                                     required
                                                 />
-                                                <label for="{{ $vehicleType->id }}"
+                                                <label class="text-center px-0" for="{{ $vehicleType->id }}"
                                                 ><img
                                                         src="{{ Storage::url($vehicleType->icon) }}"
                                                         alt=""
-                                                        height="40px"
+                                                        height="30px"
                                                     />{{ $vehicleType->vehicle_type_name }}</label
                                                 >
                                             </div>
                                         @endforeach
                                 </div>
 
-                                <div class="spacer-20"></div>
-
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 px-3 mt-3">
                                         <h5>Delivery Location</h5>
                                         <select class="form-select" required name="pickup_location_type" id="pickup_location_type">
-                                            <option selected disabled>Choose desired location</option>
+                                            <option selected disabled>Choose your desired location</option>
                                             <option value="office">Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)</option>
                                             <option value="hotel_villa">Hotel/Villa</option>
                                             <option value="custom_address">My own address (Pinpoint Map)</option>
@@ -85,10 +83,10 @@
                                             <input type="text" name="longitude_pickup" id="longitude_pickup" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 px-3 mt-3">
                                         <h5>Return Location</h5>
                                         <select class="form-select" required name="return_location_type" id="return_location_type">
-                                            <option selected disabled>Choose desired location</option>
+                                            <option selected disabled>Choose your desired location</option>
                                             <option value="office">Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)</option>
                                             <option value="hotel_villa">Hotel/Villa</option>
                                             <option value="custom_address">My Own Address (Pinpoint Map)</option>
@@ -114,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12 mb20">
+                                    <div class="col-12">
                                         <div id="mapLabel">
                                             <h5 class="mt-4">Pinpoint my location (delivery & return):</h5>
                                             <p class="mt-n3">*Drag the marker point to set your location</p>
@@ -127,27 +125,57 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6 mb20">
-                                        <h5>Delivery Date & time</h5>
-                                        <input
-                                            type="datetime-local"
-                                            class="form-control"
-                                            id="pick_up_datetime"
-                                            name="pick_up_datetime"
-                                            value="{{ old('pick_up_datetime') }}"
-                                            required
-                                        />
+                                    <div class="col-lg-6 my-3">
+                                        <div class="row px-3">
+                                            <div class="col-7 px-1">
+                                                <h5>Delivery Date</h5>
+                                                <input
+                                                    type="date"
+                                                    class="form-control"
+                                                    id="pick_up_datetime"
+                                                    name="pick_up_datetime"
+                                                    value="{{ old('pick_up_datetime') }}"
+                                                    required
+                                                />
+                                            </div>
+                                            <div class="col-5 px-0">
+                                                <h5>Delivery Time</h5>
+                                                <input
+                                                    type="time"
+                                                    class="form-control"
+                                                    id="pick_up_datetime"
+                                                    name="pick_up_datetime"
+                                                    value="{{ old('pick_up_datetime') }}"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6 mb20">
-                                        <h5>Return Date & Time</h5>
-                                        <input
-                                            type="datetime-local"
-                                            class="form-control"
-                                            id="return_datetime"
-                                            name="return_datetime"
-                                            value="{{ old('return_datetime') }}"
-                                            required
-                                        />
+                                    <div class="col-lg-6 my-3">
+                                        <div class="row px-3">
+                                            <div class="col-7 px-1">
+                                                <h5>Return Date</h5>
+                                                <input
+                                                    type="date"
+                                                    class="form-control"
+                                                    id="return_datetime"
+                                                    name="return_datetime"
+                                                    value="{{ old('return_datetime') }}"
+                                                    required
+                                                />
+                                            </div>
+                                            <div class="col-5 px-0">
+                                                <h5>Return Time</h5>
+                                                <input
+                                                    type="time"
+                                                    class="form-control"
+                                                    id="return_datetime"
+                                                    name="return_datetime"
+                                                    value="{{ old('return_datetime') }}"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -163,7 +191,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <img
                             src="images/misc/Group-152.png"
                             class="img-fluid"
