@@ -31,20 +31,22 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-{{--                                <img src="{{ Storage::url($vehicle->thumbnail) }}" alt="" />--}}
-                                @foreach($vehicle->photos as $photo)
-                                    <img src="{{ Storage::url($photo->photo_url) }}" alt="" />
-                                @endforeach
+                                <img src="{{ Storage::url($vehicle->thumbnail) }}" alt="" />
                             </div>
-                            <!-- <div class="item">
-                                              <img src="images/car-single/2.jpg" alt="">
-                                          </div>
-                                          <div class="item">
-                                              <img src="images/car-single/3.jpg" alt="">
-                                          </div>
-                                          <div class="item">
-                                              <img src="images/car-single/4.jpg" alt="">
-                                          </div> -->
+                            @foreach($vehicle->photos as $photo)
+                                <div class="item">
+                                    <img src="{{ Storage::url($photo->photo_url) }}" alt="" />
+                                </div>
+                            @endforeach
+{{--                            <div class="item">--}}
+{{--                                <img src="images/car-single/2.jpg" alt="">--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <img src="images/car-single/3.jpg" alt="">--}}
+{{--                            </div>--}}
+{{--                            <div class="item">--}}
+{{--                                <img src="images/car-single/4.jpg" alt="">--}}
+{{--                            </div>--}}
                         </div>
                     </div>
 
@@ -99,6 +101,10 @@
                             @foreach($vehicle->features as $feature)
                                 <li>{{ $feature->feature }}</li>
                             @endforeach
+                        </ul>
+                        <h4>Available Units</h4>
+                        <ul class="ul-style-2">
+                                <li>{{ $feature->feature }}</li>
                         </ul>
                     </div>
 
