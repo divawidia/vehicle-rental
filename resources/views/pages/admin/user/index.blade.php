@@ -1,45 +1,43 @@
 @extends('layouts.admin.master')
 @section('title')
-    List Kendaraan
+    Artikel Blog
 @endsection
 @section('page-title')
-    List Kendaraan
+    Artikel Blog
 @endsection
 @section('body')
 
     <body>
     @endsection
     @section('content')
+
         @if (session('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session('status') }}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">List Kendaraan</h4>
+                        <h4 class="card-title">List User</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('kendaraan.create') }}" class="btn btn-primary mb-3">
-                            + Tambah Kendaraan Baru
+                        <a href="{{  route('users.create') }}" class="btn btn-primary mb-3">
+                            + Tambah User Admin
                         </a>
                         <div class="table-responsive">
                             <table class="table table-hover mb-0" id="crudTable">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama Kendaraan</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
                                     <th>Foto</th>
-                                    <th>Jumlah</th>
-                                    <th>Tahun</th>
-                                    <th>Warna</th>
-                                    <th>Tipe Transmisi</th>
-                                    <th>Kapasitas Mesin</th>
-                                    <th>Jenis Kendaraan</th>
-                                    <th>Merk</th>
+                                    <th>Tanggal Register</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -51,7 +49,6 @@
                 </div>
             </div>
         </div>
-        <!-- end row -->
     @endsection
     @push('addon-script')
         <script>
@@ -65,15 +62,11 @@
                 },
                 columns: [
                     { data: 'id', name: 'id' },
-                    { data: 'vehicle_name', name: 'vehicle_name' },
-                    { data: 'foto', name: 'foto'},
-                    { data: 'unit_quantity', name: 'unit_quantity' },
-                    { data: 'year', name: 'year' },
-                    { data: 'color', name: 'color' },
-                    { data: 'transmission.transmission_type', name: 'transmission.transmission_type' },
-                    { data: 'engine_capacity', name: 'engine_capacity' },
-                    { data: 'vehicle_type.vehicle_type_name', name: 'vehicle_type.vehicle_type_name' },
-                    { data: 'brand.brand_name', name: 'brand.brand_name' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email'},
+                    { data: 'photo_url', name: 'photo_url' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'status', name: 'status' },
                     {
                         data: 'action',
                         name: 'action',
@@ -85,7 +78,8 @@
             });
         </script>
     @endpush
-    @section('scripts')
-        <!-- App js -->
-        <script src="{{ URL::asset('build/js/app.js') }}"></script>
+
+@section('scripts')
+    <!-- App js -->
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

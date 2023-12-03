@@ -85,6 +85,15 @@
                     </a>
                 </li>
 
+                <li class="menu-title" data-key="t-gallery">User Management</li>
+
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <i class="bx bx-user icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-gallery">User</span>
+                    </a>
+                </li>
+
 
 
             </ul>
