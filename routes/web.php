@@ -36,6 +36,10 @@ Route::post('/choose-vehicle', [BookingController::class, 'postUserPageBooking2'
 Route::get('/booking-payment', [BookingController::class, 'userPageBooking3'])->name('booking-payment');
 Route::post('/booking-payment', [BookingController::class, 'postUserPageBooking3'])->name('booking-payment.post');
 
+Route::get('/payment/{transaction_code}', [BookingController::class, 'payBooking'])->name('pay-booking');
+Route::get('/payment/success/{transaction_code}', [BookingController::class, 'successPayment'])->name('pay-success');
+
+
 Route::get('/finish-payment', [BookingController::class, 'userPageBooking4'])->name('finish-payment');
 
 Route::get('/about-us', function () {
