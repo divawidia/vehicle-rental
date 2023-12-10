@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BookingConfirmationCashMail;
+use App\Mail\BookingConfirmationTrfMail;
+use App\Mail\PayBookingTrfMail;
 use App\Models\Booking;
 use App\Models\Transmission;
 use App\Models\Vehicle;
 use App\Models\VehicleDetail;
 use App\Models\VehicleType;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
 use Exception;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Yajra\DataTables\Facades\DataTables;
@@ -460,6 +465,8 @@ class BookingController extends Controller
                 ->where('id', '=', $booking['vehicle_detail_id'])
                 ->update(['status' => 'disewa']);
 
+            Mail::to($data['email'])->send(new BookingConfirmationCashMail($booking));
+
             return redirect()->route('finish-payment');
         }elseif ($request->transaction_type == 'Transfer'){
             $booking->fill($data);
@@ -494,6 +501,8 @@ class BookingController extends Controller
                 $booking['transaction_code'] = $code;
                 $booking->save();
 
+                Mail::to($data['email'])->send(new PayBookingTrfMail($booking));
+
                 return redirect()->route('pay-booking', $booking->transaction_code);
             }
             catch (Exception $e){
@@ -521,6 +530,9 @@ class BookingController extends Controller
         $booking->transaction_status = 'Sudah Dibayar';
         $booking->update();
         VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
+
+        Mail::to($booking->email)->send(new BookingConfirmationTrfMail($booking));
+
         return response()->json('success',200);
     }
     public function successPayment(string $transaction_code){
@@ -667,6 +679,17 @@ class BookingController extends Controller
     public function invoice(string $id)
     {
         return view('pages.admin.booking.invoice')->with('booking', Booking::where('id', $id)->first());
+    }
+
+    public function invoicePDF(string $id){
+        $booking = Booking::findOrFail($id);
+        $bookingPDF = [
+            'transaction_code' => $booking->transaction_code,
+            'transaction_status' => $booking->transaction_status
+        ];
+        $pdf = PDF::loadView('pages.admin.booking.invoice', $booking);
+        $filename = 'invoice_'. $booking->id .'_' . $booking->transaction_code . '.pdf';
+        return $pdf->download($filename);
     }
 
     /**

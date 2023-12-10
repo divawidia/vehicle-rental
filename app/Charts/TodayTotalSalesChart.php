@@ -16,7 +16,7 @@ class TodayTotalSalesChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->where(DB::raw('DATE(created_at)'), DB::raw('CURRENT_DATE()'))->groupBy(DB::raw('WEEKOFYEAR(pick_up_datetime)'))->get();
+        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->where(DB::raw('DATE(created_at)'), DB::raw('CURRENT_DATE()'))->groupBy(DB::raw('WEEKOFYEAR(pick_up_date)'))->get();
 
         return $this->chart->barChart()
             ->setTitle('Total Pendapatan per Hari Ini')

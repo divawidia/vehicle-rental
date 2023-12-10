@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiclePageBookingController;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,13 @@ Route::get('/payment/{transaction_code}', [BookingController::class, 'payBooking
 Route::get('/payment-success/{id}/{transaction_code}', [BookingController::class, 'updateStatusIfSuccess'])->name('update-payment-booking-status');
 Route::get('/payment/success/{transaction_code}', [BookingController::class, 'successPayment'])->name('pay-success');
 
+Route::get('/testmail', function (){
+    $transaction_code = 'RENT-462105';
+    $booking = Booking::where('transaction_code', $transaction_code)->first();
+//    $name = 'dipa';
+//   \Illuminate\Support\Facades\Mail::to('wiartha2001@gmail.com')->send(new \App\Mail\BookingConfirmationCashMail($booking));
+    return new \App\Mail\PayBookingTrfMail($booking);
+});
 
 Route::get('/finish-payment', [BookingController::class, 'userPageBooking4'])->name('finish-payment');
 
@@ -76,6 +84,7 @@ Route::get('/contact-us', function () {
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 
 Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking');
+Route::get('/booking/invoice-generate-pdf/{id}', [BookingController::class, 'invoicePDF'])->name('invoice-pdf');
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')

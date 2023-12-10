@@ -17,8 +17,8 @@ class MonthTotalSalesChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('MONTH(pick_up_datetime)'))->get();
-        $month = DB::table('bookings')->select(DB::raw('MONTHNAME(pick_up_datetime) as month'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('MONTHNAME(pick_up_datetime)'))->get();
+        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('MONTH(pick_up_date)'))->get();
+        $month = DB::table('bookings')->select(DB::raw('MONTHNAME(pick_up_date) as month'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('MONTHNAME(pick_up_date)'))->get();
 //        dd(array_column($month->toArray(), 'month'));
         return $this->chart->barChart()
             ->setTitle('Total Pendapatan per Bulan')
