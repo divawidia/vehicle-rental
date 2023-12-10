@@ -89,5 +89,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             sudo su batursarirental2
-            cd
+            cd /
             ls
