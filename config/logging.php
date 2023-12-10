@@ -9,7 +9,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Log Channel
+    | Default Log Channels
     |--------------------------------------------------------------------------
     |
     | This option defines the default log channel that gets used when writing
@@ -22,7 +22,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Deprecations Log Channel
+    | Deprecations Log Channels
     |--------------------------------------------------------------------------
     |
     | This option controls the log channel that should be used to log warnings
