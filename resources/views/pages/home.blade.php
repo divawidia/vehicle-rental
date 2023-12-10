@@ -17,7 +17,7 @@
             aria-label="section"
             class="full-height vertical-center"
         >
-            <div class="container pt-5">
+            <div class="container pt-0 pt-lg-5">
                 <div class="row align-items-center">
                     <div class="spacer-double sm-hide"></div>
                     <div class="col-lg-7">
@@ -42,7 +42,7 @@
                                                     name="vehicle_type_id"
                                                     type="radio"
                                                     value="{{ $vehicleType->id }}"
-                                                    required
+                                                    @checked(old("vehicle_type_id") == $vehicleType->id)
                                                 />
                                                 <label class="text-center px-0" for="{{ $vehicleType->id }}"
                                                 ><img
@@ -53,17 +53,25 @@
                                                 >
                                             </div>
                                         @endforeach
+                                        @error('vehicle_type_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-6 px-3 mt-3">
                                         <h5>Delivery Location</h5>
-                                        <select class="form-select" required name="pickup_location_type" id="pickup_location_type">
-                                            <option selected disabled>Choose your desired location</option>
-                                            <option value="office">Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)</option>
-                                            <option value="hotel_villa">Hotel/Villa</option>
-                                            <option value="custom_address">My own address (Pinpoint Map)</option>
+                                        <select class="form-select @error('pickup_location_type') is-invalid @enderror" name="pickup_location_type" id="pickup_location_type">
+                                            @if(old("pickup_location_type")==null)
+                                                <option selected disabled>Choose your desired location</option>
+                                            @endif
+                                            @foreach(["office" => "Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)", "hotel_villa" => "Hotel/Villa", "custom_address" => "My own address (Pinpoint Map)"] AS $pickup_location_type => $pickup_location_type_label)
+                                                <option value="{{ $pickup_location_type }}" @selected(old("pickup_location_type") == $pickup_location_type)>{{ $pickup_location_type_label }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('pickup_location_type')
+                                            <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                        @enderror
                                         <h5 id="pickupAddressLabel" class="mt-3">Address of my villa / hotel :</h5>
                                         <input
                                             type="text"
@@ -76,21 +84,26 @@
                                         />
                                         <div class="form-group d-none" id="pickupLatitudeArea">
                                             <label>Latitude</label>
-                                            <input type="text" id="latitude_pickup" name="latitude_pickup" class="form-control">
+                                            <input type="text" id="latitude_pickup" name="latitude_pickup" class="form-control" value="{{ old('latitude_pickup') }}">
                                         </div>
                                         <div class="form-group d-none" id="pickupLongtitudeArea">
                                             <label>Longitude</label>
-                                            <input type="text" name="longitude_pickup" id="longitude_pickup" class="form-control">
+                                            <input type="text" name="longitude_pickup" id="longitude_pickup" class="form-control" value="{{ old('longitude_pickup') }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 px-3 mt-3">
                                         <h5>Return Location</h5>
-                                        <select class="form-select" required name="return_location_type" id="return_location_type">
-                                            <option selected disabled>Choose your desired location</option>
-                                            <option value="office">Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)</option>
-                                            <option value="hotel_villa">Hotel/Villa</option>
-                                            <option value="custom_address">My Own Address (Pinpoint Map)</option>
+                                        <select class="form-select @error('return_location_type') is-invalid @enderror" name="return_location_type" id="return_location_type">
+                                            @if(old("return_location_type")==null)
+                                                <option selected disabled>Choose your desired location</option>
+                                            @endif
+                                            @foreach(["office" => "Batur Sari Rental Office (Gg. Beji, Seminyak, Kuta)", "hotel_villa" => "Hotel/Villa", "custom_address" => "My own address (Pinpoint Map)"] AS $return_location_type => $return_location_type_label)
+                                                <option value="{{ $return_location_type }}" @selected(old("pickup_location_type") == $return_location_type)>{{ $return_location_type_label }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('return_location_type')
+                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                        @enderror
                                         <h5 id="returnAddressLabel" class="mt-3">Address of my villa / hotel :</h5>
                                         <input
                                             type="text"
@@ -103,11 +116,11 @@
                                         />
                                         <div class="form-group d-none" id="returnLatitudeArea">
                                             <label>Latitude</label>
-                                            <input type="text" id="latitude_return" name="latitude_return" class="form-control">
+                                            <input type="text" id="latitude_return" name="latitude_return" class="form-control" value="{{ old('latitude_return') }}">
                                         </div>
                                         <div class="form-group d-none" id="returnLongtitudeArea">
                                             <label>Longitude</label>
-                                            <input type="text" name="longitude_return" id="longitude_return" class="form-control">
+                                            <input type="text" name="longitude_return" id="longitude_return" class="form-control" value="{{ old('longitude_return') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -131,16 +144,19 @@
                                                 <h5>Delivery Date</h5>
                                                 <input
                                                     type="date"
-                                                    class="form-control"
+                                                    class="form-control @error('pick_up_date') is-invalid @enderror"
                                                     id="pick_up_date"
                                                     name="pick_up_date"
                                                     value="{{ old('pick_up_date') }}"
                                                     required
                                                 />
+                                                @error('pick_up_date')
+                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-5 px-0">
                                                 <h5>Delivery Time</h5>
-                                                <select class="form-select" name="pick_up_time" id="pick_up_time" required>
+                                                <select class="form-select @error('pick_up_time') is-invalid @enderror" name="pick_up_time" id="pick_up_time" required>
                                                     <option selected disabled>Select Time</option>
                                                     <option value="08:00">08:00</option>
                                                     <option value="08:30">08:30</option>
@@ -164,16 +180,9 @@
                                                     <option value="17:30">17:30</option>
                                                     <option value="18:00">18:00</option>
                                                 </select>
-{{--                                                <input--}}
-{{--                                                    type="time"--}}
-{{--                                                    class="form-control"--}}
-{{--                                                    id="pick_up_time"--}}
-{{--                                                    name="pick_up_time"--}}
-{{--                                                    value="{{ old('pick_up_time') }}"--}}
-{{--                                                    min="08:00"--}}
-{{--                                                    max="18:00"--}}
-{{--                                                    required--}}
-{{--                                                />--}}
+                                                @error('pick_up_time')
+                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -183,16 +192,19 @@
                                                 <h5>Return Date</h5>
                                                 <input
                                                     type="date"
-                                                    class="form-control"
+                                                    class="form-control @error('return_date') is-invalid @enderror"
                                                     id="return_date"
                                                     name="return_date"
                                                     value="{{ old('return_date') }}"
                                                     required
                                                 />
+                                                @error('return_date')
+                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="col-5 px-0">
                                                 <h5>Return Time</h5>
-                                                <select class="form-select" name="return_time" id="return_time" required>
+                                                <select class="form-select @error('return_time') is-invalid @enderror" name="return_time" id="return_time" required>
                                                     <option selected disabled>Select Time</option>
                                                     <option value="08:00">08:00</option>
                                                     <option value="08:30">08:30</option>
@@ -216,6 +228,9 @@
                                                     <option value="17:30">17:30</option>
                                                     <option value="18:00">18:00</option>
                                                 </select>
+                                                @error('return_time')
+                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -233,9 +248,9 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-5 mt-5 mt-lg-0">
                         <img
-                            src="images/misc/Group-152.png"
+                            src="/images/misc/Group-152.png"
                             class="img-fluid"
                             alt=""
                         />

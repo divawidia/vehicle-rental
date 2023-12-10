@@ -68,7 +68,8 @@ class Booking extends Model
         'country_code',
         'snap_token',
         'pickup_location_type',
-        'return_location_type'
+        'return_location_type',
+        'telegram'
     ];
 
     protected $hidden = [

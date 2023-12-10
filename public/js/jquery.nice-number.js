@@ -82,7 +82,7 @@
 					});
 
 					// Trigger the input event here to avoid event spam
-					if (event.type == 'mouseup' || event.type == 'mouseleave') {
+					if (event.type === 'mouseup' || event.type === 'mouseleave') {
 						$currentInput.trigger('input');
 					}
 				});
@@ -111,7 +111,7 @@
 					});
 
 					// Trigger the input event here to avoid event spam
-					if (event.type == 'mouseup' || event.type == 'mouseleave') {
+					if (event.type === 'mouseup' || event.type === 'mouseleave') {
 						$currentInput.trigger('input');
 					}
 				});
@@ -160,7 +160,7 @@
 	};
 
 	function changeInterval(eventType, interval, callback) {
-		if (eventType == 'mousedown') {
+		if (eventType === 'mousedown') {
 			interval.timeout = setTimeout(function () {
 				interval.actualInterval = setInterval(function () {
 					callback();
