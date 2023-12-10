@@ -37,7 +37,7 @@ Route::get('/booking-payment', [BookingController::class, 'userPageBooking3'])->
 Route::post('/booking-payment', [BookingController::class, 'postUserPageBooking3'])->name('booking-payment.post');
 
 Route::get('/payment/{transaction_code}', [BookingController::class, 'payBooking'])->name('pay-booking');
-Route::get('/payment-success/{transaction_code}', [BookingController::class, 'updateStatusIfSuccess'])->name('update-payment-booking-status');
+Route::get('/payment-success/{id}/{transaction_code}', [BookingController::class, 'updateStatusIfSuccess'])->name('update-payment-booking-status');
 Route::get('/payment/success/{transaction_code}', [BookingController::class, 'successPayment'])->name('pay-success');
 
 
