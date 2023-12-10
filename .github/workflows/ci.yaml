@@ -87,7 +87,4 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            sudo su batursarirental2
-            cd
-            cd ${{ secrets.SSH_PATH }} && ./.scripts/deploy.sh
+          script: cd ${{ secrets.SSH_PATH }} && ./.scripts/deploy.sh
