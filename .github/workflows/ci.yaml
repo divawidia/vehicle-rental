@@ -89,4 +89,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           script: |
             cd
-            cd ${{ secrets.SSH_PATH }} && ./.scripts/deploy.sh
+            ls
