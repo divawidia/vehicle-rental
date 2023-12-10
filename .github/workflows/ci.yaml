@@ -24,7 +24,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: MRdJoFT419yqWd3sFBtv
           MYSQL_DATABASE: baturSariRental
         ports:
           - 3306/tcp
@@ -88,7 +88,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            sudo su root
-            cd /
-            cd home/batursarirental2/htdocs/batursarirental.com
+            sudo su
+            cd /home/rental/htdocs/batursarirental.com/
             ls
