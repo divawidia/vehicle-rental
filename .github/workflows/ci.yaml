@@ -1,4 +1,4 @@
-name: Testing Laravel with MySQL
+name: Testing Laravel
 on:
   pull_request:
     branches:
@@ -85,6 +85,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd ${{ secrets.SSH_PATH }} && ./.scripts/deploy.sh
+          script: whoami
