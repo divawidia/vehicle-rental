@@ -90,4 +90,4 @@ jobs:
           script: |
             sudo su batursarirental2
             cd
-            cd ${{ secrets.SSH_PATH }} && ./.scripts/deploy.sh
+            ls
