@@ -20,7 +20,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::with(['user', 'tags'])->get();
+        $blogs = Blog::with(['user', 'tags'])->latest()->get();
         return view('pages.admin.blog.index', [
             'blogs' => $blogs
         ]);
