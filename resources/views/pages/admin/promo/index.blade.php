@@ -22,7 +22,7 @@
                         <h4 class="card-title">Promo Voucher</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('tipe.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('vouchers.create') }}" class="btn btn-primary mb-3">
                             + Tambah Voucher Baru
                         </a>
                         <div class="table-responsive">
@@ -38,6 +38,7 @@
                                     <th>Diskon</th>
                                     <th>Mulai Berlaku</th>
                                     <th>Akhir Berlaku</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,10 +49,10 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Promo Sale</h4>
+                        <h4 class="card-title">Promo Diskon Kendaraan</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('tipe.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('sales.create') }}" class="btn btn-primary mb-3">
                             + Tambah Sale
                         </a>
                         <div class="table-responsive">
@@ -65,7 +66,7 @@
                                     <th>Diskon</th>
                                     <th>Mulai Berlaku</th>
                                     <th>Akhir Berlaku</th>
-                                    <th>Kendaraan</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -125,7 +126,6 @@
                     { data: 'discount_amount', name: 'discount_amount' },
                     { data: 'starts_at', name: 'starts_at' },
                     { data: 'expires_at', name: 'expires_at' },
-                    { data: 'vehicles.vehicle_name', name: 'vehicles.vehicle_name' },
                     {
                         data: 'action',
                         name: 'action',

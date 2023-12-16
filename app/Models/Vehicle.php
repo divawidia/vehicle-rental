@@ -65,4 +65,9 @@ class Vehicle extends Model
     public function transmission(){
         return $this->belongsTo(Transmission::class, 'transmission_id', 'id');
     }
+
+    public function promos()
+    {
+        return $this->belongsToMany(Promo::class, 'vehicle_promo', 'vehicle_id', 'promo_id', 'id');
+    }
 }

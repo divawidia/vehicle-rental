@@ -110,7 +110,7 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
-                var values = $('#tags option[selected="true"]').map(function() { return $(this).val(); }).get();
+                // var values = $('#tags option[selected="true"]').map(function() { return $(this).val(); }).get();
                 $('.form-select').select2({
                     width:'100%',
                     theme: 'bootstrap-5'

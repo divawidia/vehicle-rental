@@ -15,7 +15,7 @@ class VoucherController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Promo::where('type', 'voucher')->get();
+            $query = Promo::query()->where('type', 'voucher')->latest();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
@@ -26,13 +26,13 @@ class VoucherController extends Controller
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.edit', $item->id) . '">Edit</a>
+                                    <a class="dropdown-item" href="' . route('vouchers.edit', $item->id) . '">Edit</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.show', $item->id) . '">Detail</a>
+                                    <a class="dropdown-item" href="' . route('vouchers.show', $item->id) . '">Detail</a>
                                 </li>
                                 <li>
-                                <form action="' . route('bookings.destroy', $item->id) . '" method="POST">
+                                <form action="' . route('vouchers.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
                                     <button type="submit" class="dropdown-item">
                                         Hapus
@@ -73,7 +73,7 @@ class VoucherController extends Controller
         $data = $request->all();
 
         $data['type'] = 'voucher';
-
+        $data['uses'] = 0;
         Promo::create($data);
 
         return redirect()->route('promo-index')->with('status', 'Voucher diskon berhasil ditambahkan!');
