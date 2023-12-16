@@ -71,4 +71,10 @@ class Vehicle extends Model
     {
         return $this->belongsToMany(Promo::class, 'vehicle_promo', 'vehicle_id', 'promo_id', 'id');
     }
+
+    public function notsale()
+    {
+        return $this->belongsToMany(Promo::class, 'vehicle_promo', 'vehicle_id', 'promo_id', 'id')
+            ->wherePivot('status', '0');
+    }
 }

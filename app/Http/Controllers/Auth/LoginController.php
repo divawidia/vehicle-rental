@@ -51,7 +51,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'roles' => 'ADMIN', 'status' => 1])) {
             $request->session()->regenerate();
 
-            return redirect($this->redirectTo);
+            return redirect($this->redirectTo); 
         }
 
         return back()->withErrors([

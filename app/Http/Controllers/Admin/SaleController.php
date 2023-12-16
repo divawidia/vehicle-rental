@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Promo;
 use App\Models\Vehicle;
 use App\Models\VehicleBrand;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -55,7 +56,7 @@ class SaleController extends Controller
                     if ($item->status == 1) {
                         $badge = '<span class="badge bg-success">Aktif</span>';
                     }else{
-                        $badge = '<span class="badge badge-warning">Tidak Aktif</span>';
+                        $badge = '<span class="badge bg-danger">Tidak Aktif</span>';
                     }
                     return $badge;
                 })
@@ -72,6 +73,7 @@ class SaleController extends Controller
     public function create()
     {
         $vehicles = Vehicle::all();
+//        dd($vehicles);
         return view('pages.admin.promo.sale.create',[
             'vehicles' => $vehicles
         ]);
@@ -106,9 +108,11 @@ class SaleController extends Controller
     public function edit(string $id)
     {
         $promo = Promo::findOrFail($id);
+        $vehicles = Vehicle::all();
 
         return view('pages.admin.promo.sale.edit', [
-            'promo' => $promo
+            'promo' => $promo,
+            'vehicles' => $vehicles
         ]);
     }
 
