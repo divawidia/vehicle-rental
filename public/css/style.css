@@ -11877,11 +11877,40 @@ input[type="range"]::-moz-range-thumb {
     margin-top: 10px;
     font-size: 14px;
 }
+
 .de-item .d-price span{
     font-size: 30px;
     font-weight: bold;
     display: block;
     color:#000000;
+}
+
+.de-item .d-price-old{
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    color:#000000;
+}
+.de-item .d-price-old:before{
+    position: absolute;
+    width: 55%;
+    height: 18%;
+    content: '';
+    border-bottom: 2px solid #333333
+}
+
+.de-item .d-price-month-old{
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+    color:#000000;
+}
+.de-item .d-price-month-old:before{
+    position: absolute;
+    width: 40%;
+    height: 18%;
+    content: '';
+    border-bottom: 2px solid #333333
 }
 
 .de-item .d-price-month span{

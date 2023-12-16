@@ -239,8 +239,31 @@
                                                             {{ $vehicle->vehicle_type->vehicle_type_name }}
                                                         </span>
                                                     </div>
+                                                    @php
+                                                        dd(\Illuminate\Support\Facades\DB::table('vehicles')
+                                                                ->join('vehicle_promo', 'users.id', '=', 'contacts.user_id')
+                                                                ->join('orders', 'users.id', '=', 'orders.user_id')
+                                                                ->select('users.*', 'contacts.phone', 'orders.price')
+                                                                ->get());
+
+                                                    @endphp
                                                     <div class="d-price">
-                                                        Daily rate <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                        Daily rate
+                                                        <div class="d-flex justify-content-start">
+                                                            <span class="text-danger">Rp. {{ number_format($vehicle->daily_price) }}</span><h4 class="badge bg-danger w-25 text-white mx-3">-10%</h4>
+                                                        </div>
+                                                        <div class="d-price-old">Rp. {{ number_format($vehicle->daily_price) }}</div>
+                                                    </div>
+{{--                                                    <div class="d-price">--}}
+{{--                                                        Daily rate--}}
+{{--                                                        <span>Rp. {{ number_format($vehicle->daily_price) }}</span>--}}
+{{--                                                    </div>--}}
+                                                    <div class="d-price-month">
+                                                        Monthly rate
+                                                        <div class="d-flex justify-content-start">
+                                                            <span class="text-danger">Rp. {{ number_format($vehicle->daily_price) }}</span><h4 class="badge bg-danger w-25 text-white mx-3">-10%</h4>
+                                                        </div>
+                                                        <div class="d-price-month-old">Rp. {{ number_format($vehicle->daily_price) }}</div>
                                                     </div>
                                                     <div class="d-price-month">
                                                         Monthly rate <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
