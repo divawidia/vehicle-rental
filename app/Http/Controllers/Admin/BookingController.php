@@ -259,6 +259,18 @@ class BookingController extends Controller
         $return_date = new DateTime($data['return_date']);
         $total_days_rent = $pickup_date->diff($return_date)->format('%a');
         $vehicle = Vehicle::where('id', $request->vehicle_id)->first();
+        if (!$vehicle->promos->isEmpty()){
+            foreach ($vehicle->promos as $promo){
+                $discount_status = $promo->status;
+                $discount_percentage = $promo->discount_amount;
+                $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
+                $daily_price = $vehicle->daily_price - $discount_daily;
+                $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
+                $monthly_price = $vehicle->monthly_price - $discount_daily;
+            }
+        }else{
+            $discount_status = '0';
+        }
 
         $month_rent = 0;
         $monthly_rent_price = 0;
