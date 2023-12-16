@@ -30,7 +30,8 @@ class Vehicle extends Model
         'weekly_price',
         'monthly_price',
         'unit_quantity',
-        'thumbnail'
+        'thumbnail',
+        'discount_status'
     ];
 
     protected $hidden = [
