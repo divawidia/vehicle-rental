@@ -27,7 +27,7 @@ return new class extends Migration
             // The max uses this voucher has
             $table->integer( 'max_uses')->unsigned()->nullable( );
 
-            // The amount to discount by (in pennies) in this example.
+            // The amount to sale by (in pennies) in this example.
             $table->integer( 'discount_amount' );
 
             // When the voucher begins
