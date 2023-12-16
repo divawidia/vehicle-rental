@@ -7,11 +7,13 @@ use App\Mail\BookingConfirmationCashMail;
 use App\Mail\BookingConfirmationTrfMail;
 use App\Mail\PayBookingTrfMail;
 use App\Models\Booking;
+use App\Models\Promo;
 use App\Models\Transmission;
 use App\Models\Vehicle;
 use App\Models\VehicleDetail;
 use App\Models\VehicleType;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Database\Query\Builder;
@@ -63,37 +65,37 @@ class BookingController extends Controller
                 })
                 ->editColumn('rent_status', function ($item){
                         if ($item->rent_status == 'Selesai') {
-                            $badge = '<span class="badge bg-success">' . $item->rent_status; '</span>';
+                            $badge = '<span class="badge bg-success">' . $item->rent_status . '</span>';
                         }elseif ($item->rent_status == 'Disewa'){
-                            $badge = '<span class="badge bg-warning">' . $item->rent_status; '</span>';
+                            $badge = '<span class="badge bg-warning">' . $item->rent_status . '</span>';
                         }elseif ($item->rent_status == 'Dibooking'){
-                            $badge = '<span class="badge bg-secondary">' . $item->rent_status; '</span>';
+                            $badge = '<span class="badge bg-secondary">' . $item->rent_status . '</span>';
                         }else{
-                            $badge = '<span class="badge bg-danger">' . $item->rent_status; '</span>';
+                            $badge = '<span class="badge bg-danger">' . $item->rent_status . '</span>';
                         }
                     return $badge;
                 })
                 ->editColumn('transaction_status', function ($item){
                     if ($item->transaction_status == 'Belum Dibayar') {
-                        $badge = '<span class="badge bg-warning">' . $item->transaction_status; '</span>';
+                        $badge = '<span class="badge bg-warning">' . $item->transaction_status . '</span>';
                     }else{
-                        $badge = '<span class="badge bg-success">' . $item->transaction_status; '</span>';
+                        $badge = '<span class="badge bg-success">' . $item->transaction_status . '</span>';
                     }
                     return $badge;
                 })
                 ->editColumn('shipping_status', function ($item){
                     if ($item->shipping_status == 'Belum') {
-                        $badge = '<span class="badge bg-warning">' . $item->shipping_status; '</span>';
+                        $badge = '<span class="badge bg-warning">' . $item->shipping_status . '</span>';
                     }else{
-                        $badge = '<span class="badge bg-success">' . $item->shipping_status; '</span>';
+                        $badge = '<span class="badge bg-success">' . $item->shipping_status . '</span>';
                     }
                     return $badge;
                 })
                 ->editColumn('return_status', function ($item){
                     if ($item->return_status == 'Belum') {
-                        $badge = '<span class="badge bg-warning">' . $item->return_status; '</span>';
+                        $badge = '<span class="badge bg-warning">' . $item->return_status . '</span>';
                     }else{
-                        $badge = '<span class="badge bg-success">' . $item->return_status; '</span>';
+                        $badge = '<span class="badge bg-success">' . $item->return_status . '</span>';
                     }
                     return $badge;
                 })
@@ -209,6 +211,19 @@ class BookingController extends Controller
         return view('pages.choose-vehicle', compact('booking', 'vehicles'));
     }
 
+//    public function checkVoucher(Request $request){
+//        if (Promo::where('code', '=', $request->voucher)
+//            ->where('uses', '<=', 'max_uses')
+//            ->where('starts_at', '>=', Carbon::today())
+//            ->where('expires_at', '<=', Carbon::today())
+//            ->where('status', 1)
+//            ->exist()){
+//            $promo = Promo::where('code', '=', $request->voucher)->first();
+//            $discount_price = $total_price * $promo->discount_amount;
+//            $total_price = $total_price - $discount_price;
+//        }
+//    }
+
     public function getRentPrice(Request $request){
         $data = $request->all();
         $response_pickup = \GoogleMaps::load('distancematrix')
@@ -279,6 +294,31 @@ class BookingController extends Controller
             $insurance_price = 0;
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
         }
+
+        if ($request->voucher) {
+            $promo = Promo::where('code', '=', $request->voucher)->first();
+            $today = Carbon::today()->format('Y-m-d H:i:s');
+//            dd(Promo::where('code', '=', $request->voucher)->where('expires_at', '>', $today)->first());
+            if (DB::table('promos')
+                ->where('code', '=', $request->voucher)
+                ->where('uses', '<', $promo->max_uses)
+                ->where('starts_at', '<=', Carbon::today()->toDateString())
+                ->where('expires_at', '>=', $today)
+                ->where('status', '=', '1')
+                ->exists()){
+                $promo = Promo::where('code', '=', $request->voucher)->first();
+                $discount_price = $total_price * $promo->discount_amount / 100;
+                $total_price = $total_price - $discount_price;
+                $data['discount'] = $promo->discount_amount;
+                $data['discount_price'] = $discount_price;
+                $message = 'Your voucher code are valid';
+            }else{
+                $message = 'Your voucher code are invalid';
+            }
+        }else{
+            $message = 'success';
+        }
+
         $data['vehicle_name'] = $vehicle->vehicle_name;
         $data['vehicle_daily_price'] = $vehicle->daily_price;
         $data['vehicle_year'] = $vehicle->year;
@@ -297,7 +337,7 @@ class BookingController extends Controller
         $data['total_price'] = $total_price;
         $data['rounded_distance_pickup'] = $rounded_distance_pickup;
 
-        return response()->json($data);
+        return response()->json([$data, 'message' => $message]);
     }
 
     public function postUserPageBooking2(Request $request){
@@ -387,6 +427,28 @@ class BookingController extends Controller
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
         }
 
+        if ($request->voucher) {
+            $promo = Promo::where('code', '=', $request->voucher)->first();
+            $today = Carbon::today()->format('Y-m-d H:i:s');
+//            dd(Promo::where('code', '=', $request->voucher)->where('expires_at', '>', $today)->first());
+            if (DB::table('promos')
+                ->where('code', '=', $request->voucher)
+                ->where('uses', '<', $promo->max_uses)
+                ->where('starts_at', '<=', $today)
+                ->where('expires_at', '>=', $today)
+                ->where('status', '=', '1')
+                ->exists()){
+                $promo = Promo::where('code', '=', $request->voucher)->first();
+                $discount_price = $total_price * $promo->discount_amount / 100;
+                $total_price = $total_price - $discount_price;
+                $data['discount_price'] = $discount_price;
+                $data['promo_id'] = $promo->id;
+                $data['discount'] = $promo->discount_amount;
+            }else{
+                $data['discount_price'] = 0;
+            }
+        }
+
         $data['total_days_rent'] = $total_days_rent;
         $data['month_rent'] = $month_rent;
         $data['monthly_rent_price'] = $monthly_rent_price;
@@ -403,7 +465,6 @@ class BookingController extends Controller
         $data['rounded_distance_pickup'] = $rounded_distance_pickup;
         $data['distance_return'] = $distance_return;
         $data['rounded_distance_return'] = $rounded_distance_return;
-
         $data['pick_up_loc'] = $pickup_loc;
         $data['return_loc'] = $return_loc;
         $data['latitude_pickup'] = $booking['latitude_pickup'];
@@ -419,7 +480,6 @@ class BookingController extends Controller
 
         $vehicleDetail = VehicleDetail::where('vehicle_id', '=', $request->vehicle_id)->where('status', '=', 'tersedia')->first();
         $data['vehicle_detail_id'] = $vehicleDetail->id;
-
 
         $newBooking = new Booking();
 
@@ -458,6 +518,9 @@ class BookingController extends Controller
             DB::table('vehicle_details')
                 ->where('id', '=', $booking['vehicle_detail_id'])
                 ->update(['status' => 'disewa']);
+            if ($booking['promo_id']){
+                DB::table('promos')->increment('uses', 1, ['id' => $booking['promo_id']]);
+            }
 
             Mail::to($data['email'])->send(new BookingConfirmationCashMail($booking));
 
@@ -494,6 +557,9 @@ class BookingController extends Controller
                 $booking['snap_token'] = $snaptoken;
                 $booking['transaction_code'] = $code;
                 $booking->save();
+                if ($booking['promo_id']){
+                    DB::table('promos')->increment('uses', 1, ['id' => $booking['promo_id']]);
+                }
 
                 Mail::to($data['email'])->send(new PayBookingTrfMail($booking));
 
@@ -557,7 +623,6 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-//        $origin = '';
         $response_pickup = \GoogleMaps::load('distancematrix')
             ->setParam ([
                 'origins'    =>'Batur Sari Rental',
@@ -634,6 +699,27 @@ class BookingController extends Controller
         } else{
             $insurance_price = 0;
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
+        }
+
+        if ($request->voucher) {
+            $promo = Promo::where('code', '=', $request->voucher)->first();
+            $today = Carbon::today()->format('Y-m-d H:i:s');
+//            dd(Promo::where('code', '=', $request->voucher)->where('expires_at', '>', $today)->first());
+            if (DB::table('promos')
+                ->where('code', '=', $request->voucher)
+                ->where('uses', '<', $promo->max_uses)
+                ->where('starts_at', '<=', $today)
+                ->where('expires_at', '>=', $today)
+                ->where('status', '=', '1')
+                ->exists()){
+                $promo = Promo::where('code', '=', $request->voucher)->first();
+                $discount_price = $total_price * $promo->discount_amount / 100;
+                $total_price = $total_price - $discount_price;
+                $data['discount_price'] = $discount_price;
+                $data['promo_id'] = $promo->id;
+            }else{
+                $data['discount_price'] = 0;
+            }
         }
 
         $data['total_days_rent'] = $total_days_rent;

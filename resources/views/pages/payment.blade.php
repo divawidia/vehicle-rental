@@ -297,6 +297,14 @@
                                             Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000) :</th>
                                         <td class="border-0 p-0"> Rp. {{ number_format($booking->shipping_price) }}</td>
                                     </tr>
+
+                                    @if($booking->discount_price > 0)
+                                        <tr class="py-0">
+                                            <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
+                                                    Discount ({{ $booking->discount }}%) :</th>
+                                            <td class="border-0 p-0"> - Rp. {{ number_format($booking->discount_price) }}</td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <th scope="row" colspan="3" class="border-0 p-0 fw-bold"><h4 class="m-0 text-end fw-semibold">Total :</h4></th>
                                         <td class="border-0 p-0">

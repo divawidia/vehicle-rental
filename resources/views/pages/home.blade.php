@@ -155,7 +155,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-5 px-0">
-                                                <h5>Delivery Time</h5>
+                                                <h5>Time</h5>
                                                 <select class="form-select @error('pick_up_time') is-invalid @enderror" name="pick_up_time" id="pick_up_time" required>
                                                     <option selected disabled>Select Time</option>
                                                     <option value="08:00">08:00</option>
@@ -203,7 +203,7 @@
                                                 @enderror
                                             </div>
                                             <div class="col-5 px-0">
-                                                <h5>Return Time</h5>
+                                                <h5>Time</h5>
                                                 <select class="form-select @error('return_time') is-invalid @enderror" name="return_time" id="return_time" required>
                                                     <option selected disabled>Select Time</option>
                                                     <option value="08:00">08:00</option>

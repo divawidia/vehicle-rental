@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <form action="{{ route('vouchers.update', $promo->id) }}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="card">
                         <div class="card-header">

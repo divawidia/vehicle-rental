@@ -111,6 +111,7 @@
                                         </div>
                                         <div class="form-check col-3 col-lg-2 d-flex justify-content-center">
                                             <input class="form-check-input mx-1" type="checkbox" value="include" id="insurance" name="insurance">
+                                            <p id="ntahlah"></p>
                                         </div>
                                         <div class="border-bottom w-75 mb-2"></div>
                                         <div id="summary">
@@ -172,6 +173,20 @@
                                         <div class="border-bottom w-75 mt-2 mb-3"></div>
                                         <h4>Free</h4>
                                         <p>You dont have to worry if you getting wet in the rainy season, we have raincoat to cover you from rain</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-top w-100 mb-3"></div>
+                                        <div class="row">
+                                            <h4>Voucher Code : </h4>
+                                            <p>If you have valid voucher code, use your voucher code to claim your rental discount</p>
+                                            <div class="col-9 col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Input your voucher code" id="voucher" name="voucher" required>
+                                                <span class="" id="voucher-validation"></span>
+                                            </div>
+                                            <div class="col-3">
+                                                <a class="btn-main color-2 mx-2" id="apply-voucher-btn" href="#voucher">Apply</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -264,6 +279,11 @@
                                                     id="pickup_distance"></th>
                                                 <td class="border-0 text-end p-1" id="delivery_charge"></td>
                                             </tr>
+                                            <tr id="discount_row">
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1" id="discount_percentage">
+                                                </th>
+                                                <td class="border-0 p-1" id="discount_price"></td>
+                                            </tr>
                                             <tr>
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1"><h4
                                                         class="m-0 fw-semibold">Total :</h4></th>
@@ -306,6 +326,7 @@
             const pick_up_date = "{!! $booking['pick_up_date'] !!}";
             const return_date = "{!! $booking['return_date'] !!}";
             const helmet = document.getElementById('helmet').value;
+            const voucherValidation = document.getElementById("voucher-validation");
             $("#vehicleName").html('');
             $("#vehicleColorYear").html('');
             $("#rentDays").html('');
@@ -318,11 +339,16 @@
             $("#first_aid_kit_row").hide();
             $("#phone_holder_row").hide();
             $("#raincoat_row").hide();
+            $("#discount_row").hide();
             $("#pickup_distance").html('');
             $("#delivery_charge").html('');
             $("#total_price").html('');
+
             $('.vehicle').on('change', function () {
-                const vehicle_id = $('.vehicle').val();
+                const vehicle_id = $("input[name='vehicle_id']:checked").val();
+                const insurance = $("input[name='insurance']:checked").val();
+                const voucher = $('#voucher').val();
+                // alert(insurance);
                 $.ajax({
                     url: "{{ url()->route('get-rent-price')}}",
                     type: "POST",
@@ -333,52 +359,74 @@
                         return_date: return_date,
                         vehicle_id: vehicle_id,
                         helmet: helmet,
+                        insurance: insurance,
+                        voucher: voucher,
                         _token: '{{csrf_token()}}'
                     },
                     dataType: 'json',
                     success: function (result) {
-                        $('#vehicleName').html('<h4 class="text-truncate mb-0">' + result.vehicle_name + '</h4>');
-                        $('#vehicleColorYear').html('<p class="text-muted mb-0">' + result.vehicle_color + ', '+result.vehicle_year+'</p>');
-                        $('#rentDays').html('<p>' + result.total_days_rent + ' Days</p>');
-                        $('#vehiclePrice').html(result.vehicle_daily_price.toLocaleString('id-ID', {
+                        $('#vehicleName').html('<h4 class="text-truncate mb-0">' + result[0].vehicle_name + '</h4>');
+                        $('#vehicleColorYear').html('<p class="text-muted mb-0">' + result[0].vehicle_color + ', '+result.vehicle_year+'</p>');
+                        $('#rentDays').html('<p>' + result[0].total_days_rent + ' Days</p>');
+                        $('#vehiclePrice').html(result[0].vehicle_daily_price.toLocaleString('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
                         }));
-                        $('#rentDays2').html('<td>' + result.total_days_rent + ' Days</td>');
-                        $('#dailyRentPrice').html('<td>' + result.daily_rent_price.toLocaleString('id-ID', {
+                        $('#rentDays2').html('<td>' + result[0].total_days_rent + ' Days</td>');
+                        $('#dailyRentPrice').html('<td>' + result[0].daily_rent_price.toLocaleString('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
                         }) + '</td>');
-                        $('#bookingPrice').html('<td>' + result.booking_price.toLocaleString('id-ID', {
+                        $('#bookingPrice').html('<td>' + result[0].booking_price.toLocaleString('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
                         }) + '</td>');
-                        $("#pickup_distance").html('Delivery Charge (' + result.rounded_distance_pickup + ' KM x Rp. 10.000):');
-                        $("#delivery_charge").html('<td class="border-0 text-end" id="delivery_charge">' + result.shipping_price.toLocaleString('id-ID', {
+                        $("#pickup_distance").html('Delivery Charge (' + result[0].rounded_distance_pickup + ' KM x Rp. 10.000):');
+                        $("#delivery_charge").html('<td class="border-0 text-end" id="delivery_charge">' + result[0].shipping_price.toLocaleString('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
                         }) + '</td>');
-                        $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result.total_price.toLocaleString('id-ID', {
+                        $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
                             style: 'currency',
                             currency: 'IDR'
                         }) + '</h4>')
-                        if (result.monthly_rent_price > 0) {
+                        if (result[0].monthly_rent_price > 0) {
                             $("#monthRow").show();
                             $('#monthRate').html('<p>Monthly</p>');
                             $('#monthPrice').html('<td>Rp. {{ number_format($vehicle->monthly_price ?? 0) }}</td>');
-                            $('#monthRent').html('<td>' + result.month_rent + ' Month</td>');
-                            $('#monthRentTotal').html(result.monthly_rent_price.toLocaleString('id-ID', {
+                            $('#monthRent').html('<td>' + result[0].month_rent + ' Month</td>');
+                            $('#monthRentTotal').html(result[0].monthly_rent_price.toLocaleString('id-ID', {
                                 style: 'currency',
                                 currency: 'IDR'
                             }));
+                        }
+                        if (result[0].insurance_price > 0) {
+                            $("#insuranceRow").show();
+                            $('#rentInsurance').html('<td>' + result[0].insurance_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }) + '</td>');
+                        } else {
+                            $("#insuranceRow").hide();
+                        }
+                        if (result[0].discount_price > 0) {
+                            $("#discount_row").show();
+                            $('#discount_percentage').html('Discount (' + result[0].discount + '%) :');
+                            $('#discount_price').html('- ' + result[0].discount_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }));
+                        }else {
+                            $("#discount_row").hide();
                         }
                     }
                 });
             });
             $('#insurance').on('change', function () {
-                if (this.checked) {
-                    const insurance = this.value;
-                    const vehicle_id = $('.vehicle').val();
+                const vehicle_id = $("input[name='vehicle_id']:checked").val();
+                const insurance = $("input[name='insurance']:checked").val();
+                const voucher = $('#voucher').val();
+                if (vehicle_id) {
                     $.ajax({
                         url: "{{ url()->route('get-rent-price')}}",
                         type: "POST",
@@ -389,24 +437,99 @@
                             pick_up_date: pick_up_date,
                             return_date: return_date,
                             vehicle_id: vehicle_id,
+                            voucher: voucher,
                             _token: '{{csrf_token()}}'
                         },
                         dataType: 'json',
                         success: function (result) {
-                            $("#insuranceRow").show();
-                            $('#rentInsurance').html('<td>' + result.insurance_price.toLocaleString('id-ID', {
-                                style: 'currency',
-                                currency: 'IDR'
-                            }) + '</td>');
-                            $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result.total_price.toLocaleString('id-ID', {
+                            if (result[0].insurance_price > 0) {
+                                $("#insuranceRow").show();
+                                $('#rentInsurance').html('<td>' + result[0].insurance_price.toLocaleString('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR'
+                                }) + '</td>');
+                            }else {
+                                $("#insuranceRow").hide();
+                            }
+                            if (result[0].discount_price > 0) {
+                                $("#discount_row").show();
+                                $('#discount_percentage').html('Discount (' + result[0].discount + '%) :');
+                                $('#discount_price').html('- ' + result[0].discount_price.toLocaleString('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR'
+                                }));
+                            }else {
+                                $("#discount_row").hide();
+                            }
+                            $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
                                 style: 'currency',
                                 currency: 'IDR'
                             }) + '</h4>')
                         }
                     });
-                } else {
-                    $("#insuranceRow").hide();
+                } else if (!vehicle_id) {
+                    alert('Please choose your vehicle first');
+                    $('#insurance').prop("checked", false);
                 }
+            });
+            $('#apply-voucher-btn').on('click', function () {
+                const vehicle_id = $("input[name='vehicle_id']:checked").val();
+                const insurance = $("input[name='insurance']:checked").val();
+                    const voucher = $('#voucher').val();
+                    if (!voucher) {
+                        $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                        $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please input your voucher code</strong>');
+                    }else if (!vehicle_id){
+                        $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                        $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please choose your vehicle first</strong>');
+                    }
+                    else {
+                        $.ajax({
+                            url: "{{ url()->route('get-rent-price')}}",
+                            type: "POST",
+                            data: {
+                                insurance: insurance,
+                                pick_up_loc: pick_up_loc,
+                                return_loc: return_loc,
+                                pick_up_date: pick_up_date,
+                                return_date: return_date,
+                                vehicle_id: vehicle_id,
+                                voucher: voucher,
+                                _token: '{{csrf_token()}}'
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result[0].insurance_price > 0) {
+                                    $("#insuranceRow").show();
+                                    $('#rentInsurance').html('<td>' + result[0].insurance_price.toLocaleString('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR'
+                                    }) + '</td>');
+                                }else {
+                                    $("#insuranceRow").hide();
+                                }
+                                if (result.message === 'Your voucher code are valid') {
+                                    $('#voucher').removeClass('is-invalid').addClass("is-valid");
+                                    $('#voucher-validation').removeClass('text-danger').addClass("text-success").html('<strong>*' + result['message'] + '</strong>');
+                                    $("#discount_row").show();
+                                    $('#discount_percentage').html('Discount (' + result[0].discount + '%) :');
+                                    $('#discount_price').html('- ' + result[0].discount_price.toLocaleString('id-ID', {
+                                        style: 'currency',
+                                        currency: 'IDR'
+                                    }));
+                                }else {
+                                    $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                                    $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*' + result['message'] + '</strong>');
+                                    $("#discount_row").hide();
+                                }
+                                $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR'
+                                }) + '</h4>')
+                                // }
+                            }
+                        });
+                    }
             });
             $('#first_aid_kit').on('change', function () {
                 if (this.checked) {
