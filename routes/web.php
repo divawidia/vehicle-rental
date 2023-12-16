@@ -102,6 +102,7 @@ Route::prefix('admin')
                 Route::resource('transmisi', TransmissionController::class);
                 Route::resource('brand', VehicleBrandController::class);
             });
+
         Route::resource('kendaraan', VehicleController::class);
         Route::post('/kendaraan/photo/upload', [VehicleController::class, 'uploadPhoto'])->name('vehicle-photo-upload');
         Route::post('/kendaraan-desc/photo/upload', [VehicleController::class, 'uploadDescPhoto'])->name('vehicle-desc-photo-upload');
@@ -119,8 +120,12 @@ Route::prefix('admin')
         Route::post('api/fetch-vehicleDetail', [BookingController::class, 'fetchVehicleDetail'])->name('fetch-vehicle-detail');
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
-        Route::resource('vouchers', VoucherController::class);
-        Route::resource('sales', SaleController::class);
+        Route::prefix('promos')
+            ->group(function (){
+                Route::get('/', function () {return view('pages.admin.promo.index');})->name('promo-index');
+                Route::resource('vouchers', VoucherController::class);
+                Route::resource('sales', SaleController::class);
+            });
 
         Route::prefix('blogs')
             ->group(function () {
