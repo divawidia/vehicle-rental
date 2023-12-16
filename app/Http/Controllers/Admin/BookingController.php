@@ -511,15 +511,21 @@ class BookingController extends Controller
         $data['country_code'] = strtoupper($request->country_code);
         $booking = $request->session()->get('booking');
 
+        $code = 'RENT-' . mt_rand(00000, 999999);
+        if ($this->transactionCodeExist($code)) {
+            $code = 'RENT-' . mt_rand(00000, 999999);
+        }
+
         if ($request->transaction_type == 'COD') {
             $booking->fill($data);
+            $booking['transaction_code'] = $code;
             $booking->save();
 
             DB::table('vehicle_details')
                 ->where('id', '=', $booking['vehicle_detail_id'])
                 ->update(['status' => 'disewa']);
             if ($booking['promo_id']){
-                DB::table('promos')->increment('uses', 1, ['id' => $booking['promo_id']]);
+                DB::table('promos')->where('id', $booking['promo_id'])->increment('uses');
             }
 
             Mail::to($data['email'])->send(new BookingConfirmationCashMail($booking));
@@ -527,10 +533,6 @@ class BookingController extends Controller
             return redirect()->route('finish-payment');
         }elseif ($request->transaction_type == 'Transfer'){
             $booking->fill($data);
-            $code = 'RENT-' . mt_rand(00000, 999999);
-            if ($this->transactionCodeExist($code)) {
-                $code = 'RENT-' . mt_rand(00000, 999999);
-            }
 
             Config::$serverKey = config('services.midtrans.serverKey');
             Config::$isProduction = config('services.midtrans.isProduction');
@@ -558,7 +560,7 @@ class BookingController extends Controller
                 $booking['transaction_code'] = $code;
                 $booking->save();
                 if ($booking['promo_id']){
-                    DB::table('promos')->increment('uses', 1, ['id' => $booking['promo_id']]);
+                    DB::table('promos')->where('id', $booking['promo_id'])->increment('uses');
                 }
 
                 Mail::to($data['email'])->send(new PayBookingTrfMail($booking));
