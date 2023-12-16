@@ -120,7 +120,7 @@ Route::prefix('admin')
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
         Route::resource('vouchers', VoucherController::class);
-        Route::resource('sale', SaleController::class);
+        Route::resource('sales', SaleController::class);
 
         Route::prefix('blogs')
             ->group(function () {

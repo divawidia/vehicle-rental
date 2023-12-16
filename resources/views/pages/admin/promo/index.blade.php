@@ -86,7 +86,7 @@
                 serverSide: true,
                 ordering: true,
                 ajax: {
-                    url: '{!! url()->route('voucher.index') !!}',
+                    url: '{!! url()->route('vouchers.index') !!}',
                 },
                 columns: [
                     { data: 'id', name: 'id' },
@@ -115,7 +115,7 @@
                 serverSide: true,
                 ordering: true,
                 ajax: {
-                    url: '{!! url()->route('sale.index') !!}',
+                    url: '{!! url()->route('sales.index') !!}',
                 },
                 columns: [
                     { data: 'id', name: 'id' },
