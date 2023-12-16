@@ -8,6 +8,16 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="facebook-domain-verification" content="mdmpe6vvsqk7chu3lbj3xeu4aa6p7b" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5337SZ8686"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-5337SZ8686');
+    </script>
 
     <title>@yield('title')</title>
 

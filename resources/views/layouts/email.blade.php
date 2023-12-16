@@ -6,8 +6,7 @@
 
     <!-- include head css -->
     <style>
-
-    </style>
+   </style>
 </head>
 
 @yield('body')
