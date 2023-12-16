@@ -19,7 +19,8 @@ class Promo extends Model
         'max_uses',
         'discount_amount',
         'starts_at',
-        'expires_at'
+        'expires_at',
+        'status'
     ];
 
     protected $hidden = [
