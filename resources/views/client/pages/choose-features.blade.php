@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Booking | Batur Sari Rental Bali

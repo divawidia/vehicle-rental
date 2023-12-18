@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Payment | Batur Sari Rental Bali
@@ -63,7 +63,8 @@
 
                                 <div class="col-md-6">
                                     <div class="field-set">
-                                        <label for="no_hp_wa">Mobile Number (Whatsapp):<span class="text-danger">*</span></label>
+                                        <label for="no_hp_wa">Mobile Number
+                                            (Whatsapp):<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control @error('no_hp_wa') is-invalid @enderror" required placeholder="eg +6283213123221"
                                                id="no_hp_wa" name="no_hp_wa">
                                         @error('no_hp_wa')
@@ -183,8 +184,8 @@
                                 <label>Booking Note (optional):</label>
                                 <div class="col-12">
                                     <div class="field-set">
-                                    <textarea  class="form-control w-100 @error('note') is-invalid @enderror"
-                                               id="note" name="note" rows="3"></textarea>
+                                    <textarea class="form-control w-100 @error('note') is-invalid @enderror"
+                                              id="note" name="note" rows="3"></textarea>
                                         @error('note')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -200,12 +201,14 @@
                                 <h3 class="font-size-16 mt-3 mb-2">Delivery :</h3>
                                 @php $pick_up_date = strtotime($booking->pick_up_datetime) @endphp
                                 @php $pick_up_time = strtotime($booking->pick_up_time) @endphp
-                                <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }} @ {{ date('g:i A',$pick_up_time) }}</p>
+                                <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }}
+                                    @ {{ date('g:i A',$pick_up_time) }}</p>
                                 <p class="mb-0">{{ $booking->pick_up_loc }}</p>
                                 <h3 class="font-size-16 mt-3 mb-2">Return :</h3>
                                 @php $return_date = strtotime($booking->return_datetime) @endphp
                                 @php $return_time = strtotime($booking->return_time) @endphp
-                                <p class="mb-0">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_time) }}</p>
+                                <p class="mb-0">{{ date('D, M d, Y',$return_date) }}
+                                    @ {{ date('g:i A',$return_time) }}</p>
                                 <p class="mb-0">{{ $booking->return_loc }}</p>
                             </div>
                             <h3 class="text-truncate font-size-14 mt-3 mb-0">{{ $booking->vehicle->vehicle_name }}</h3>
@@ -231,7 +234,8 @@
                                                 <p class="text-muted mb-0">Daily</p>
                                             </div>
                                         </td>
-                                        <td class="p-0">Rp. {{ number_format($booking->vehicle->daily_price ?? 0) }}</td>
+                                        <td class="p-0">
+                                            Rp. {{ number_format($booking->vehicle->daily_price ?? 0) }}</td>
                                         <td class="p-0">{{ $booking->day_rent }} Day</td>
                                         <td class="p-0">Rp. {{ number_format($booking->daily_rent_price ?? 0) }}</td>
                                     </tr>
@@ -242,9 +246,11 @@
                                                     <p class="text-muted mb-0">Monthly</p>
                                                 </div>
                                             </td>
-                                            <td class="p-0">Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
+                                            <td class="p-0">
+                                                Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
                                             <td class="p-0">{{ $booking->month_rent }} Month</td>
-                                            <td class="text-end p-0">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
+                                            <td class="text-end p-0">
+                                                Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
                                         </tr>
                                     @endif
                                     <tr class="py-0">
@@ -255,15 +261,18 @@
                                     @if($booking->insurance == 'include')
                                         <tr class="py-0">
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                Insurance (25%) :</th>
-                                            <td class="border-0 p-0"> Rp. {{ number_format($booking->insurance_price) }}</td>
+                                                Insurance (25%) :
+                                            </th>
+                                            <td class="border-0 p-0">
+                                                Rp. {{ number_format($booking->insurance_price) }}</td>
                                         </tr>
                                     @endif
                                     <!-- end tr -->
                                     @if($booking->first_aid_kit == 'include')
                                         <tr class="py-0">
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                Accessory - First Aid Kit :</th>
+                                                Accessory - First Aid Kit :
+                                            </th>
                                             <td class="border-0 p-0"> Rp. 0</td>
                                         </tr>
                                     @endif
@@ -271,7 +280,8 @@
                                     @if($booking->phone_holder == 'include')
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                Accessory - Phone Holder :</th>
+                                                Accessory - Phone Holder :
+                                            </th>
                                             <td class="border-0 p-0"> Rp. 0</td>
                                         </tr>
                                     @endif
@@ -279,7 +289,8 @@
                                     @if($booking->raincoat == 'include')
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                Accessory - Raincoat :</th>
+                                                Accessory - Raincoat :
+                                            </th>
                                             <td class="border-0 p-0"> Rp. 0</td>
                                         </tr>
                                     @endif
@@ -287,47 +298,54 @@
                                     @if($booking->helmet > 0)
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                Accessory - Helmet ({{ $booking->helmet }}pcs) :</th>
+                                                Accessory - Helmet ({{ $booking->helmet }}pcs) :
+                                            </th>
                                             <td class="border-0 p-0"> Rp. 0</td>
                                         </tr>
                                     @endif
 
                                     <tr>
                                         <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                            Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000) :</th>
+                                            Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000) :
+                                        </th>
                                         <td class="border-0 p-0"> Rp. {{ number_format($booking->shipping_price) }}</td>
                                     </tr>
 
                                     @if($booking->discount_price > 0)
                                         <tr class="py-0">
                                             <th scope="row" colspan="3" class="border-0 text-end p-0 fw-bold">
-                                                    Discount ({{ $booking->discount }}%) :</th>
-                                            <td class="border-0 p-0"> - Rp. {{ number_format($booking->discount_price) }}</td>
+                                                Discount ({{ $booking->discount }}%) :
+                                            </th>
+                                            <td class="border-0 p-0"> -
+                                                Rp. {{ number_format($booking->discount_price) }}</td>
                                         </tr>
                                     @endif
                                     <tr>
-                                        <th scope="row" colspan="3" class="border-0 p-0 fw-bold"><h4 class="m-0 text-end fw-semibold">Total :</h4></th>
+                                        <th scope="row" colspan="3" class="border-0 p-0 fw-bold">
+                                            <h4 class="m-0 text-end fw-semibold">Total :</h4></th>
                                         <td class="border-0 p-0">
-                                            <h4 class="m-0 fw-semibold"> Rp. {{ number_format($booking->total_price ?? 0) }}</h4>
+                                            <h4 class="m-0 fw-semibold">
+                                                Rp. {{ number_format($booking->total_price ?? 0) }}</h4>
                                         </td>
                                     </tr>
                                     <!-- end tr -->
                                     </tbody><!-- end tbody -->
                                 </table><!-- end table -->
                             </div><!-- end table responsive -->
-                            <h3 class="border-bottom-padding border-top pt-3 my-4">Please Select your Payment Method<span class="text-danger">*</span></h3>
+                            <h3 class="border-bottom-padding border-top pt-3 my-4">Please Select your Payment
+                                Method<span class="text-danger">*</span></h3>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" value="COD" type="radio" name="transaction_type" id="COD" required>
-{{--                                <div class="rounded border d-flex w-100 mx-2 px-2">--}}
-                                    <div class="row rounded border d-flex w-100 mx-2 p-3">
-                                        <div class="col-6">
-                                            <p class="mb-0">Cash on Delivery</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <img class="float-end" width="25px" src="/images/icons/cash.png">
-                                        </div>
+                                {{--                                <div class="rounded border d-flex w-100 mx-2 px-2">--}}
+                                <div class="row rounded border d-flex w-100 mx-2 p-3">
+                                    <div class="col-6">
+                                        <p class="mb-0">Cash on Delivery</p>
                                     </div>
-{{--                                    <div class="py-2"><p class="mb-0">Cash on Delivery  <img class="float-end" width="25px" src="/images/icons/cash.png"></p></div>--}}
+                                    <div class="col-6">
+                                        <img class="float-end" width="25px" src="/images/icons/cash.png">
+                                    </div>
+                                </div>
+                                {{--                                    <div class="py-2"><p class="mb-0">Cash on Delivery  <img class="float-end" width="25px" src="/images/icons/cash.png"></p></div>--}}
                             </div>
                             <div class="form-check mb-3 d-flex align-items-center">
                                 <input class="form-check-input" value="Transfer" type="radio" name="transaction_type" id="Transfer" required>

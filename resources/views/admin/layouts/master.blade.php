@@ -29,7 +29,7 @@
 
     <!-- sidebar components -->
     @include('admin.layouts.sidebar')
-    @include('layouts.admin.horizontal')
+    @include('client.layouts.admin.horizontal')
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->

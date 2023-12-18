@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Booking | Batur Sari Rental Bali
@@ -149,45 +149,49 @@
 
                 <div class="row">
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".2s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".2s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-car"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Choose a vehicle</h4></a>
-                                Unlock unparalleled adventures and memorable journeys with our vast fleet of vehicles tailored to suit every need, taste, and destination.
+                                Unlock unparalleled adventures and memorable journeys with our vast fleet of vehicles
+                                tailored to suit every need, taste, and destination.
                             </div>
                             <span class="wm">1</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".4s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".4s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-calendar"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Pick location &amp; date</h4></a>
-                                Pick your ideal location and date, and let us take you on a journey filled with convenience, flexibility, and unforgettable experiences.
+                                Pick your ideal location and date, and let us take you on a journey filled with
+                                convenience, flexibility, and unforgettable experiences.
                             </div>
                             <span class="wm">2</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-pencil-square-o"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Make a booking</h4></a>
-                                Secure your reservation with ease, unlocking a world of possibilities and embarking on your next adventure with confidence.
+                                Secure your reservation with ease, unlocking a world of possibilities and embarking on
+                                your next adventure with confidence.
                             </div>
                             <span class="wm">3</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-smile-o"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Sit back & relax</h4></a>
-                                Hassle-free convenience as we take care of every detail, allowing you to unwind and embrace a journey filled comfort.
+                                Hassle-free convenience as we take care of every detail, allowing you to unwind and
+                                embrace a journey filled comfort.
                             </div>
                             <span class="wm">3</span>
                         </div>
@@ -216,12 +220,12 @@
                 country: 'id',
             });
 
-            autocomplete_pickup.addListener('place_changed', function() {
+            autocomplete_pickup.addListener('place_changed', function () {
                 var place = autocomplete_pickup.getPlace();
                 $('#latitude_pickup').val(place.geometry['location'].lat());
                 $('#longitude_pickup').val(place.geometry['location'].lng());
             });
-            autocomplete_return.addListener('place_changed', function() {
+            autocomplete_return.addListener('place_changed', function () {
                 var place = autocomplete_return.getPlace();
                 $('#latitude_return').val(place.geometry['location'].lat());
                 $('#longitude_return').val(place.geometry['location'].lng());
@@ -229,19 +233,19 @@
         }
     </script>
     <script>
-        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        var date = new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"));
         const localTime = date.toLocaleString();
         $("input[name='pick_up_datetime']").attr({
-            "min" : localTime
+            "min": localTime
         });
     </script>
     <script>
-        $("input[name='pick_up_datetime']").change(function() {
+        $("input[name='pick_up_datetime']").change(function () {
             var date = new Date($(this).val());
-            var date = date.setDate(date.getDate()+1);
-            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
+            var date = date.setDate(date.getDate() + 1);
+            var date = new Date(date).toISOString().slice(0, new Date(date).toISOString().lastIndexOf(":"));
             $("input[name='return_datetime']").attr({
-                "min" : date
+                "min": date
             });
         })
     </script>

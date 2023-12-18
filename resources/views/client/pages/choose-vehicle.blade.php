@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Booking | Batur Sari Rental Bali
@@ -37,112 +37,112 @@
                         @csrf
                         <div class="row">
                             <h2 class="border-bottom-padding pt-lg-5 mb-4">Choose Your Vehicle</h2>
-                                <div class="de_form de_radio row d-flex justify-content-center">
-                                    <div id="items-carousel" class="owl-carousel wow fadeIn">
-                                        @foreach($vehicles as $vehicle)
+                            <div class="de_form de_radio row d-flex justify-content-center">
+                                <div id="items-carousel" class="owl-carousel wow fadeIn">
+                                    @foreach($vehicles as $vehicle)
                                         <div class="radio-img col-lg-12">
                                             <div class="de-item mb30">
-                                            <div class="d-img">
-                                                <img src="{{ Storage::url($vehicle->thumbnail) }}" class="img-fluid" alt="vehicle_thumbnail"/>
-                                            </div>
-                                            <div class="d-info">
-                                                <div class="d-text">
-                                                    <h4>{{ $vehicle->vehicle_name }}</h4>
-                                                    <div class="d-atr-group">
+                                                <div class="d-img">
+                                                    <img src="{{ Storage::url($vehicle->thumbnail) }}" class="img-fluid" alt="vehicle_thumbnail"/>
+                                                </div>
+                                                <div class="d-info">
+                                                    <div class="d-text">
+                                                        <h4>{{ $vehicle->vehicle_name }}</h4>
+                                                        <div class="d-atr-group">
                                                         <span class="d-atr">
-                                                            <img src="images/icons/1.svg" alt="" />
+                                                            <img src="images/icons/1.svg" alt=""/>
                                                             {{ $vehicle->passenger }}
                                                         </span>
-                                                        <span class="d-atr">
+                                                            <span class="d-atr">
                                                             <img src="images/icons/engine.svg" alt=""/>
                                                             {{ $vehicle->engine_capacity }}
                                                         </span>
-                                                        <span class="d-atr">
+                                                            <span class="d-atr">
                                                             <img src="images/icons/transmission.svg" alt=""/>
                                                             @php
                                                                 $transmission = \App\Models\Transmission::findOrFail($vehicle->transmission_id);
                                                             @endphp
-                                                            {{ $transmission->transmission_type }}
+                                                                {{ $transmission->transmission_type }}
                                                         </span>
-                                                        <span class="d-atr">
+                                                            <span class="d-atr">
                                                             <img class="pt-0" src="images/icons/scooter.svg" alt="" height="30px"/>
                                                             @php
                                                                 $vehicle_type = \App\Models\VehicleType::findOrFail($vehicle->vehicle_type_id);
                                                             @endphp
-                                                            {{ $vehicle_type->vehicle_type_name }}
+                                                                {{ $vehicle_type->vehicle_type_name }}
                                                         </span>
-                                                    </div>
-                                                    <div class="d-price">
-                                                        <div class="row d-flex align-items-center">
-                                                            @php
-                                                                if (!$vehicle->promos->isEmpty()){
-                                                                    foreach ($vehicle->promos as $promo){
-                                                                        $discount_status = $promo->status;
-                                                                        $discount_percentage = $promo->discount_amount;
-                                                                        $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
-                                                                        $daily_price = $vehicle->daily_price - $discount_daily;
-                                                                        $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
-                                                                        $monthly_price = $vehicle->monthly_price - $discount_monthly;
+                                                        </div>
+                                                        <div class="d-price">
+                                                            <div class="row d-flex align-items-center">
+                                                                @php
+                                                                    if (!$vehicle->promos->isEmpty()){
+                                                                        foreach ($vehicle->promos as $promo){
+                                                                            $discount_status = $promo->status;
+                                                                            $discount_percentage = $promo->discount_amount;
+                                                                            $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
+                                                                            $daily_price = $vehicle->daily_price - $discount_daily;
+                                                                            $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
+                                                                            $monthly_price = $vehicle->monthly_price - $discount_monthly;
+                                                                        }
+                                                                    }else{
+                                                                        $discount_status = '0';
                                                                     }
-                                                                }else{
-                                                                    $discount_status = '0';
-                                                                }
-                                                            @endphp
-                                                            @if($discount_status == '1')
-                                                                <div class="d-price">
-                                                                    Daily rate
-                                                                    <div class="d-flex justify-content-start">
+                                                                @endphp
+                                                                @if($discount_status == '1')
+                                                                    <div class="d-price">
+                                                                        Daily rate
+                                                                        <div class="d-flex justify-content-start">
                                                                 <span
                                                                     class="text-danger">Rp. {{ number_format($daily_price) }}</span>
-                                                                        <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                            -{{ $discount_percentage }}%</h4>
+                                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                                -{{ $discount_percentage }}%</h4>
+                                                                        </div>
+                                                                        <div class="d-price-old">
+                                                                            Rp. {{ number_format($vehicle->daily_price) }}</div>
                                                                     </div>
-                                                                    <div class="d-price-old">
-                                                                        Rp. {{ number_format($vehicle->daily_price) }}</div>
-                                                                </div>
-                                                                <div class="d-price-month">
-                                                                    Monthly rate
-                                                                    <div class="d-flex justify-content-start">
+                                                                    <div class="d-price-month">
+                                                                        Monthly rate
+                                                                        <div class="d-flex justify-content-start">
                                                                 <span
                                                                     class="text-danger">Rp. {{ number_format($monthly_price) }}</span>
-                                                                        <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                            -{{ $discount_percentage }}%</h4>
+                                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                                -{{ $discount_percentage }}%</h4>
+                                                                        </div>
+                                                                        <div class="d-price-month-old">
+                                                                            Rp. {{ number_format($vehicle->monthly_price) }}</div>
                                                                     </div>
-                                                                    <div class="d-price-month-old">
-                                                                        Rp. {{ number_format($vehicle->monthly_price) }}</div>
+                                                                @elseif($discount_status == '0')
+                                                                    <div class="d-price">
+                                                                        Daily rate
+                                                                        <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                                    </div>
+                                                                    <div class="d-price-month">
+                                                                        Monthly rate
+                                                                        <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
+                                                                    </div>
+                                                                @endif
+                                                                <div class="mt-4">
+                                                                    <input
+                                                                        class="vehicle"
+                                                                        id="{{ $vehicle->id }}"
+                                                                        name="vehicle_id"
+                                                                        type="radio"
+                                                                        value="{{ $vehicle->id }}"
+                                                                        required
+                                                                    />
+                                                                    <label for="{{ $vehicle->id }}" style="padding: 10px">
+                                                                        Choose This
+                                                                    </label>
                                                                 </div>
-                                                            @elseif($discount_status == '0')
-                                                                <div class="d-price">
-                                                                    Daily rate
-                                                                    <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
-                                                                </div>
-                                                                <div class="d-price-month">
-                                                                    Monthly rate
-                                                                    <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
-                                                                </div>
-                                                            @endif
-                                                            <div class="mt-4">
-                                                                <input
-                                                                    class="vehicle"
-                                                                    id="{{ $vehicle->id }}"
-                                                                    name="vehicle_id"
-                                                                    type="radio"
-                                                                    value="{{ $vehicle->id }}"
-                                                                    required
-                                                                />
-                                                                <label for="{{ $vehicle->id }}" style="padding: 10px">
-                                                                    Choose This
-                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                                    </div>
+                                    @endforeach
                                 </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-8">
                                     <h2 class="border-top pt-3 mb-0">Additional Features</h2>
@@ -159,11 +159,17 @@
                                         <div class="border-bottom w-75 mb-2"></div>
                                         <div id="summary">
                                             <p class="collapse mb-0" id="collapseSummary">
-                                                Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.
+                                                Insurance Covering Damage & Theft to the Motorcycle only 25% from total
+                                                bike rent rate. With this insurance, you will be free from the risk If
+                                                your motorcycle is stolen, gets damaged in an accident, or is otherwise
+                                                engaged in an incident, you won't have to worry about paying hefty
+                                                repair bills thanks to our motorcycle insurance. Regarding any repair or
+                                                motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have
+                                                you completely covered.
                                             </p>
                                             <a class="collapsed" data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="false" aria-controls="collapseSummary"></a>
                                         </div>
-{{--                                        <p>Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.</p>--}}
+                                        {{--                                        <p>Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.</p>--}}
                                     </div>
                                     <div class="border-bottom w-100 mt-3 mb-3"></div>
                                     <div class="row">
@@ -179,12 +185,14 @@
                                         </div>
                                         <div class="border-bottom w-75 mt-3 mb-3"></div>
                                         <h4>Free</h4>
-                                        <p>You will get free one or two helmet, Our helmet are already cleaned and sanitized, so you dont have to worry if you get stinky helmet</p>
+                                        <p>You will get free one or two helmet, Our helmet are already cleaned and
+                                            sanitized, so you dont have to worry if you get stinky helmet</p>
                                     </div>
                                     <div class="row">
                                         <div class="border-top w-100 mb-3"></div>
                                         <div class="col-7 col-lg-4">
-                                            <label class="form-check-label" for="first_aid_kit"><h3>First Aid Kit</h3></label>
+                                            <label class="form-check-label" for="first_aid_kit"><h3>First Aid Kit</h3>
+                                            </label>
                                         </div>
                                         <div class="form-check col-3 col-lg-2 d-flex justify-content-center">
                                             <input class="form-check-input mx-1" type="checkbox" value="include" id="first_aid_kit" name="first_aid_kit">
@@ -196,14 +204,16 @@
                                     <div class="row">
                                         <div class="border-top w-100 mb-3"></div>
                                         <div class="col-8 col-lg-5">
-                                            <label class="form-check-label" for="phone_holder"><h3>Phone Holder</h3></label>
+                                            <label class="form-check-label" for="phone_holder"><h3>Phone Holder</h3>
+                                            </label>
                                         </div>
                                         <div class="form-check col-2 col-lg-1 d-flex justify-content-start px-1 px-lg-0">
                                             <input class="form-check-input mx-1" type="checkbox" value="include" id="phone_holder" name="phone_holder">
                                         </div>
                                         <div class="border-bottom w-75 mt-2 mb-3"></div>
                                         <h4>Free</h4>
-                                        <p>With our smartphone holders, you may now travel the island with ease and reach your goal while carrying a fully charged phone!</p>
+                                        <p>With our smartphone holders, you may now travel the island with ease and
+                                            reach your goal while carrying a fully charged phone!</p>
                                     </div>
                                     <div class="row">
                                         <div class="border-top w-100 mb-3"></div>
@@ -215,13 +225,15 @@
                                         </div>
                                         <div class="border-bottom w-75 mt-2 mb-3"></div>
                                         <h4>Free</h4>
-                                        <p>You dont have to worry if you getting wet in the rainy season, we have raincoat to cover you from rain</p>
+                                        <p>You dont have to worry if you getting wet in the rainy season, we have
+                                            raincoat to cover you from rain</p>
                                     </div>
                                     <div class="row">
                                         <div class="border-top w-100 mb-3"></div>
                                         <div class="row">
                                             <h4>Voucher Code : </h4>
-                                            <p>If you have valid voucher code, use your voucher code to claim your rental discount</p>
+                                            <p>If you have valid voucher code, use your voucher code to claim your
+                                                rental discount</p>
                                             <div class="col-9 col-lg-6">
                                                 <input type="text" class="form-control" placeholder="Input your voucher code" id="voucher" name="voucher" required>
                                                 <span class="" id="voucher-validation"></span>
@@ -284,7 +296,8 @@
                                                 <td id="monthRentTotal" class="p-1"></td>
                                             </tr>
                                             <tr class="py-0">
-                                                <th scope="row" colspan="3" class="text-end fw-bold p-1">Sub Total :</th>
+                                                <th scope="row" colspan="3" class="text-end fw-bold p-1">Sub Total :
+                                                </th>
                                                 <td class="text-end p-1" id="bookingPrice"></td>
                                             </tr>
                                             <tr class="py-0" id="insuranceRow">
@@ -312,7 +325,8 @@
                                                 <td class="border-0 p-1">Rp. 0</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">Accessory -
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">
+                                                    Accessory -
                                                     Helmet :
                                                 </th>
                                                 <td class="border-0 p-1">Rp. 0</td>
@@ -352,7 +366,8 @@
                     </form>
                 @else
                     <div class="row">
-                        <h2 class="border-bottom-padding pt-lg-5 mb-4 text-center">Sorry, we dont have the vehicle you want :(</h2>
+                        <h2 class="border-bottom-padding pt-lg-5 mb-4 text-center">Sorry, we dont have the vehicle you
+                            want :(</h2>
                     </div>
                 @endif
             </div>
@@ -409,7 +424,7 @@
                     dataType: 'json',
                     success: function (result) {
                         $('#vehicleName').html('<h4 class="text-truncate mb-0">' + result[0].vehicle_name + '</h4>');
-                        $('#vehicleColorYear').html('<p class="text-muted mb-0">' + result[0].vehicle_color + ', '+result.vehicle_year+'</p>');
+                        $('#vehicleColorYear').html('<p class="text-muted mb-0">' + result[0].vehicle_color + ', ' + result.vehicle_year + '</p>');
                         $('#rentDays').html('<p>' + result[0].total_days_rent + ' Days</p>');
                         $('#vehiclePrice').html(result[0].vehicle_daily_price.toLocaleString('id-ID', {
                             style: 'currency',
@@ -459,7 +474,7 @@
                                 style: 'currency',
                                 currency: 'IDR'
                             }));
-                        }else {
+                        } else {
                             $("#discount_row").hide();
                         }
                     }
@@ -491,7 +506,7 @@
                                     style: 'currency',
                                     currency: 'IDR'
                                 }) + '</td>');
-                            }else {
+                            } else {
                                 $("#insuranceRow").hide();
                             }
                             if (result[0].discount_price > 0) {
@@ -501,7 +516,7 @@
                                     style: 'currency',
                                     currency: 'IDR'
                                 }));
-                            }else {
+                            } else {
                                 $("#discount_row").hide();
                             }
                             $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
@@ -518,61 +533,60 @@
             $('#apply-voucher-btn').on('click', function () {
                 const vehicle_id = $("input[name='vehicle_id']:checked").val();
                 const insurance = $("input[name='insurance']:checked").val();
-                    const voucher = $('#voucher').val();
-                    if (!voucher) {
-                        $('#voucher').removeClass('is-valid').addClass("is-invalid");
-                        $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please input your voucher code</strong>');
-                    }else if (!vehicle_id){
-                        $('#voucher').removeClass('is-valid').addClass("is-invalid");
-                        $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please choose your vehicle first</strong>');
-                    }
-                    else {
-                        $.ajax({
-                            url: "{{ url()->route('get-rent-price')}}",
-                            type: "POST",
-                            data: {
-                                insurance: insurance,
-                                pick_up_loc: pick_up_loc,
-                                return_loc: return_loc,
-                                pick_up_date: pick_up_date,
-                                return_date: return_date,
-                                vehicle_id: vehicle_id,
-                                voucher: voucher,
-                                _token: '{{csrf_token()}}'
-                            },
-                            dataType: 'json',
-                            success: function (result) {
-                                if (result[0].insurance_price > 0) {
-                                    $("#insuranceRow").show();
-                                    $('#rentInsurance').html('<td>' + result[0].insurance_price.toLocaleString('id-ID', {
-                                        style: 'currency',
-                                        currency: 'IDR'
-                                    }) + '</td>');
-                                }else {
-                                    $("#insuranceRow").hide();
-                                }
-                                if (result.message === 'Your voucher code are valid') {
-                                    $('#voucher').removeClass('is-invalid').addClass("is-valid");
-                                    $('#voucher-validation').removeClass('text-danger').addClass("text-success").html('<strong>*' + result['message'] + '</strong>');
-                                    $("#discount_row").show();
-                                    $('#discount_percentage').html('Discount (' + result[0].discount + '%) :');
-                                    $('#discount_price').html('- ' + result[0].discount_price.toLocaleString('id-ID', {
-                                        style: 'currency',
-                                        currency: 'IDR'
-                                    }));
-                                }else {
-                                    $('#voucher').removeClass('is-valid').addClass("is-invalid");
-                                    $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*' + result['message'] + '</strong>');
-                                    $("#discount_row").hide();
-                                }
-                                $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
+                const voucher = $('#voucher').val();
+                if (!voucher) {
+                    $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                    $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please input your voucher code</strong>');
+                } else if (!vehicle_id) {
+                    $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                    $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*Please choose your vehicle first</strong>');
+                } else {
+                    $.ajax({
+                        url: "{{ url()->route('get-rent-price')}}",
+                        type: "POST",
+                        data: {
+                            insurance: insurance,
+                            pick_up_loc: pick_up_loc,
+                            return_loc: return_loc,
+                            pick_up_date: pick_up_date,
+                            return_date: return_date,
+                            vehicle_id: vehicle_id,
+                            voucher: voucher,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result[0].insurance_price > 0) {
+                                $("#insuranceRow").show();
+                                $('#rentInsurance').html('<td>' + result[0].insurance_price.toLocaleString('id-ID', {
                                     style: 'currency',
                                     currency: 'IDR'
-                                }) + '</h4>')
-                                // }
+                                }) + '</td>');
+                            } else {
+                                $("#insuranceRow").hide();
                             }
-                        });
-                    }
+                            if (result.message === 'Your voucher code are valid') {
+                                $('#voucher').removeClass('is-invalid').addClass("is-valid");
+                                $('#voucher-validation').removeClass('text-danger').addClass("text-success").html('<strong>*' + result['message'] + '</strong>');
+                                $("#discount_row").show();
+                                $('#discount_percentage').html('Discount (' + result[0].discount + '%) :');
+                                $('#discount_price').html('- ' + result[0].discount_price.toLocaleString('id-ID', {
+                                    style: 'currency',
+                                    currency: 'IDR'
+                                }));
+                            } else {
+                                $('#voucher').removeClass('is-valid').addClass("is-invalid");
+                                $('#voucher-validation').removeClass('text-success').addClass("text-danger").html('<strong>*' + result['message'] + '</strong>');
+                                $("#discount_row").hide();
+                            }
+                            $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result[0].total_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }) + '</h4>')
+                            // }
+                        }
+                    });
+                }
             });
             $('#first_aid_kit').on('change', function () {
                 if (this.checked) {

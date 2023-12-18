@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     About Us | Batur Sari Rental Bali
@@ -29,40 +29,47 @@
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-6 wow fadeInRight">
-                        <h2>We offer customers a wide range of <span class="id-color">scooters, motorbike</span> and <span class="id-color">cars</span> for any occasion.</h2>
+                        <h2>We offer customers a wide range of <span class="id-color">scooters, motorbike</span> and
+                            <span class="id-color">cars</span> for any occasion.</h2>
                     </div>
                     <div class="col-lg-6 wow fadeInRight" data-wow-delay=".25s">
-                        Welcome to Bali Batur Rental, your one-stop destination for scooter and car rental in Bali. We provide a best car and scooter rental in Bali with a wide selection of well-maintained scooters and cars to suit your needs.
-                        Whether you’re cruising down the coastal highways on a scooter or exploring Bali’s lush green forests in a car, we’ve got you covered. We offer affordable scooter rental price, and flexible rental periods to fit your schedule. Our team is dedicated to ensuring your safety and comfort throughout your rental period. So, what are you waiting for? Book your bike or car rental with Taman Sari Batur Rental today and experience the freedom of exploring Bali on your terms.
+                        Welcome to Bali Batur Rental, your one-stop destination for scooter and car rental in Bali. We
+                        provide a best car and scooter rental in Bali with a wide selection of well-maintained scooters
+                        and cars to suit your needs.
+                        Whether you’re cruising down the coastal highways on a scooter or exploring Bali’s lush green
+                        forests in a car, we’ve got you covered. We offer affordable scooter rental price, and flexible
+                        rental periods to fit your schedule. Our team is dedicated to ensuring your safety and comfort
+                        throughout your rental period. So, what are you waiting for? Book your bike or car rental with
+                        Taman Sari Batur Rental today and experience the freedom of exploring Bali on your terms.
                     </div>
                 </div>
                 <div class="spacer-double"></div>
-{{--                <div class="row text-center">--}}
-{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-{{--                            <h3 class="timer" data-to="12000" data-speed="3000">0</h3>--}}
-{{--                            Completed Orders--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-{{--                            <h3 class="timer" data-to="10000" data-speed="3000">0</h3>--}}
-{{--                            Happy Customers--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-{{--                            <h3 class="timer" data-to="120" data-speed="3000">0</h3>--}}
-{{--                            Vehicles Fleet--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-{{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-{{--                            <h3 class="timer" data-to="23" data-speed="3000">0</h3>--}}
-{{--                            Years Experience--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="row text-center">--}}
+                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+                {{--                            <h3 class="timer" data-to="12000" data-speed="3000">0</h3>--}}
+                {{--                            Completed Orders--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+                {{--                            <h3 class="timer" data-to="10000" data-speed="3000">0</h3>--}}
+                {{--                            Happy Customers--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+                {{--                            <h3 class="timer" data-to="120" data-speed="3000">0</h3>--}}
+                {{--                            Vehicles Fleet--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
+                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
+                {{--                            <h3 class="timer" data-to="23" data-speed="3000">0</h3>--}}
+                {{--                            Years Experience--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
             </div>
         </section>
 
@@ -79,14 +86,16 @@
                             <i class="fa bg-color fa-trophy"></i>
                             <div class="d-inner">
                                 <h4>First class services</h4>
-                                Where luxury meets exceptional care, creating unforgettable moments and exceeding your every expectation.
+                                Where luxury meets exceptional care, creating unforgettable moments and exceeding your
+                                every expectation.
                             </div>
                         </div>
                         <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>24/7 road assistance</h4>
-                                Reliable support when you need it most, keeping you on the move with confidence and peace of mind.
+                                Reliable support when you need it most, keeping you on the move with confidence and
+                                peace of mind.
                             </div>
                         </div>
                     </div>
@@ -100,14 +109,16 @@
                             <i class="fa bg-color fa-tag"></i>
                             <div class="d-inner">
                                 <h4>Quality at Minimum Expense</h4>
-                                Unlocking affordable brilliance with elevating quality while minimizing costs for maximum value.
+                                Unlocking affordable brilliance with elevating quality while minimizing costs for
+                                maximum value.
                             </div>
                         </div>
                         <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>Free Pick-Up & Drop-Off</h4>
-                                Enjoy free pickup and drop-off services within 10km delivery, adding an extra layer of ease to your car rental experience.
+                                Enjoy free pickup and drop-off services within 10km delivery, adding an extra layer of
+                                ease to your car rental experience.
                             </div>
                         </div>
                     </div>
@@ -119,7 +130,8 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-8">
-                        <h2 class="s2">Call us for further information. Batur Sari Rental customer care is here to help you anytime.</h2>
+                        <h2 class="s2">Call us for further information. Batur Sari Rental customer care is here to help
+                            you anytime.</h2>
                     </div>
 
                     <div class="col-lg-4 text-lg-center text-sm-center">

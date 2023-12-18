@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Our Vehicle | Batur Sari Rental Bali
@@ -11,7 +11,7 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="/images/background/16.jpg" class="jarallax-img" alt="" />
+            <img src="/images/background/16.jpg" class="jarallax-img" alt=""/>
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">
@@ -31,22 +31,22 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                <img src="{{ Storage::url($vehicle->thumbnail) }}" alt="" />
+                                <img src="{{ Storage::url($vehicle->thumbnail) }}" alt=""/>
                             </div>
                             @foreach($vehicle->photos as $photo)
                                 <div class="item">
-                                    <img src="{{ Storage::url($photo->photo_url) }}" alt="" />
+                                    <img src="{{ Storage::url($photo->photo_url) }}" alt=""/>
                                 </div>
                             @endforeach
-{{--                            <div class="item">--}}
-{{--                                <img src="images/car-single/2.jpg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="item">--}}
-{{--                                <img src="images/car-single/3.jpg" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="item">--}}
-{{--                                <img src="images/car-single/4.jpg" alt="">--}}
-{{--                            </div>--}}
+                            {{--                            <div class="item">--}}
+                            {{--                                <img src="images/car-single/2.jpg" alt="">--}}
+                            {{--                            </div>--}}
+                            {{--                            <div class="item">--}}
+                            {{--                                <img src="images/car-single/3.jpg" alt="">--}}
+                            {{--                            </div>--}}
+                            {{--                            <div class="item">--}}
+                            {{--                                <img src="images/car-single/4.jpg" alt="">--}}
+                            {{--                            </div>--}}
                         </div>
                     </div>
 
@@ -241,9 +241,9 @@
                                         </div>
                                         <div class="col-lg-12 mb20">
                                             <h5 id="rentDays"></h5>
-{{--                                                <p></p>--}}
+                                            {{--                                                <p></p>--}}
                                             <h5 id="rentPrice"></h5>
-{{--                                                <h4></h4>--}}
+                                            {{--                                                <h4></h4>--}}
                                         </div>
                                     </div>
 
@@ -257,7 +257,8 @@
                                     <div class="clearfix"></div>
                                 </form>
                             @else
-                                <h4>Sorry, you can't rent this {{ $vehicle->vehicle_type->vehicle_type_name }} because there is no unit available at this momment :(</h4>
+                                <h4>Sorry, you can't rent this {{ $vehicle->vehicle_type->vehicle_type_name }} because
+                                    there is no unit available at this momment :(</h4>
                             @endif
                         </div>
 
@@ -300,12 +301,12 @@
                 country: 'id',
             });
 
-            autocomplete_pickup.addListener('place_changed', function() {
+            autocomplete_pickup.addListener('place_changed', function () {
                 var place = autocomplete_pickup.getPlace();
                 $('#latitude_pickup').val(place.geometry['location'].lat());
                 $('#longitude_pickup').val(place.geometry['location'].lng());
             });
-            autocomplete_return.addListener('place_changed', function() {
+            autocomplete_return.addListener('place_changed', function () {
                 var place = autocomplete_return.getPlace();
                 $('#latitude_return').val(place.geometry['location'].lat());
                 $('#longitude_return').val(place.geometry['location'].lng());
@@ -313,58 +314,64 @@
         }
     </script>
     <script>
-        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        var date = new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf(":"));
         const localTime = date.toLocaleString();
         $("input[name='pick_up_datetime']").attr({
-            "min" : localTime
+            "min": localTime
         });
     </script>
-{{--    <script>--}}
-{{--        $("input[name='pick_up_datetime']").change(function() {--}}
-{{--            var date = new Date($(this).val());--}}
-{{--            var date = date.setDate(date.getDate()+1);--}}
-{{--            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));--}}
-{{--            $("input[name='return_datetime']").attr({--}}
-{{--                "min" : date--}}
-{{--            });--}}
-{{--        })--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $("input[name='pick_up_datetime']").change(function() {--}}
+    {{--            var date = new Date($(this).val());--}}
+    {{--            var date = date.setDate(date.getDate()+1);--}}
+    {{--            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));--}}
+    {{--            $("input[name='return_datetime']").attr({--}}
+    {{--                "min" : date--}}
+    {{--            });--}}
+    {{--        })--}}
+    {{--    </script>--}}
     <script>
         $(document).ready(function () {
-                $("input[name='pick_up_datetime']").change(function() {
-                    var date = new Date($(this).val());
-                    var date = date.setDate(date.getDate()+1);
-                    var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
-                    $("input[name='return_datetime']").attr({
-                        "min" : date
-                    });
-                })
-                $('#return_datetime').on('change', function () {
-                    var pick_up_loc = document.getElementById('autocomplete_pickup').value;
-                    var return_loc = document.getElementById('autocomplete_return').value;
-                    var pick_up_datetime = document.getElementById('pick_up_datetime').value;
-                    var vehicle_id = document.getElementById('vehicle_id').value;
-                    var return_datetime = this.value;
-                    $("#rentDays").html('');
-                    $("#rentPrice").html('');
-                    $.ajax({
-                        url: "{{ url()->route('get-rent-price')}}",
-                        type: "POST",
-                        data: {
-                            pick_up_loc: pick_up_loc,
-                            return_loc: return_loc,
-                            pick_up_datetime: pick_up_datetime,
-                            return_datetime: return_datetime,
-                            vehicle_id: vehicle_id,
-                            _token: '{{csrf_token()}}'
-                        },
-                        dataType: 'json',
-                        success: function (result) {
-                            $('#rentDays').html('<h5>Total Rent Days :</h5><p>' + result.total_days_rent + ' Day</p>');
-                            $('#rentPrice').html('<h5>Total Rent Price :</h5><h4>' + result.total_price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) + '</h4><p>*Include Delivery Charge  : ' + result.shipping_price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) + '</p>');
-                        }
-                    });
+            $("input[name='pick_up_datetime']").change(function () {
+                var date = new Date($(this).val());
+                var date = date.setDate(date.getDate() + 1);
+                var date = new Date(date).toISOString().slice(0, new Date(date).toISOString().lastIndexOf(":"));
+                $("input[name='return_datetime']").attr({
+                    "min": date
+                });
+            })
+            $('#return_datetime').on('change', function () {
+                var pick_up_loc = document.getElementById('autocomplete_pickup').value;
+                var return_loc = document.getElementById('autocomplete_return').value;
+                var pick_up_datetime = document.getElementById('pick_up_datetime').value;
+                var vehicle_id = document.getElementById('vehicle_id').value;
+                var return_datetime = this.value;
+                $("#rentDays").html('');
+                $("#rentPrice").html('');
+                $.ajax({
+                    url: "{{ url()->route('get-rent-price')}}",
+                    type: "POST",
+                    data: {
+                        pick_up_loc: pick_up_loc,
+                        return_loc: return_loc,
+                        pick_up_datetime: pick_up_datetime,
+                        return_datetime: return_datetime,
+                        vehicle_id: vehicle_id,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#rentDays').html('<h5>Total Rent Days :</h5><p>' + result.total_days_rent + ' Day</p>');
+                        $('#rentPrice').html('<h5>Total Rent Price :</h5><h4>' + result.total_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</h4><p>*Include Delivery Charge  : ' + result.shipping_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</p>');
+                    }
                 });
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush

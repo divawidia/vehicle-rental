@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Contact Us | Batur Sari Rental Bali
@@ -62,7 +62,8 @@
                             </div>
 
                             <div id="success_message" class='success'>
-                                Your message has been sent successfully. Refresh this page if you want to send more messages.
+                                Your message has been sent successfully. Refresh this page if you want to send more
+                                messages.
                             </div>
                             <div id="error_message" class='error'>
                                 Sorry there was an error sending your form.

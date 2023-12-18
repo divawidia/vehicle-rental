@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layouts.app')
 
 @section('title')
     Batur Sari Rental Bali  | Rent Scooter and Rent Car in Bali
@@ -35,27 +35,27 @@
                                 @csrf
                                 <h5>What is your vehicle type?</h5>
                                 <div class="de_form de_radio row g-3">
-                                        @foreach($vehicleTypes as $vehicleType)
-                                            <div class="radio-img col-4 col-sm-4">
-                                                <input
-                                                    id="{{ $vehicleType->id }}"
-                                                    name="vehicle_type_id"
-                                                    type="radio"
-                                                    value="{{ $vehicleType->id }}"
-                                                    @checked(old("vehicle_type_id") == $vehicleType->id)
-                                                />
-                                                <label class="text-center px-0" for="{{ $vehicleType->id }}"
-                                                ><img
-                                                        src="{{ Storage::url($vehicleType->icon) }}"
-                                                        alt=""
-                                                        height="30px"
-                                                    />{{ $vehicleType->vehicle_type_name }}</label
-                                                >
-                                            </div>
-                                        @endforeach
-                                        @error('vehicle_type_id')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                    @foreach($vehicleTypes as $vehicleType)
+                                        <div class="radio-img col-4 col-sm-4">
+                                            <input
+                                                id="{{ $vehicleType->id }}"
+                                                name="vehicle_type_id"
+                                                type="radio"
+                                                value="{{ $vehicleType->id }}"
+                                                @checked(old("vehicle_type_id") == $vehicleType->id)
+                                            />
+                                            <label class="text-center px-0" for="{{ $vehicleType->id }}"
+                                            ><img
+                                                    src="{{ Storage::url($vehicleType->icon) }}"
+                                                    alt=""
+                                                    height="30px"
+                                                />{{ $vehicleType->vehicle_type_name }}</label
+                                            >
+                                        </div>
+                                    @endforeach
+                                    @error('vehicle_type_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="row">
@@ -70,7 +70,7 @@
                                             @endforeach
                                         </select>
                                         @error('pickup_location_type')
-                                            <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
                                         @enderror
                                         <h5 id="pickupAddressLabel" class="mt-3">Address of my villa / hotel :</h5>
                                         <input
@@ -132,7 +132,7 @@
                                         </div>
                                         <div id="map" class="mt-3" style="height: 280px; border-radius:15px;"></div>
                                         <div id="infowindow-content">
-                                            <span id="place-name" class="title"></span><br />
+                                            <span id="place-name" class="title"></span><br/>
                                             <span id="place-address"></span>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                                                     required
                                                 />
                                                 @error('pick_up_date')
-                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-5 px-0">
@@ -181,7 +181,7 @@
                                                     <option value="18:00">18:00</option>
                                                 </select>
                                                 @error('pick_up_time')
-                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -260,50 +260,55 @@
 
                 <div class="row">
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".2s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".2s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-car"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Choose a vehicle</h4></a>
-                                Unlock unparalleled adventures and memorable journeys with our vast fleet of vehicles tailored to suit every need, taste, and destination.
+                                Unlock unparalleled adventures and memorable journeys with our vast fleet of vehicles
+                                tailored to suit every need, taste, and destination.
                             </div>
                             <span class="wm">1</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".4s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".4s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-calendar"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Pick location &amp; date</h4></a>
-                                Pick your ideal location and date, and let us take you on a journey filled with convenience, flexibility, and unforgettable experiences.
+                                Pick your ideal location and date, and let us take you on a journey filled with
+                                convenience, flexibility, and unforgettable experiences.
                             </div>
                             <span class="wm">2</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-pencil-square-o"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Make a booking</h4></a>
-                                Secure your reservation with ease, unlocking a world of possibilities and embarking on your next adventure with confidence.
+                                Secure your reservation with ease, unlocking a world of possibilities and embarking on
+                                your next adventure with confidence.
                             </div>
                             <span class="wm">3</span>
                         </div>
                     </div>
 
-                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s" >
+                    <div class="col-md-3 wow fadeInRight" data-wow-delay=".6s">
                         <div class="feature-box style-4 text-center">
                             <a href="#"><i class="bg-color text-light i-boxed fa fa-smile-o"></i></a>
                             <div class="text">
                                 <a href="#"><h4>Sit back & relax</h4></a>
-                                Hassle-free convenience as we take care of every detail, allowing you to unwind and embrace a journey filled comfort.
+                                Hassle-free convenience as we take care of every detail, allowing you to unwind and
+                                embrace a journey filled comfort.
                             </div>
                             <span class="wm">3</span>
                         </div>
                     </div>
-                </div></div>
+                </div>
+            </div>
         </section>
 
         <section id="section-motorbike" class="no-top">
@@ -339,7 +344,7 @@
                                             </div> -->
                                             <div class="d-atr-group">
                                           <span class="d-atr"
-                                          ><img src="images/icons/1.svg" alt="" />{{ $vehicle->passenger }}</span
+                                          ><img src="images/icons/1.svg" alt=""/>{{ $vehicle->passenger }}</span
                                           >
                                                 <span class="d-atr"
                                                 ><img
@@ -361,58 +366,58 @@
                                                     />{{ $vehicle->vehicle_type->vehicle_type_name }}</span
                                                 >
                                             </div>
-                                                <div class="row d-flex align-items-center">
-                                                    @php
-                                                        if (!$vehicle->promos->isEmpty()){
-                                                            foreach ($vehicle->promos as $promo){
-                                                                $discount_status = $promo->status;
-                                                                $discount_percentage = $promo->discount_amount;
-                                                                $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
-                                                                $daily_price = $vehicle->daily_price - $discount_daily;
-                                                                $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
-                                                                $monthly_price = $vehicle->monthly_price - $discount_monthly;
-                                                            }
-                                                        }else{
-                                                            $discount_status = '0';
+                                            <div class="row d-flex align-items-center">
+                                                @php
+                                                    if (!$vehicle->promos->isEmpty()){
+                                                        foreach ($vehicle->promos as $promo){
+                                                            $discount_status = $promo->status;
+                                                            $discount_percentage = $promo->discount_amount;
+                                                            $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
+                                                            $daily_price = $vehicle->daily_price - $discount_daily;
+                                                            $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
+                                                            $monthly_price = $vehicle->monthly_price - $discount_monthly;
                                                         }
-                                                    @endphp
-                                                    @if($discount_status == '1')
-                                                        <div class="d-price">
-                                                            Daily rate
-                                                            <div class="d-flex justify-content-start">
+                                                    }else{
+                                                        $discount_status = '0';
+                                                    }
+                                                @endphp
+                                                @if($discount_status == '1')
+                                                    <div class="d-price">
+                                                        Daily rate
+                                                        <div class="d-flex justify-content-start">
                                                                 <span
                                                                     class="text-danger">Rp. {{ number_format($daily_price) }}</span>
-                                                                <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                    -{{ $discount_percentage }}%</h4>
-                                                            </div>
-                                                            <div class="d-price-old">
-                                                                Rp. {{ number_format($vehicle->daily_price) }}</div>
+                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                -{{ $discount_percentage }}%</h4>
                                                         </div>
-                                                        <div class="d-price-month">
-                                                            Monthly rate
-                                                            <div class="d-flex justify-content-start">
+                                                        <div class="d-price-old">
+                                                            Rp. {{ number_format($vehicle->daily_price) }}</div>
+                                                    </div>
+                                                    <div class="d-price-month">
+                                                        Monthly rate
+                                                        <div class="d-flex justify-content-start">
                                                                 <span
                                                                     class="text-danger">Rp. {{ number_format($monthly_price) }}</span>
-                                                                <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                    -{{ $discount_percentage }}%</h4>
-                                                            </div>
-                                                            <div class="d-price-month-old">
-                                                                Rp. {{ number_format($vehicle->monthly_price) }}</div>
+                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                -{{ $discount_percentage }}%</h4>
                                                         </div>
-                                                    @elseif($discount_status == '0')
-                                                        <div class="d-price">
-                                                            Daily rate
-                                                            <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
-                                                        </div>
-                                                        <div class="d-price-month">
-                                                            Monthly rate
-                                                            <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
-                                                        </div>
-                                                    @endif
-                                                    <a class="btn-main w-100 mt-3"
-                                                       href="{{ route('vehicle-detail', $vehicle->slug) }}">
-                                                        Rent Now
-                                                    </a>
+                                                        <div class="d-price-month-old">
+                                                            Rp. {{ number_format($vehicle->monthly_price) }}</div>
+                                                    </div>
+                                                @elseif($discount_status == '0')
+                                                    <div class="d-price">
+                                                        Daily rate
+                                                        <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                    </div>
+                                                    <div class="d-price-month">
+                                                        Monthly rate
+                                                        <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
+                                                    </div>
+                                                @endif
+                                                <a class="btn-main w-100 mt-3"
+                                                   href="{{ route('vehicle-detail', $vehicle->slug) }}">
+                                                    Rent Now
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -424,124 +429,124 @@
             </div>
         </section>
 
-{{--        <section id="section-cars" class="no-top">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row align-items-center">--}}
-{{--                    <div class="col-lg-6 offset-lg-3 text-center">--}}
-{{--                        <h2>Our Cars Fleet</h2>--}}
-{{--                        <p>--}}
-{{--                            Driving your dreams to reality with an exquisite fleet of--}}
-{{--                            versatile vehicles for unforgettable journeys.--}}
-{{--                        </p>--}}
-{{--                        <div class="spacer-20"></div>--}}
-{{--                    </div>--}}
+        {{--        <section id="section-cars" class="no-top">--}}
+        {{--            <div class="container">--}}
+        {{--                <div class="row align-items-center">--}}
+        {{--                    <div class="col-lg-6 offset-lg-3 text-center">--}}
+        {{--                        <h2>Our Cars Fleet</h2>--}}
+        {{--                        <p>--}}
+        {{--                            Driving your dreams to reality with an exquisite fleet of--}}
+        {{--                            versatile vehicles for unforgettable journeys.--}}
+        {{--                        </p>--}}
+        {{--                        <div class="spacer-20"></div>--}}
+        {{--                    </div>--}}
 
-{{--                    <div class="clearfix"></div>--}}
+        {{--                    <div class="clearfix"></div>--}}
 
-{{--                    <div id="items-carousel2" class="owl-carousel wow fadeIn">--}}
-{{--                        <div class="col-lg-12">--}}
-{{--                            <div class="de-item mb30">--}}
-{{--                                <div class="d-img">--}}
-{{--                                    <img--}}
-{{--                                        src="images/cars/avanza.png"--}}
-{{--                                        class="img-fluid"--}}
-{{--                                        alt=""--}}
-{{--                                    />--}}
-{{--                                </div>--}}
-{{--                                <div class="d-info">--}}
-{{--                                    <div class="d-text">--}}
-{{--                                        <h4>Toyota All New Avanza</h4>--}}
-{{--                                        <div class="d-item_like">--}}
-{{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-atr-group">--}}
-{{--                      <span class="d-atr"--}}
-{{--                      ><img src="images/icons/1.svg" alt="" />7</span--}}
-{{--                      >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/engine.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                />1500cc</span--}}
-{{--                                            >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/transmission.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                />automatic</span--}}
-{{--                                            >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/4.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                    height="25px"--}}
-{{--                                                />MPV</span--}}
-{{--                                            >--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-price">--}}
-{{--                                            Daily rate from <span>Rp. 250K</span>--}}
-{{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
-{{--                                            >Rent Now</a--}}
-{{--                                            >--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+        {{--                    <div id="items-carousel2" class="owl-carousel wow fadeIn">--}}
+        {{--                        <div class="col-lg-12">--}}
+        {{--                            <div class="de-item mb30">--}}
+        {{--                                <div class="d-img">--}}
+        {{--                                    <img--}}
+        {{--                                        src="images/cars/avanza.png"--}}
+        {{--                                        class="img-fluid"--}}
+        {{--                                        alt=""--}}
+        {{--                                    />--}}
+        {{--                                </div>--}}
+        {{--                                <div class="d-info">--}}
+        {{--                                    <div class="d-text">--}}
+        {{--                                        <h4>Toyota All New Avanza</h4>--}}
+        {{--                                        <div class="d-item_like">--}}
+        {{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
+        {{--                                        </div>--}}
+        {{--                                        <div class="d-atr-group">--}}
+        {{--                      <span class="d-atr"--}}
+        {{--                      ><img src="images/icons/1.svg" alt="" />7</span--}}
+        {{--                      >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/engine.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                />1500cc</span--}}
+        {{--                                            >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/transmission.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                />automatic</span--}}
+        {{--                                            >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/4.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                    height="25px"--}}
+        {{--                                                />MPV</span--}}
+        {{--                                            >--}}
+        {{--                                        </div>--}}
+        {{--                                        <div class="d-price">--}}
+        {{--                                            Daily rate from <span>Rp. 250K</span>--}}
+        {{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
+        {{--                                            >Rent Now</a--}}
+        {{--                                            >--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
 
-{{--                        <div class="col-lg-12">--}}
-{{--                            <div class="de-item mb30">--}}
-{{--                                <div class="d-img">--}}
-{{--                                    <img--}}
-{{--                                        src="images/cars/agya.png"--}}
-{{--                                        class="img-fluid"--}}
-{{--                                        alt=""--}}
-{{--                                    />--}}
-{{--                                </div>--}}
-{{--                                <div class="d-info">--}}
-{{--                                    <div class="d-text">--}}
-{{--                                        <h4>Toyota All New Agya</h4>--}}
-{{--                                        <div class="d-item_like">--}}
-{{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-atr-group">--}}
-{{--                      <span class="d-atr"--}}
-{{--                      ><img src="images/icons/1.svg" alt="" />5</span--}}
-{{--                      >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/engine.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                />1200cc</span--}}
-{{--                                            >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/transmission.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                />automatic</span--}}
-{{--                                            >--}}
-{{--                                            <span class="d-atr"--}}
-{{--                                            ><img--}}
-{{--                                                    src="images/icons/4.svg"--}}
-{{--                                                    alt=""--}}
-{{--                                                    height="25px"--}}
-{{--                                                />Hatchback</span--}}
-{{--                                            >--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-price">--}}
-{{--                                            Daily rate from <span>Rp. 200K</span>--}}
-{{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
-{{--                                            >Rent Now</a--}}
-{{--                                            >--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section>--}}
+        {{--                        <div class="col-lg-12">--}}
+        {{--                            <div class="de-item mb30">--}}
+        {{--                                <div class="d-img">--}}
+        {{--                                    <img--}}
+        {{--                                        src="images/cars/agya.png"--}}
+        {{--                                        class="img-fluid"--}}
+        {{--                                        alt=""--}}
+        {{--                                    />--}}
+        {{--                                </div>--}}
+        {{--                                <div class="d-info">--}}
+        {{--                                    <div class="d-text">--}}
+        {{--                                        <h4>Toyota All New Agya</h4>--}}
+        {{--                                        <div class="d-item_like">--}}
+        {{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
+        {{--                                        </div>--}}
+        {{--                                        <div class="d-atr-group">--}}
+        {{--                      <span class="d-atr"--}}
+        {{--                      ><img src="images/icons/1.svg" alt="" />5</span--}}
+        {{--                      >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/engine.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                />1200cc</span--}}
+        {{--                                            >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/transmission.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                />automatic</span--}}
+        {{--                                            >--}}
+        {{--                                            <span class="d-atr"--}}
+        {{--                                            ><img--}}
+        {{--                                                    src="images/icons/4.svg"--}}
+        {{--                                                    alt=""--}}
+        {{--                                                    height="25px"--}}
+        {{--                                                />Hatchback</span--}}
+        {{--                                            >--}}
+        {{--                                        </div>--}}
+        {{--                                        <div class="d-price">--}}
+        {{--                                            Daily rate from <span>Rp. 200K</span>--}}
+        {{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
+        {{--                                            >Rent Now</a--}}
+        {{--                                            >--}}
+        {{--                                        </div>--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </section>--}}
 
         <section aria-label="section" class="no-top">
             <div class="container">
@@ -618,7 +623,7 @@
         </section>
 
         <section class="text-light jarallax" aria-label="section">
-            <img src="images/background/16.jpg" alt="" class="jarallax-img" />
+            <img src="images/background/16.jpg" alt="" class="jarallax-img"/>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
@@ -746,7 +751,7 @@
             $('#infowindow-content').hide();
             $('#autocomplete_return').hide();
             $('#pickup_location_type').on('change', function () {
-                if (document.getElementById("pickup_location_type").value === 'office'){
+                if (document.getElementById("pickup_location_type").value === 'office') {
                     $('#pickupAddressLabel').hide();
                     $('#returnAddressLabel').hide();
                     $('#autocomplete_pickup').val('Batur Sari Rental, Gang Beji, Seminyak, Badung Regency, Bali, Indonesia').hide();
@@ -759,7 +764,7 @@
                     $('#map').hide();
                     $('#infowindow-content').hide();
                     $('#return_location_type').val('office');
-                } else if (document.getElementById("pickup_location_type").value === 'hotel_villa'){
+                } else if (document.getElementById("pickup_location_type").value === 'hotel_villa') {
                     $('#pickupAddressLabel').show();
                     $('#returnAddressLabel').show();
                     $('#autocomplete_pickup').val('').show();
@@ -772,7 +777,7 @@
                     $('#map').hide();
                     $('#infowindow-content').hide();
                     $('#return_location_type').val('hotel_villa');
-                } else if (document.getElementById("pickup_location_type").value === 'custom_address'){
+                } else if (document.getElementById("pickup_location_type").value === 'custom_address') {
                     $('#pickupAddressLabel').hide();
                     $('#returnAddressLabel').hide();
                     $('#autocomplete_pickup').val('').hide();
@@ -790,7 +795,7 @@
                 }
             });
             $('#return_location_type').on('change', function () {
-                if (document.getElementById("return_location_type").value === 'office'){
+                if (document.getElementById("return_location_type").value === 'office') {
                     $('#returnAddressLabel').hide();
                     $('#autocomplete_return').val('Batur Sari Rental, Gang Beji, Seminyak, Badung Regency, Bali, Indonesia').hide();
                     $('#latitude_return').val(-8.6836849);
@@ -798,8 +803,8 @@
                     $('#mapLabel').hide();
                     $('#map').hide();
                     $('#infowindow-content').hide();
-                } else if (document.getElementById("return_location_type").value === 'hotel_villa'){
-                    if (document.getElementById("pickup_location_type").value === 'custom_address'){
+                } else if (document.getElementById("return_location_type").value === 'hotel_villa') {
+                    if (document.getElementById("pickup_location_type").value === 'custom_address') {
                         $('#pickupAddressLabel').show();
                         $('#autocomplete_pickup').val('').show();
                         $('#latitude_pickup').val('');
@@ -813,7 +818,7 @@
                     $('#mapLabel').hide();
                     $('#map').hide();
                     $('#infowindow-content').hide();
-                } else if (document.getElementById("return_location_type").value === 'custom_address'){
+                } else if (document.getElementById("return_location_type").value === 'custom_address') {
                     $('#pickupAddressLabel').hide();
                     $('#returnAddressLabel').hide();
                     $('#autocomplete_pickup').val('').hide();
@@ -830,7 +835,7 @@
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: -8.6836849, lng: 115.1631064 },
+                center: {lat: -8.6836849, lng: 115.1631064},
                 zoom: 13
             });
 
@@ -849,7 +854,7 @@
 
             let marker = new google.maps.Marker({
                 map,
-                position: { lat: -8.6836849, lng: 115.1631064 },
+                position: {lat: -8.6836849, lng: 115.1631064},
                 anchorPoint: new google.maps.Point(0, -29)
             });
             marker.setVisible(true);
@@ -891,7 +896,7 @@
                 $('#longitude_return').val(place.geometry['location'].lng());
 
             });
-            marker.addListener('dragend', () =>{
+            marker.addListener('dragend', () => {
                 infowindow.close();
                 const latLang = marker.getPosition();
                 infowindowContent.children["place-name"].textContent = latLang;
@@ -905,26 +910,27 @@
                 $('#longitude_return').val(latLang.lng());
             });
         }
+
         initMap();
     </script>
     <script>
-        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf("T"));
+        var date = new Date().toISOString().slice(0, new Date().toISOString().lastIndexOf("T"));
         const localTime = date.toLocaleString();
         $("input[name='pick_up_date']").attr({
-            "min" : localTime
+            "min": localTime
         });
     </script>
     <script>
-        $("input[name='pick_up_date']").change(function() {
+        $("input[name='pick_up_date']").change(function () {
             let date = new Date($(this).val());
-            date = date.setDate(date.getDate()+1);
-            date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf("T"));
+            date = date.setDate(date.getDate() + 1);
+            date = new Date(date).toISOString().slice(0, new Date(date).toISOString().lastIndexOf("T"));
             $("input[name='return_date']").attr({
-                "min" : date,
-                "value" : date
+                "min": date,
+                "value": date
             });
         })
-        $("select[name='pick_up_time']").change(function() {
+        $("select[name='pick_up_time']").change(function () {
             let pickupTime = $("#pick_up_time").val();
             $("#return_time").val(pickupTime);
         })
