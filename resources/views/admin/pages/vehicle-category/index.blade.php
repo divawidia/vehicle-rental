@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Kategori Kendaraan
 @endsection
@@ -105,9 +105,9 @@
                     url: '{!! url()->route('tipe.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'vehicle_type_name', name: 'vehicle_type_name' },
-                    { data: 'icon', name: 'icon' },
+                    {data: 'id', name: 'id'},
+                    {data: 'vehicle_type_name', name: 'vehicle_type_name'},
+                    {data: 'icon', name: 'icon'},
                     {
                         data: 'action',
                         name: 'action',
@@ -128,8 +128,8 @@
                     url: '{!! url()->route('transmisi.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'transmission_type', name: 'transmission_type' },
+                    {data: 'id', name: 'id'},
+                    {data: 'transmission_type', name: 'transmission_type'},
                     {
                         data: 'action',
                         name: 'action',
@@ -150,8 +150,8 @@
                     url: '{!! url()->route('brand.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'brand_name', name: 'brand_name' },
+                    {data: 'id', name: 'id'},
+                    {data: 'brand_name', name: 'brand_name'},
                     {
                         data: 'action',
                         name: 'action',

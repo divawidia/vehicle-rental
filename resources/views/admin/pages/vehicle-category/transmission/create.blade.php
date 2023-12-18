@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Tambah Jenis Transmisi Kendaraan
 @endsection
@@ -20,7 +20,8 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Nama Jenis Transmisi Kendaraan</label>
+                                <label for="example-text-input" class="col-md-2 col-form-label">Nama Jenis Transmisi
+                                    Kendaraan</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" autocomplete="off" name="transmission_type" id="transmission_type" placeholder="Isikan nama jenis transmisi kendaraan">
                                 </div>

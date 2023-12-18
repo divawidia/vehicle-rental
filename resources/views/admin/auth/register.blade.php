@@ -1,4 +1,4 @@
-@extends('layouts.admin.master-without-nav')
+@extends('admin.layouts.master-without-nav')
 @section('title')
     Register
 @endsection
@@ -35,7 +35,8 @@
                                         <form method="POST" action="{{ route('register') }}" class="auth-input">
                                             @csrf
                                             <div class="mb-2">
-                                                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                                <label for="name" class="form-label">Name
+                                                    <span class="text-danger">*</span></label>
                                                 <input id="name" type="text"
                                                        class="form-control @error('name') is-invalid @enderror" name="name"
                                                        value="{{ old('name') }}" required autocomplete="name" autofocus
@@ -48,7 +49,8 @@
                                             </div>
 
                                             <div class="mb-2">
-                                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                <label for="email" class="form-label">Email
+                                                    <span class="text-danger">*</span></label>
                                                 <input id="email" type="email"
                                                        class="form-control @error('email') is-invalid @enderror" name="email"
                                                        value="{{ old('email') }}" required autocomplete="email"
@@ -62,7 +64,8 @@
 
 
                                             <div class="mb-3">
-                                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="password-input">Password
+                                                    <span class="text-danger">*</span></label>
                                                 <input type="password"
                                                        class="form-control @error('password') is-invalid @enderror"
                                                        name="password" required id="password-input"
@@ -89,7 +92,8 @@
 
                                             <div class="mt-4 text-center">
                                                 <p class="mb-0">Already have an account ? <a href="{{ route('login') }}"
-                                                                                             class="fw-medium text-primary"> Login</a></p>
+                                                                                             class="fw-medium text-primary">
+                                                        Login</a></p>
                                             </div>
                                         </form>
                                     </div>
@@ -106,7 +110,8 @@
                                 <p>©
                                     <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Batur Sari Rental.
+                                    </script>
+                                    Batur Sari Rental.
                                 </p>
                             </div>
                         </div>

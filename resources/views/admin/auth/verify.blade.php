@@ -1,4 +1,4 @@
-@extends('layouts.admin.master-without-nav')
+@extends('admin.layouts.master-without-nav')
 @section('title')
     Waiting for Admin Approval
 @endsection
@@ -33,11 +33,11 @@
                                         <p class="text-muted">Please wait for your account approval by admin</p>
                                     </div>
                                     <div class="p-2 mt-4">
-                                            <div class="mt-4">
-                                                <a class="btn btn-primary w-100" href="{{ route('login') }}">
-                                                    Go To Sign In Page
-                                                </a>
-                                            </div>
+                                        <div class="mt-4">
+                                            <a class="btn btn-primary w-100" href="{{ route('login') }}">
+                                                Go To Sign In Page
+                                            </a>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -52,7 +52,8 @@
                                 <p>©
                                     <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Batur Sari Rental.
+                                    </script>
+                                    Batur Sari Rental.
                                 </p>
                             </div>
                         </div>

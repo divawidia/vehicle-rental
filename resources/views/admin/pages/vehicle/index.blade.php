@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     List Kendaraan
 @endsection
@@ -64,16 +64,16 @@
                     url: '{!! url()->current() !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'vehicle_name', name: 'vehicle_name' },
-                    { data: 'foto', name: 'foto'},
-                    { data: 'unit_quantity', name: 'unit_quantity' },
-                    { data: 'year', name: 'year' },
-                    { data: 'color', name: 'color' },
-                    { data: 'transmission.transmission_type', name: 'transmission.transmission_type' },
-                    { data: 'engine_capacity', name: 'engine_capacity' },
-                    { data: 'vehicle_type.vehicle_type_name', name: 'vehicle_type.vehicle_type_name' },
-                    { data: 'brand.brand_name', name: 'brand.brand_name' },
+                    {data: 'id', name: 'id'},
+                    {data: 'vehicle_name', name: 'vehicle_name'},
+                    {data: 'foto', name: 'foto'},
+                    {data: 'unit_quantity', name: 'unit_quantity'},
+                    {data: 'year', name: 'year'},
+                    {data: 'color', name: 'color'},
+                    {data: 'transmission.transmission_type', name: 'transmission.transmission_type'},
+                    {data: 'engine_capacity', name: 'engine_capacity'},
+                    {data: 'vehicle_type.vehicle_type_name', name: 'vehicle_type.vehicle_type_name'},
+                    {data: 'brand.brand_name', name: 'brand.brand_name'},
                     {
                         data: 'action',
                         name: 'action',

@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Artikel Blog
 @endsection
@@ -61,12 +61,12 @@
                     url: '{!! url()->current() !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email'},
-                    { data: 'photo_url', name: 'photo_url' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'status', name: 'status' },
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'photo_url', name: 'photo_url'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'status', name: 'status'},
                     {
                         data: 'action',
                         name: 'action',
@@ -79,7 +79,7 @@
         </script>
     @endpush
 
-@section('scripts')
-    <!-- App js -->
-    <script src="{{ URL::asset('build/js/app.js') }}"></script>
+    @section('scripts')
+        <!-- App js -->
+        <script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

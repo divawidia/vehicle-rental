@@ -1,10 +1,10 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Dashboard
 @endsection
 @section('css')
     <!-- jsvectormap css -->
-    <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('build/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 @section('page-title')
     Dashboard
@@ -54,10 +54,11 @@
                                                 <p class="text-muted text-truncate">Total Pendapatan per Tahun</p>
                                             </div>
                                         </div>
-                                        <h4 class="mb-0 font-size-22">Rp. {{ number_format($yearlyTotalSales[0]->total_sales ?? 0) }}
-{{--                                                                                        <span class="text-success fw-medium font-size-13 align-middle">--}}
-{{--                                                                                            <i class="mdi mdi-arrow-up"></i> 8.34%--}}
-{{--                                                                                        </span>--}}
+                                        <h4 class="mb-0 font-size-22">
+                                            Rp. {{ number_format($yearlyTotalSales[0]->total_sales ?? 0) }}
+                                            {{--                                                                                        <span class="text-success fw-medium font-size-13 align-middle">--}}
+                                            {{--                                                                                            <i class="mdi mdi-arrow-up"></i> 8.34%--}}
+                                            {{--                                                                                        </span>--}}
                                         </h4>
                                     </div>
                                 </div>
@@ -383,7 +384,9 @@
                             </div>
                             <div class="col-md-7">
                                 <span class="badge badge-soft-primary font-size-10 text-uppercase ls-05"> Kendaraan Terlaris</span>
-                                <h5 class="mt-2 font-size-16"><a href="" class="text-dark"></a>{{ $yearlyKendaraanTerlaris[0]->vehicle_name ?? '' }}</h5>
+                                <h5 class="mt-2 font-size-16">
+                                    <a href="" class="text-dark"></a>{{ $yearlyKendaraanTerlaris[0]->vehicle_name ?? '' }}
+                                </h5>
 
                                 <div class="row g-0 mt-3 pt-1 align-items-end">
                                     <div class="col-4">
@@ -395,7 +398,8 @@
                                     <div class="col-4">
                                         <div class="mt-1">
                                             <p class="text-muted mb-1">Total Penjualan</p>
-                                            <h4 class="font-size-16">Rp. {{ number_format($yearlyKendaraanTerlaris[0]->total_penjualan ?? 0) }}</h4>
+                                            <h4 class="font-size-16">
+                                                Rp. {{ number_format($yearlyKendaraanTerlaris[0]->total_penjualan ?? 0) }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -403,7 +407,9 @@
                         </div>
                         <div class="mx-n4 px-4" data-simplebar style="max-height: 205px;">
                             @foreach($yearlyKendaraanTerlaris as $kendaraanTerlaris)
-                                @if ($loop->first) @continue @endif
+                                @if ($loop->first)
+                                    @continue
+                                @endif
                                 <div class="popular-product-box rounded my-2">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-shrink-0">
@@ -415,12 +421,15 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3 overflow-hidden">
                                             <h5 class="mb-1 text-truncate">
-                                                <a href="{{ route('kendaraan.show', $kendaraanTerlaris->id) }}" class="font-size-15 text-dark">{{ $kendaraanTerlaris->vehicle_name }}</a></h5>
+                                                <a href="{{ route('kendaraan.show', $kendaraanTerlaris->id) }}" class="font-size-15 text-dark">{{ $kendaraanTerlaris->vehicle_name }}</a>
+                                            </h5>
                                         </div>
                                         <div class="flex-shrink-0 text-end ms-3">
                                             <h5 class="mb-1">
-                                                <a href="#" class="font-size-15 text-dark">Rp. {{ number_format($kendaraanTerlaris->total_penjualan) }}</a></h5>
-                                            <p class="text-muted fw-semibold mb-0">{{ $kendaraanTerlaris->total_sewa }} Disewa</p>
+                                                <a href="#" class="font-size-15 text-dark">Rp. {{ number_format($kendaraanTerlaris->total_penjualan) }}</a>
+                                            </h5>
+                                            <p class="text-muted fw-semibold mb-0">{{ $kendaraanTerlaris->total_sewa }}
+                                                Disewa</p>
                                         </div>
                                     </div>
                                 </div>
@@ -442,7 +451,7 @@
                                     <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
                                         <span class="fw-semibold">Sort By:</span> <span class="text-muted">Weekly<i
-                                                class="mdi mdi-chevron-down ms-1"></i></span>
+                                                    class="mdi mdi-chevron-down ms-1"></i></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item" href="#">Yearly</a>
@@ -473,7 +482,7 @@
                                 <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     <span class="fw-semibold">Year:</span> <span class="text-muted">2024<i
-                                            class="mdi mdi-chevron-down ms-1"></i></span>
+                                                class="mdi mdi-chevron-down ms-1"></i></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#">2019</a>
@@ -584,27 +593,27 @@
                     url: '{!! url()->route('bookings.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'vehicle.vehicle_name', name: 'vehicle.vehicle_name' },
-                    { data: 'vehicle_detail.plate_number', name: 'vehicle_detail.plate_number' },
-                    { data: 'total_days_rent', name: 'total_days_rent' },
-                    { data: 'name', name: 'name' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'pick_up_loc', name: 'pick_up_loc' },
-                    { data: 'maps_pickup', name: 'maps_pickup' },
-                    { data: 'pick_up_datetime', name: 'pick_up_datetime' },
-                    { data: 'return_loc', name: 'return_loc' },
-                    { data: 'maps_return', name: 'maps_return' },
-                    { data: 'return_datetime', name: 'return_datetime' },
-                    { data: 'no_hp_wa', name: 'no_hp_wa' },
-                    { data: 'whatsapp', name: 'whatsapp' },
-                    { data: 'email', name: 'email' },
-                    { data: 'total_price', name: 'total_price' },
-                    { data: 'transaction_type', name: 'transaction_type' },
-                    { data: 'rent_status', name: 'rent_status' },
-                    { data: 'transaction_status', name: 'transaction_status' },
-                    { data: 'shipping_status', name: 'shipping_status' },
-                    { data: 'return_status', name: 'return_status' },
+                    {data: 'id', name: 'id'},
+                    {data: 'vehicle.vehicle_name', name: 'vehicle.vehicle_name'},
+                    {data: 'vehicle_detail.plate_number', name: 'vehicle_detail.plate_number'},
+                    {data: 'total_days_rent', name: 'total_days_rent'},
+                    {data: 'name', name: 'name'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'pick_up_loc', name: 'pick_up_loc'},
+                    {data: 'maps_pickup', name: 'maps_pickup'},
+                    {data: 'pick_up_datetime', name: 'pick_up_datetime'},
+                    {data: 'return_loc', name: 'return_loc'},
+                    {data: 'maps_return', name: 'maps_return'},
+                    {data: 'return_datetime', name: 'return_datetime'},
+                    {data: 'no_hp_wa', name: 'no_hp_wa'},
+                    {data: 'whatsapp', name: 'whatsapp'},
+                    {data: 'email', name: 'email'},
+                    {data: 'total_price', name: 'total_price'},
+                    {data: 'transaction_type', name: 'transaction_type'},
+                    {data: 'rent_status', name: 'rent_status'},
+                    {data: 'transaction_status', name: 'transaction_status'},
+                    {data: 'shipping_status', name: 'shipping_status'},
+                    {data: 'return_status', name: 'return_status'},
                     {
                         data: 'action',
                         name: 'action',
@@ -628,32 +637,32 @@
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $('.monthTotalSales').hide();
                 $('.weekTotalSales').hide();
                 $('.todayTotalSales').hide();
-                $('.yearlyBarChart').click(function() {
+                $('.yearlyBarChart').click(function () {
                     $('.yearTotalSales').show();
                     $('.monthTotalSales').hide();
                     $('.weekTotalSales').hide();
                     $('.todayTotalSales').hide();
                     $('#sortTeks').text('Yearly')
                 });
-                $('.monthlyBarChart').click(function() {
+                $('.monthlyBarChart').click(function () {
                     $('.yearTotalSales').hide();
                     $('.monthTotalSales').show();
                     $('.weekTotalSales').hide();
                     $('.todayTotalSales').hide();
                     $('#sortTeks').text('Monthly')
                 });
-                $('.weeklyBarChart').click(function() {
+                $('.weeklyBarChart').click(function () {
                     $('.yearTotalSales').hide();
                     $('.monthTotalSales').hide();
                     $('.weekTotalSales').show();
                     $('.todayTotalSales').hide();
                     $('#sortTeks').text('Weekly')
                 });
-                $('.todayBarChart').click(function() {
+                $('.todayBarChart').click(function () {
                     $('.yearTotalSales').hide();
                     $('.monthTotalSales').hide();
                     $('.weekTotalSales').hide();
@@ -669,9 +678,9 @@
                 zoomOnScroll: true,
                 zoomButtons: true,
                 markersSelectable: true,
-                regionStyle : {
-                    initial : {
-                        fill : '#cfd9ed'
+                regionStyle: {
+                    initial: {
+                        fill: '#cfd9ed'
                     }
                 },
                 visualizeData: {

@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Edit Promo Diskon Kendaraan
 @endsection
@@ -101,20 +101,20 @@
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script>
-            $("input[name='starts_at']").change(function() {
+            $("input[name='starts_at']").change(function () {
                 let date = new Date($(this).val());
-                date = date.setDate(date.getDate()+1);
-                date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf("T"));
+                date = date.setDate(date.getDate() + 1);
+                date = new Date(date).toISOString().slice(0, new Date(date).toISOString().lastIndexOf("T"));
                 $("input[name='expires_at']").attr({
-                    "min" : date,
-                    "value" : date
+                    "min": date,
+                    "value": date
                 });
             })
         </script>
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('.form-select').select2({
-                    width:'100%',
+                    width: '100%',
                     theme: 'bootstrap-5'
                 });
             });

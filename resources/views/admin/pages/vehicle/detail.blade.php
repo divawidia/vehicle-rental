@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Detail Kendaraan
 @endsection
@@ -66,12 +66,12 @@
                             <div class="mb-3 row">
                                 <label for="status" class="col-md-3 col-form-label">Status</label>
                                 <div class="col-md-9">
-{{--                                    <select class="form-select" name="status" id="status" >--}}
-{{--                                        <option disabled>Pilih status kendaraan</option>--}}
-{{--                                        @foreach(["tersedia" => "Tersedia", "disewa" => "Disewa", "rusak" => "Rusak"] AS $status => $status_label)--}}
-{{--                                            <option value="{{ $status }}">{{ $status_label }}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
+                                    {{--                                    <select class="form-select" name="status" id="status" >--}}
+                                    {{--                                        <option disabled>Pilih status kendaraan</option>--}}
+                                    {{--                                        @foreach(["tersedia" => "Tersedia", "disewa" => "Disewa", "rusak" => "Rusak"] AS $status => $status_label)--}}
+                                    {{--                                            <option value="{{ $status }}">{{ $status_label }}</option>--}}
+                                    {{--                                        @endforeach--}}
+                                    {{--                                    </select>--}}
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status" id="tersedia" value="tersedia">
                                         <label class="form-check-label" for="tersedia">Tersedia</label>
@@ -89,9 +89,9 @@
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom">
-                                    Submit
-                                </button>
+                            <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom">
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -102,7 +102,8 @@
             <div class="col-lg-12">
                 <div class="row py-3">
                     <div class="col-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-primary w-auto"><i class="fa fa-arrow-left"></i>  Kembali</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-primary w-auto"><i class="fa fa-arrow-left"></i>
+                            Kembali</a>
                     </div>
                     <div class="col-6">
                         <div class="btn-toolbar float-end" role="toolbar">
@@ -120,14 +121,14 @@
                                 <div class="product-detail mt-3" dir="ltr">
 
                                     <div
-                                        class="swiper product-thumbnail-slider rounded border overflow-hidden position-relative">
+                                            class="swiper product-thumbnail-slider rounded border overflow-hidden position-relative">
                                         <div class="swiper-wrapper">
                                             <div class="swiper-slide rounded">
                                                 <div class="p-3">
                                                     <div class="product-img bg-light rounded p-3">
                                                         <img
-                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
-                                                            class="img-fluid d-block"/>
+                                                                src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                                class="img-fluid d-block"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,8 +137,8 @@
                                                     <div class="p-3">
                                                         <div class="product-img bg-light rounded p-3">
                                                             <img
-                                                                src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
-                                                                class="img-fluid d-block"/>
+                                                                    src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
+                                                                    class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,14 +155,14 @@
                                             <div class="swiper-wrapper">
                                                 <div class="swiper-slide rounded">
                                                     <div class="nav-slide-item"><img
-                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
-                                                            class="img-fluid p-1 d-block rounded"/></div>
+                                                                src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                                class="img-fluid p-1 d-block rounded"/></div>
                                                 </div>
                                                 @foreach($vehicle->photos as $vehiclePhoto)
                                                     <div class="swiper-slide rounded">
                                                         <div class="nav-slide-item"><img
-                                                                src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
-                                                                class="img-fluid p-1 d-block rounded"/></div>
+                                                                    src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
+                                                                    class="img-fluid p-1 d-block rounded"/></div>
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -219,42 +220,42 @@
                                                     <ul class="list-unstyled ps-0 mb-0 mt-3">
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Tahun : {{ $vehicle->year }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Warna : {{ $vehicle->color }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Body : {{ $vehicle->body }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Jumlah Penumpang : {{ $vehicle->passenger }} orang</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Kapasitas Bensin : {{ $vehicle->fuel_capacity }} l</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Tipe Bensin : {{ $vehicle->fuel_type }}</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-1 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Kehematan Bensin : {{ $vehicle->fuel_economy }}km/l</p>
                                                         </li>
                                                         <li>
                                                             <p class="text-muted mb-0 text-truncate"><i
-                                                                    class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
+                                                                        class="mdi mdi-circle-medium align-middle text-primary me-1"></i>
                                                                 Kapasitas Mesin : {{ $vehicle->engine_capacity }}cc</p>
                                                         </li>
                                                     </ul>

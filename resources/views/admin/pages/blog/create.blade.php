@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 
 @section('title')
     Tambah Artikel Blog
@@ -65,7 +65,8 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label" for="status_artikel">Status Publish Artikel</label>
+                                <label class="col-md-2 col-form-label" for="status_artikel">Status Publish
+                                    Artikel</label>
                                 <div class="col-md-10">
                                     <select class="form-select" name="status" id="status_artikel" data-placeholder="Pilih Status Artikel Blog" required>
                                         <option value="" selected disabled>Pilih Status Artikel Blog</option>
@@ -94,23 +95,23 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
         <script>
-            ClassicEditor.create( document.querySelector( '#body' ),{
+            ClassicEditor.create(document.querySelector('#body'), {
                 ckfinder: {
                     uploadUrl: '{{route('blog-photo-upload', ['_token' => csrf_token()])}}'
                 }
             })
-                .catch( error => {
-                    console.error( error );
-                } );
+                .catch(error => {
+                    console.error(error);
+                });
         </script>
         <script type="text/javascript">
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('#tag').select2({
-                    width:'100%',
+                    width: '100%',
                     theme: 'bootstrap-5'
                 });
                 $('#status_artikel').select2({
-                    width:'100%',
+                    width: '100%',
                     theme: 'bootstrap-5'
                 });
             });

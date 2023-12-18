@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Tag Blog
 @endsection
@@ -58,10 +58,10 @@
                     url: '{!! url()->current() !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'tag_name', name: 'tag_name' },
-                    { data: 'slug', name: 'slug' },
-                    { data: 'user.name', name: 'user.name' },
+                    {data: 'id', name: 'id'},
+                    {data: 'tag_name', name: 'tag_name'},
+                    {data: 'slug', name: 'slug'},
+                    {data: 'user.name', name: 'user.name'},
                     {
                         data: 'action',
                         name: 'action',

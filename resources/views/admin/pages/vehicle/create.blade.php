@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Tambah Kendaraan
 @endsection
@@ -43,7 +43,7 @@
                                 <div class="col-md-10">
                                     <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
                                     @error('description')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -94,10 +94,11 @@
                                 <div class="col-md-10" id="dynamic_field">
                                     <div class="row">
                                         <div class="col-10">
-                                            <input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list" />
+                                            <input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list"/>
                                         </div>
                                         <div class="col-auto">
-                                            <button type="button" name="add" id="add" class="btn btn-success"><i class="bx bx-plus"></i></button>
+                                            <button type="button" name="add" id="add" class="btn btn-success">
+                                                <i class="bx bx-plus"></i></button>
                                         </div>
                                     </div>
                                     @error('features')
@@ -234,14 +235,14 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
         <script>
-            ClassicEditor.create( document.querySelector( '#description' ),{
+            ClassicEditor.create(document.querySelector('#description'), {
                 ckfinder: {
                     uploadUrl: '{{route('vehicle-photo-upload', ['_token' => csrf_token()])}}'
                 }
             })
-                .catch( error => {
-                    console.error( error );
-                } );
+                .catch(error => {
+                    console.error(error);
+                });
         </script>
         <script>
             thumbnail.onchange = evt => {
@@ -254,16 +255,16 @@
             }
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                var i=1;
-                $('#add').click(function(){
+            $(document).ready(function () {
+                var i = 1;
+                $('#add').click(function () {
                     i++;
-                    $('#dynamic_field').append('<div class="row pt-3" id="row'+i+'"><div class="col-10"><input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list" /></div><div class="col-auto"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></button></div></div>');
+                    $('#dynamic_field').append('<div class="row pt-3" id="row' + i + '"><div class="col-10"><input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list" /></div><div class="col-auto"><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></button></div></div>');
                 });
 
-                $(document).on('click', '.btn_remove', function(){
+                $(document).on('click', '.btn_remove', function () {
                     var button_id = $(this).attr("id");
-                    $('#row'+button_id+'').remove();
+                    $('#row' + button_id + '').remove();
                 });
             });
         </script>

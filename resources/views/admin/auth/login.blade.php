@@ -1,4 +1,4 @@
-@extends('layouts.admin.master-without-nav')
+@extends('admin.layouts.master-without-nav')
 @section('title')
     Login
 @endsection
@@ -36,7 +36,8 @@
                                         <form method="POST" action="{{ route('login') }}" class="auth-input">
                                             @csrf
                                             <div class="mb-2">
-                                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                                <label for="email" class="form-label">Email
+                                                    <span class="text-danger">*</span></label>
                                                 <input id="email" type="email"
                                                        class="form-control @error('email') is-invalid @enderror" name="email"
                                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -52,7 +53,8 @@
                                                 {{--                                                    <a href="{{ route('password.update') }}"--}}
                                                 {{--                                                       class="text-muted text-decoration-underline">Forgot password?</a>--}}
                                                 {{--                                                </div>--}}
-                                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="password-input">Password
+                                                    <span class="text-danger">*</span></label>
                                                 <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                     <span class="bx bx-lock-alt"></span>
                                                     <input type="password"
@@ -76,7 +78,8 @@
 
                                             <div class="mt-4">
                                                 <button class="btn btn-primary w-100" type="submit">Sign
-                                                    In</button>
+                                                    In
+                                                </button>
                                             </div>
 
                                             {{--                                            <div class="mt-4 text-center">--}}
@@ -106,8 +109,9 @@
                                             {{--                                                </ul>--}}
                                             {{--                                            </div>--}}
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}"
-                                                                                           class="fw-medium text-primary"> Register</a></p>
+                                                <p class="mb-0">Don't have an account ?
+                                                    <a href="{{ route('register') }}"
+                                                       class="fw-medium text-primary"> Register</a></p>
                                             </div>
                                         </form>
                                     </div>
@@ -124,7 +128,8 @@
                                 <p>©
                                     <script>
                                         document.write(new Date().getFullYear())
-                                    </script> Batur Sari Rental.
+                                    </script>
+                                    Batur Sari Rental.
                                 </p>
                             </div>
                         </div>

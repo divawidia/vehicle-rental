@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Detail Invoice Booking
 @endsection
@@ -18,7 +18,8 @@
         @endif
         <div class="row">
             <div class="col-lg-12">
-                <a href="{{ route('bookings.index') }}" class="btn btn-primary w-auto"><i class="fa fa-arrow-left"></i>  Kembali</a>
+                <a href="{{ route('bookings.index') }}" class="btn btn-primary w-auto"><i class="fa fa-arrow-left"></i>
+                    Kembali</a>
                 <div class="row">
                     <div class="col-6">
                         <h4 class="my-4">Invoice #{{ $booking->id }}
@@ -68,7 +69,8 @@
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Tanggal dan Waktu Mulai Sewa:</h5>
                                     @php $pick_up_date = strtotime($booking->pick_up_datetime) @endphp
-                                    <p class="col-md-9">{{ date('D, M d, Y',$pick_up_date) }} @ {{ date('g:i A',$pick_up_date) }}</p>
+                                    <p class="col-md-9">{{ date('D, M d, Y',$pick_up_date) }}
+                                        @ {{ date('g:i A',$pick_up_date) }}</p>
                                 </div>
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Lokasi Pengantaran:</h5>
@@ -77,14 +79,15 @@
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Google Maps Pengantaran:</h5>
                                     <a
-                                        href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_pickup}}%2C'{{$booking->longitude_pickup}}'"
-                                        class="btn btn-primary mx-1 my-1 col-1"
+                                            href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_pickup}}%2C'{{$booking->longitude_pickup}}'"
+                                            class="btn btn-primary mx-1 my-1 col-1"
                                     ><i class="bx bx-map"></i></a>
                                 </div>
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Tanggal dan Waktu Selesai Sewa:</h5>
                                     @php $return_date = strtotime($booking->return_datetime) @endphp
-                                    <p class="col-md-9">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_date) }}</p>
+                                    <p class="col-md-9">{{ date('D, M d, Y',$return_date) }}
+                                        @ {{ date('g:i A',$return_date) }}</p>
                                 </div>
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Lokasi Pengembalian:</h5>
@@ -93,8 +96,8 @@
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Google Maps Pengembalian:</h5>
                                     <a
-                                        href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_return}}%2C'{{$booking->longitude_return}}'"
-                                        class="btn btn-primary mx-1 my-1 col-1"
+                                            href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_return}}%2C'{{$booking->longitude_return}}'"
+                                            class="btn btn-primary mx-1 my-1 col-1"
                                     ><i class="bx bx-map"></i></a>
                                 </div>
                                 @if($booking->hotel_booking_name)
@@ -172,7 +175,8 @@
                                             </td>
                                             <td>Rp. {{ number_format($booking->vehicle->daily_price ?? 0) }}</td>
                                             <td>{{ $booking->day_rent }} Day</td>
-                                            <td class="text-end">Rp. {{ number_format($booking->daily_rent_price ?? 0) }}</td>
+                                            <td class="text-end">
+                                                Rp. {{ number_format($booking->daily_rent_price ?? 0) }}</td>
                                         </tr>
                                         @if($booking->monthly_rent_price > 0)
                                             <tr>
@@ -183,26 +187,31 @@
                                                 </td>
                                                 <td>Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
                                                 <td>{{ $booking->month_rent }} Month</td>
-                                                <td class="text-end">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
+                                                <td class="text-end">
+                                                    Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
                                             </tr>
                                         @endif
                                         <tr class="py-0">
                                             <th scope="row" colspan="3" class="text-end fw-bold">Sub Total :</th>
-                                            <td class="text-end">Rp. {{ number_format($booking->booking_price ?? 0) }}</td>
+                                            <td class="text-end">
+                                                Rp. {{ number_format($booking->booking_price ?? 0) }}</td>
                                         </tr>
                                         <!-- end tr -->
                                         @if($booking->insurance == 'include')
                                             <tr class="py-0">
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                    Insurance (25%) :</th>
-                                                <td class="border-0 text-end">Rp. {{ number_format($booking->insurance_price) }}</td>
+                                                    Insurance (25%) :
+                                                </th>
+                                                <td class="border-0 text-end">
+                                                    Rp. {{ number_format($booking->insurance_price) }}</td>
                                             </tr>
                                         @endif
                                         <!-- end tr -->
                                         @if($booking->first_aid_kit == 'include')
                                             <tr class="py-0">
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                    Accessory - First Aid Kit :</th>
+                                                    Accessory - First Aid Kit :
+                                                </th>
                                                 <td class="border-0 text-end">Rp. 0</td>
                                             </tr>
                                         @endif
@@ -210,7 +219,8 @@
                                         @if($booking->phone_holder == 'include')
                                             <tr>
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                    Accessory - Phone Holder :</th>
+                                                    Accessory - Phone Holder :
+                                                </th>
                                                 <td class="border-0 text-end">Rp. 0</td>
                                             </tr>
                                         @endif
@@ -218,7 +228,8 @@
                                         @if($booking->raincoat == 'include')
                                             <tr>
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                    Accessory - Raincoat :</th>
+                                                    Accessory - Raincoat :
+                                                </th>
                                                 <td class="border-0 text-end">Rp. 0</td>
                                             </tr>
                                         @endif
@@ -226,20 +237,25 @@
                                         @if($booking->helmet > 0)
                                             <tr>
                                                 <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                    Accessory - Helmet ({{ $booking->helmet }}pcs) :</th>
+                                                    Accessory - Helmet ({{ $booking->helmet }}pcs) :
+                                                </th>
                                                 <td class="border-0 text-end">Rp. 0</td>
                                             </tr>
                                         @endif
 
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000):</th>
-                                            <td class="border-0 text-end">Rp. {{ number_format($booking->shipping_price) }}</td>
+                                                Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp.
+                                                10.000):
+                                            </th>
+                                            <td class="border-0 text-end">
+                                                Rp. {{ number_format($booking->shipping_price) }}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end fw-bold">Total :</th>
                                             <td class="border-0 text-end">
-                                                <h4 class="m-0 fw-semibold">Rp. {{ number_format($booking->total_price ?? 0) }}</h4>
+                                                <h4 class="m-0 fw-semibold">
+                                                    Rp. {{ number_format($booking->total_price ?? 0) }}</h4>
                                             </td>
                                         </tr>
                                         <!-- end tr -->
@@ -331,8 +347,8 @@
                                     <h5 class="col-md-6 font-size-14">Whatsapp:</h5>
                                     <div class="col-md-6">
                                         <a
-                                            href="https://wa.me/{{ trim($booking->no_hp_wa, "+") }}"
-                                            class="btn btn-success mx-1 my-1"
+                                                href="https://wa.me/{{ trim($booking->no_hp_wa, "+") }}"
+                                                class="btn btn-success mx-1 my-1"
                                         ><i class="bx bxl-whatsapp"></i></a>
                                     </div>
                                 </div>

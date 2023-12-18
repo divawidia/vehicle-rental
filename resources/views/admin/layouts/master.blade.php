@@ -25,10 +25,10 @@
 <!-- Begin page -->
 <div id="layout-wrapper">
     <!-- topbar -->
-    @include('layouts.admin.topbar')
+    @include('admin.layouts.topbar')
 
     <!-- sidebar components -->
-    @include('layouts.admin.sidebar')
+    @include('admin.layouts.sidebar')
     @include('layouts.admin.horizontal')
 
     <!-- ============================================================== -->
@@ -45,7 +45,7 @@
         <!-- End Page-content -->
 
         <!-- footer -->
-        @include('layouts.admin.footer')
+        @include('admin.layouts.footer')
 
     </div>
     <!-- end main content-->

@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 
 @section('title')
     Edit User Admin
@@ -53,7 +53,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label for="password-confirm" class="col-md-2 col-form-label">Confirm Password</label>
+                                    <label for="password-confirm" class="col-md-2 col-form-label">Confirm
+                                        Password</label>
                                     <div class="col-md-10">
                                         <input class="form-control @error('password') is-invalid @enderror" type="password" autocomplete="off" name="password_confirmation" id="password-confirm">
                                         @error('password')

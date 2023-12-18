@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Edit Kendaraan
 @endsection
@@ -210,66 +210,67 @@
                         </div>
                     </div>
                 </form>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Edit Fitur {{ $kendaraan->vehicle_name }}</h4>
-                        </div>
-                        <div class="card-body">
-                                @foreach($kendaraan->features as $feature)
-                                    <div class="row mb-3">
-                                        <div class="col-10">
-                                            <input type="text" name="features" placeholder="Masukan fitur" class="form-control features_list" value="{{ $feature->feature }}" disabled/>
-                                        </div>
-                                        <div class="col-auto">
-                                            <a href="{{ route('hapus-fitur', $feature->id) }}" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                    <form action="{{ route('tambah-fitur') }}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                    <div class="row mb-3">
-                                        <div class="col-10">
-                                            <input type="text" name="features" placeholder="Masukan fitur" class="form-control features_list" />
-                                        </div>
-                                        <div class="col-auto">
-                                                <input type="hidden" value="{{ $kendaraan->id }}" name="vehicle_id">
-                                                <button type="submit" name="add" id="add" class="btn btn-success"><i class="bx bx-plus"></i></button>
-                                        </div>
-                                @error('features')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                                    </form>
-                            </div>
-                        </div>
-                    </div>
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Foto {{ $kendaraan->vehicle_name }}</h4>
+                        <h4 class="card-title">Edit Fitur {{ $kendaraan->vehicle_name }}</h4>
                     </div>
                     <div class="card-body">
-                        <div class="row mb-3">
-                            @foreach ($kendaraan->photos as $photo)
-                                <div class="col-md-4">
-                                    <div class="gallery-container">
-                                        <img
-                                            src="{{ Storage::url($photo->photo_url ?? '') }}"
-                                            alt=""
-                                            class="w-100"
-                                        />
-                                        <a href="{{ route('vehicle-photo-delete', $photo->id) }}" class="delete-gallery">
-                                            <img src="/images/icon-delete.svg" alt="" />
-                                        </a>
-                                    </div>
+                        @foreach($kendaraan->features as $feature)
+                            <div class="row mb-3">
+                                <div class="col-10">
+                                    <input type="text" name="features" placeholder="Masukan fitur" class="form-control features_list" value="{{ $feature->feature }}" disabled/>
                                 </div>
-                            @endforeach
-                        </div>
-                        <form action="{{ route('vehicle-photo-upload') }}" method="post" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                                <div class="col-auto">
+                                    <a href="{{ route('hapus-fitur', $feature->id) }}" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></a>
+                                </div>
+                            </div>
+                        @endforeach
+                        <form action="{{ route('tambah-fitur') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" value="{{ $kendaraan->id }}" name="vehicle_id">
+                            <div class="row mb-3">
+                                <div class="col-10">
+                                    <input type="text" name="features" placeholder="Masukan fitur" class="form-control features_list"/>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="hidden" value="{{ $kendaraan->id }}" name="vehicle_id">
+                                    <button type="submit" name="add" id="add" class="btn btn-success">
+                                        <i class="bx bx-plus"></i></button>
+                                </div>
+                                @error('features')
+                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </form>
                     </div>
                 </div>
-            </div> <!-- end col -->
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Edit Foto {{ $kendaraan->vehicle_name }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        @foreach ($kendaraan->photos as $photo)
+                            <div class="col-md-4">
+                                <div class="gallery-container">
+                                    <img
+                                            src="{{ Storage::url($photo->photo_url ?? '') }}"
+                                            alt=""
+                                            class="w-100"
+                                    />
+                                    <a href="{{ route('vehicle-photo-delete', $photo->id) }}" class="delete-gallery">
+                                        <img src="/images/icon-delete.svg" alt=""/>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <form action="{{ route('vehicle-photo-upload') }}" method="post" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                        @csrf
+                        <input type="hidden" value="{{ $kendaraan->id }}" name="vehicle_id">
+                    </form>
+                </div>
+            </div>
+        </div> <!-- end col -->
         </div>
         <!-- end row -->
     @endsection
@@ -278,14 +279,14 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
         <script>
-            ClassicEditor.create( document.querySelector( '#description' ),{
+            ClassicEditor.create(document.querySelector('#description'), {
                 ckfinder: {
                     uploadUrl: '{{route('vehicle-desc-photo-upload', ['_token' => csrf_token()])}}'
                 }
             })
-                .catch( error => {
-                    console.error( error );
-                } );
+                .catch(error => {
+                    console.error(error);
+                });
         </script>
         <script>
             thumbnail.onchange = evt => {
@@ -298,16 +299,16 @@
             }
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                var i=1;
-                $('#add').click(function(){
+            $(document).ready(function () {
+                var i = 1;
+                $('#add').click(function () {
                     i++;
-                    $('#dynamic_field').append('<div class="row pt-3" id="row'+i+'"><div class="col-10"><input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list" /></div><div class="col-auto"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></button></div></div>');
+                    $('#dynamic_field').append('<div class="row pt-3" id="row' + i + '"><div class="col-10"><input type="text" name="features[]" placeholder="Masukan fitur" class="form-control features_list" /></div><div class="col-auto"><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="bx bx-x"></i></button></div></div>');
                 });
 
-                $(document).on('click', '.btn_remove', function(){
+                $(document).on('click', '.btn_remove', function () {
                     var button_id = $(this).attr("id");
-                    $('#row'+button_id+'').remove();
+                    $('#row' + button_id + '').remove();
                 });
             });
         </script>
@@ -316,18 +317,18 @@
             Dropzone.options.dropzone =
                 {
                     maxFilesize: 12,
-                    renameFile: function(file) {
+                    renameFile: function (file) {
                         var dt = new Date();
                         var time = dt.getTime();
-                        return time+file.name;
+                        return time + file.name;
                     },
                     acceptedFiles: ".jpeg,.jpg,.png",
                     addRemoveLinks: true,
                     timeout: 5000,
-                    success: function(file, response) {
+                    success: function (file, response) {
                         console.log(response);
                     },
-                    error: function(file, response){
+                    error: function (file, response) {
                         return false;
                     }
                 };

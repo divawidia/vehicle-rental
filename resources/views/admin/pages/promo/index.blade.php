@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Promo
 @endsection
@@ -92,16 +92,16 @@
                     url: '{!! url()->route('vouchers.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'code', name: 'code' },
-                    { data: 'name', name: 'name' },
-                    { data: 'description', name: 'description' },
-                    { data: 'uses', name: 'uses' },
-                    { data: 'max_uses', name: 'max_uses' },
-                    { data: 'discount_amount', name: 'discount_amount' },
-                    { data: 'starts_at', name: 'starts_at' },
-                    { data: 'expires_at', name: 'expires_at' },
-                    { data: 'status', name: 'status' },
+                    {data: 'id', name: 'id'},
+                    {data: 'code', name: 'code'},
+                    {data: 'name', name: 'name'},
+                    {data: 'description', name: 'description'},
+                    {data: 'uses', name: 'uses'},
+                    {data: 'max_uses', name: 'max_uses'},
+                    {data: 'discount_amount', name: 'discount_amount'},
+                    {data: 'starts_at', name: 'starts_at'},
+                    {data: 'expires_at', name: 'expires_at'},
+                    {data: 'status', name: 'status'},
                     {
                         data: 'action',
                         name: 'action',
@@ -122,14 +122,14 @@
                     url: '{!! url()->route('sales.index') !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'description', name: 'description' },
-                    { data: 'uses', name: 'uses' },
-                    { data: 'discount_amount', name: 'discount_amount' },
-                    { data: 'starts_at', name: 'starts_at' },
-                    { data: 'expires_at', name: 'expires_at' },
-                    { data: 'status', name: 'status' },
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'description', name: 'description'},
+                    {data: 'uses', name: 'uses'},
+                    {data: 'discount_amount', name: 'discount_amount'},
+                    {data: 'starts_at', name: 'starts_at'},
+                    {data: 'expires_at', name: 'expires_at'},
+                    {data: 'status', name: 'status'},
                     {
                         data: 'action',
                         name: 'action',

@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Detail Artikel Blog
 @endsection
@@ -36,7 +36,8 @@
             <div class="col-lg-12">
                 <div class="row py-3">
                     <div class="col-6">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary w-auto"><i class="fa fa-arrow-left"></i>  Kembali</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-secondary w-auto"><i class="fa fa-arrow-left"></i>
+                            Kembali</a>
                     </div>
                     <div class="col-6">
                         <div class="btn-toolbar float-end" role="toolbar">
@@ -60,8 +61,8 @@
                                                 </h1>
                                                 <div class="product-img bg-light rounded p-3">
                                                     <img
-                                                        src="{{ Storage::url($blog->thumbnail_photo ?? '') }}"
-                                                        class="img-fluid" width="1500px"/>
+                                                            src="{{ Storage::url($blog->thumbnail_photo ?? '') }}"
+                                                            class="img-fluid" width="1500px"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,4 +126,4 @@
         <script src="{{ URL::asset('build/js/pages/ecommerce-product-detail.init.js') }}"></script>
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
-    @endsection
+@endsection

@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Artikel Blog
 @endsection
@@ -19,7 +19,8 @@
             <div class="col-md-6">
                 <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                     <div>
-                        <a href="{{ route('artikel.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
+                        <a href="{{ route('artikel.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i>
+                            Tambah Artikel Blog</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +65,8 @@
                                 <p class="mb-0"><i class="bx bx-user font-size-15 align-middle pe-2 text-primary"></i>
                                     {{ $blog->user->name }}
                                 </p>
-                                <p class="mb-0 mt-2"><i class="bx bx-calendar font-size-15 align-middle pe-2 text-primary"></i>
+                                <p class="mb-0 mt-2">
+                                    <i class="bx bx-calendar font-size-15 align-middle pe-2 text-primary"></i>
                                     {{ $blog->created_at }}
                                 </p>
                             </div>
@@ -85,10 +87,12 @@
                                     <h4 class="modal-title w-100">Apakah anda yakin?</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Apakah anda yakin ingin menghapus artikel {{ $blog->title }} dengan id {{ $blog->id }}?</p>
+                                    <p>Apakah anda yakin ingin menghapus artikel {{ $blog->title }} dengan
+                                        id {{ $blog->id }}?</p>
                                 </div>
                                 <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal
+                                    </button>
                                     <form action="{{ route('artikel.destroy', $blog->id) }}" method="POST">
                                         @method('delete')
                                         @csrf
@@ -105,7 +109,7 @@
         </div>
     @endsection
 
-@section('scripts')
-    <!-- App js -->
-    <script src="{{ URL::asset('build/js/app.js') }}"></script>
+    @section('scripts')
+        <!-- App js -->
+        <script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

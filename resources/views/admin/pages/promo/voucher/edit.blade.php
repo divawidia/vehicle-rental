@@ -1,4 +1,4 @@
- @extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Edit Promo Voucher
 @endsection
@@ -56,7 +56,7 @@
                                     @enderror
                                 </div>
                             </div>
-{{--                            @php(dd($promo->starts_at))--}}
+                            {{--                            @php(dd($promo->starts_at))--}}
                             <div class="mb-3 row">
                                 <label for="discount_amount" class="col-md-2 col-form-label">Diskon Voucher</label>
                                 <div class="col-md-10">

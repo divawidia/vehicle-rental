@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('admin.layouts.master')
 @section('title')
     Tambah Jenis Kendaraan
 @endsection
@@ -20,7 +20,8 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Nama Jenis Kendaraan</label>
+                                <label for="example-text-input" class="col-md-2 col-form-label">Nama Jenis
+                                    Kendaraan</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" autocomplete="off" name="vehicle_type_name" id="vehicle_type_name" placeholder="Isikan nama jenis kendaraan">
                                 </div>
