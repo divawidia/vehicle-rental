@@ -1,4 +1,5 @@
 import './bootstrap';
+import './jquery.nice-number.js'
 
 (function ($) {
     "use strict";
