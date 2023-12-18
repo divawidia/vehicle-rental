@@ -1,0 +1,10 @@
+:root {
+    --primary-color: #00BE70;
+    --primary-color-rgb: 0, 190, 112;
+
+    --secondary-color: #27353E;
+    --secondary-color-rgb: 39, 53, 62;
+
+    --third-color: #FFBA3F;
+    --third-color-rgb: 256, 186, 63;
+}

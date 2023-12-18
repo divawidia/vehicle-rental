@@ -19,9 +19,9 @@
 
                             <div class="mb-4 pb-2">
                                 <a href="{{ route('admin-dashboard') }}" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
+                                    <img src="{{ URL::asset('images/logo.png') }}" alt="" height="80"
                                          class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
+                                    <img src="{{ URL::asset('images/logo.png') }}" alt="" height="80"
                                          class="auth-logo-light me-start">
                                 </a>
                             </div>

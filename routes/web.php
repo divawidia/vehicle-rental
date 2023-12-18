@@ -53,9 +53,7 @@ Route::get('/testmail', function (){
 
 Route::get('/finish-payment', [BookingController::class, 'userPageBooking4'])->name('finish-payment');
 
-Route::get('/about-us', function () {
-    return view('pages.about-us');
-})->name('about-us');
+Route::get('/about-us', function () {return view('client.pages.about-us');})->name('about-us');
 
 Route::prefix('vehicles')
     ->group(function () {

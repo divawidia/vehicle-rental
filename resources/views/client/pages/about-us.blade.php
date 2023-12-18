@@ -11,7 +11,7 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="images/background/16.jpg" class="jarallax-img" alt="">
+            <img src="{{asset('images/background/16.jpg')}}" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">
@@ -44,32 +44,6 @@
                     </div>
                 </div>
                 <div class="spacer-double"></div>
-                {{--                <div class="row text-center">--}}
-                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-                {{--                            <h3 class="timer" data-to="12000" data-speed="3000">0</h3>--}}
-                {{--                            Completed Orders--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-                {{--                            <h3 class="timer" data-to="10000" data-speed="3000">0</h3>--}}
-                {{--                            Happy Customers--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-                {{--                            <h3 class="timer" data-to="120" data-speed="3000">0</h3>--}}
-                {{--                            Vehicles Fleet--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    <div class="col-md-3 col-sm-6 mb-sm-30">--}}
-                {{--                        <div class="de_count wow fadeInUp" data-bgcolor="#f5f5f5">--}}
-                {{--                            <h3 class="timer" data-to="23" data-speed="3000">0</h3>--}}
-                {{--                            Years Experience--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
             </div>
         </section>
 
@@ -101,7 +75,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <img src="images/cars/nmax-no-bg.png" alt="" class="img-fluid wow fadeInUp">
+                        <img src="{{asset('images/misc/bike.png')}}" alt="" class="img-fluid wow fadeInUp">
                     </div>
 
                     <div class="col-lg-3">

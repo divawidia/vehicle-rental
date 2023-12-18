@@ -1,56 +1,37 @@
 @extends('client.layouts.app')
 
 @section('title')
-    Batur Sari Rental Bali  | Rent Scooter and Rent Car in Bali
+    Rent Scooter and Rent Car in Bali
 @endsection
-
-@push('addon-style')
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-@endpush
 
 @section('content')
     <!-- content begin -->
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
-        <section
-            id="section-hero"
-            aria-label="section"
-            class="full-height vertical-center"
-        >
+
+        <section id="section-hero" aria-label="section" class="full-height vertical-center">
             <div class="container pt-0 pt-lg-5">
                 <div class="row align-items-center">
                     <div class="spacer-double sm-hide"></div>
                     <div class="col-lg-7">
                         <div class="spacer-single sm-hide"></div>
                         <h2 class="mb-2" style="color: var(--primary-color)">
-                            Looking for a <span class="id-color">vehicle</span>? Book now
-                            your <span class="id-color">scooter</span> or
+                            Looking for a <span class="id-color">vehicle</span>? <br/>
+                            Book now your <span class="id-color">scooter</span> or
                             <span class="id-color">car</span> rental
                         </h2>
-                        <div
-                            class="p-4 rounded-5 shadow-soft border border-2"
-                            data-bgcolor="#ffffff"
-                        >
+                        <div class="p-4 rounded-5 shadow-soft border border-2" data-bgcolor="#ffffff">
                             <form name="contactForm" id="contact_form" action="{{ route('home.post') }}" method="POST">
                                 @csrf
                                 <h5>What is your vehicle type?</h5>
                                 <div class="de_form de_radio row g-3">
                                     @foreach($vehicleTypes as $vehicleType)
                                         <div class="radio-img col-4 col-sm-4">
-                                            <input
-                                                id="{{ $vehicleType->id }}"
-                                                name="vehicle_type_id"
-                                                type="radio"
-                                                value="{{ $vehicleType->id }}"
-                                                @checked(old("vehicle_type_id") == $vehicleType->id)
-                                            />
-                                            <label class="text-center px-0" for="{{ $vehicleType->id }}"
-                                            ><img
-                                                    src="{{ Storage::url($vehicleType->icon) }}"
-                                                    alt=""
-                                                    height="30px"
-                                                />{{ $vehicleType->vehicle_type_name }}</label
-                                            >
+                                            <input id="{{ $vehicleType->id }}" name="vehicle_type_id" type="radio" value="{{ $vehicleType->id }}"@checked(old("vehicle_type_id") == $vehicleType->id)/>
+                                            <label class="text-center px-0" for="{{ $vehicleType->id }}">
+                                                <img src="{{ Storage::url($vehicleType->icon) }}" alt="{{ $vehicleType->vehicle_type_name }}" height="30px"/>
+                                                {{ $vehicleType->vehicle_type_name }}
+                                            </label>
                                         </div>
                                     @endforeach
                                     @error('vehicle_type_id')
@@ -70,18 +51,10 @@
                                             @endforeach
                                         </select>
                                         @error('pickup_location_type')
-                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-3">{{ $message }}</div>
                                         @enderror
                                         <h5 id="pickupAddressLabel" class="mt-3">Address of my villa / hotel :</h5>
-                                        <input
-                                            type="text"
-                                            name="pick_up_loc"
-                                            placeholder="Enter delivery location"
-                                            id="autocomplete_pickup"
-                                            autocomplete="on"
-                                            class="form-control"
-                                            value="{{ old('pick_up_loc') }}"
-                                        />
+                                        <input type="text" name="pick_up_loc" placeholder="Enter delivery location" id="autocomplete_pickup" autocomplete="on" class="form-control" value="{{ old('pick_up_loc') }}"/>
                                         <div class="form-group d-none" id="pickupLatitudeArea">
                                             <label>Latitude</label>
                                             <input type="text" id="latitude_pickup" name="latitude_pickup" class="form-control" value="{{ old('latitude_pickup') }}">
@@ -102,18 +75,10 @@
                                             @endforeach
                                         </select>
                                         @error('return_location_type')
-                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-3">{{ $message }}</div>
                                         @enderror
                                         <h5 id="returnAddressLabel" class="mt-3">Address of my villa / hotel :</h5>
-                                        <input
-                                            type="text"
-                                            name="return_loc"
-                                            placeholder="Enter return location"
-                                            id="autocomplete_return"
-                                            autocomplete="on"
-                                            class="form-control"
-                                            value="{{ old('return_loc') }}"
-                                        />
+                                        <input type="text" name="return_loc" placeholder="Enter return location" id="autocomplete_return" autocomplete="on" class="form-control" value="{{ old('return_loc') }}"/>
                                         <div class="form-group d-none" id="returnLatitudeArea">
                                             <label>Latitude</label>
                                             <input type="text" id="latitude_return" name="latitude_return" class="form-control" value="{{ old('latitude_return') }}">
@@ -142,16 +107,9 @@
                                         <div class="row px-3">
                                             <div class="col-7 px-1">
                                                 <h5>Delivery Date</h5>
-                                                <input
-                                                    type="date"
-                                                    class="form-control @error('pick_up_date') is-invalid @enderror"
-                                                    id="pick_up_date"
-                                                    name="pick_up_date"
-                                                    value="{{ old('pick_up_date') }}"
-                                                    required
-                                                />
+                                                <input type="date" class="form-control @error('pick_up_date') is-invalid @enderror" id="pick_up_date" name="pick_up_date" value="{{ old('pick_up_date') }}" required/>
                                                 @error('pick_up_date')
-                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-5 px-0">
@@ -190,16 +148,9 @@
                                         <div class="row px-3">
                                             <div class="col-7 px-1">
                                                 <h5>Return Date</h5>
-                                                <input
-                                                    type="date"
-                                                    class="form-control @error('return_date') is-invalid @enderror"
-                                                    id="return_date"
-                                                    name="return_date"
-                                                    value="{{ old('return_date') }}"
-                                                    required
-                                                />
+                                                <input type="date" class="form-control @error('return_date') is-invalid @enderror" id="return_date" name="return_date" value="{{ old('return_date') }}" required/>
                                                 @error('return_date')
-                                                <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                                    <div class="alert alert-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="col-5 px-0">
@@ -235,25 +186,18 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <input
-                                    type="submit"
-                                    id="send_message"
-                                    value="Find a Vehicle"
-                                    class="btn-main pull-right"
-                                />
-
+                                <input type="submit" id="send_message" value="Find a Vehicle" class="btn-main pull-right"/>
                                 <div class="clearfix"></div>
                             </form>
                         </div>
                     </div>
 
-                    <div class="col-lg-5 mt-5 mt-lg-0">
-                        <img
-                            src="/images/misc/Group-152.png"
-                            class="img-fluid"
-                            alt=""
-                        />
+                    <div class="col-lg-5 mt-5 mt-lg-0" style="background-image: url({{ asset('images/misc/circle.png') }});
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        overflow: hidden;
+                        background-position: center;">
+                        <img src="{{asset('/images/misc/Group-152.png')}}" class="img-fluid" alt=""/>
                     </div>
                 </div>
                 <div class="spacer-double"></div>
@@ -330,41 +274,28 @@
                             <div class="col-lg-12">
                                 <div class="de-item mb30">
                                     <div class="d-img">
-                                        <img
-                                            src="{{ Storage::url($vehicle->thumbnail) }}"
-                                            class="img-fluid"
-                                            alt=""
-                                        />
+                                        <img src="{{ Storage::url($vehicle->thumbnail) }}" class="img-fluid" alt="thumbnail {{ $vehicle->vehicle_name }}"/>
                                     </div>
                                     <div class="d-info">
                                         <div class="d-text">
                                             <h4>{{ $vehicle->vehicle_name }}</h4>
-                                            <!-- <div class="d-item_like">
-                                              <i class="fa fa-heart"></i><span>74</span>
-                                            </div> -->
                                             <div class="d-atr-group">
-                                          <span class="d-atr"
-                                          ><img src="images/icons/1.svg" alt=""/>{{ $vehicle->passenger }}</span
-                                          >
-                                                <span class="d-atr"
-                                                ><img
-                                                        src="images/icons/engine.svg"
-                                                        alt=""
-                                                    />{{ $vehicle->engine_capacity }}cc</span
-                                                >
-                                                <span class="d-atr"
-                                                ><img
-                                                        src="images/icons/transmission.svg"
-                                                        alt=""
-                                                    />{{ $vehicle->transmission->transmission_type }}</span
-                                                >
-                                                <span class="d-atr"
-                                                ><img
-                                                        src="images/icons/scooter.svg"
-                                                        alt=""
-                                                        height="25px"
-                                                    />{{ $vehicle->vehicle_type->vehicle_type_name }}</span
-                                                >
+                                                <span class="d-atr">
+                                                    <img src="{{asset('images/icons/1.svg')}}" alt="passenger"/>
+                                                    {{ $vehicle->passenger }}
+                                                </span>
+                                                <span class="d-atr">
+                                                    <img src="{{asset('images/icons/engine.svg')}}" alt="engine capacity"/>
+                                                    {{ $vehicle->engine_capacity }}cc
+                                                </span>
+                                                <span class="d-atr">
+                                                    <img src="{{asset('images/icons/transmission.svg')}}" alt=""/>
+                                                    {{ $vehicle->transmission->transmission_type }}
+                                                </span>
+                                                <span class="d-atr">
+                                                    <img src="{{asset('images/icons/scooter.svg')}}" alt="" height="25px"/>
+                                                    {{ $vehicle->vehicle_type->vehicle_type_name }}
+                                                </span>
                                             </div>
                                             <div class="row d-flex align-items-center">
                                                 @php
@@ -385,24 +316,18 @@
                                                     <div class="d-price">
                                                         Daily rate
                                                         <div class="d-flex justify-content-start">
-                                                                <span
-                                                                    class="text-danger">Rp. {{ number_format($daily_price) }}</span>
-                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                -{{ $discount_percentage }}%</h4>
+                                                            <span class="text-danger">Rp. {{ number_format($daily_price) }}</span>
+                                                            <h4 class="badge bg-danger w-25 text-white mx-3">-{{ $discount_percentage }}%</h4>
                                                         </div>
-                                                        <div class="d-price-old">
-                                                            Rp. {{ number_format($vehicle->daily_price) }}</div>
+                                                        <div class="d-price-old">Rp. {{ number_format($vehicle->daily_price) }}</div>
                                                     </div>
                                                     <div class="d-price-month">
                                                         Monthly rate
                                                         <div class="d-flex justify-content-start">
-                                                                <span
-                                                                    class="text-danger">Rp. {{ number_format($monthly_price) }}</span>
-                                                            <h4 class="badge bg-danger w-25 text-white mx-3">
-                                                                -{{ $discount_percentage }}%</h4>
+                                                            <span class="text-danger">Rp. {{ number_format($monthly_price) }}</span>
+                                                            <h4 class="badge bg-danger w-25 text-white mx-3">-{{ $discount_percentage }}%</h4>
                                                         </div>
-                                                        <div class="d-price-month-old">
-                                                            Rp. {{ number_format($vehicle->monthly_price) }}</div>
+                                                        <div class="d-price-month-old">Rp. {{ number_format($vehicle->monthly_price) }}</div>
                                                     </div>
                                                 @elseif($discount_status == '0')
                                                     <div class="d-price">
@@ -414,8 +339,7 @@
                                                         <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
                                                     </div>
                                                 @endif
-                                                <a class="btn-main w-100 mt-3"
-                                                   href="{{ route('vehicle-detail', $vehicle->slug) }}">
+                                                <a class="btn-main w-100 mt-3" href="{{ route('vehicle-detail', $vehicle->slug) }}">
                                                     Rent Now
                                                 </a>
                                             </div>
@@ -428,125 +352,6 @@
                 </div>
             </div>
         </section>
-
-        {{--        <section id="section-cars" class="no-top">--}}
-        {{--            <div class="container">--}}
-        {{--                <div class="row align-items-center">--}}
-        {{--                    <div class="col-lg-6 offset-lg-3 text-center">--}}
-        {{--                        <h2>Our Cars Fleet</h2>--}}
-        {{--                        <p>--}}
-        {{--                            Driving your dreams to reality with an exquisite fleet of--}}
-        {{--                            versatile vehicles for unforgettable journeys.--}}
-        {{--                        </p>--}}
-        {{--                        <div class="spacer-20"></div>--}}
-        {{--                    </div>--}}
-
-        {{--                    <div class="clearfix"></div>--}}
-
-        {{--                    <div id="items-carousel2" class="owl-carousel wow fadeIn">--}}
-        {{--                        <div class="col-lg-12">--}}
-        {{--                            <div class="de-item mb30">--}}
-        {{--                                <div class="d-img">--}}
-        {{--                                    <img--}}
-        {{--                                        src="images/cars/avanza.png"--}}
-        {{--                                        class="img-fluid"--}}
-        {{--                                        alt=""--}}
-        {{--                                    />--}}
-        {{--                                </div>--}}
-        {{--                                <div class="d-info">--}}
-        {{--                                    <div class="d-text">--}}
-        {{--                                        <h4>Toyota All New Avanza</h4>--}}
-        {{--                                        <div class="d-item_like">--}}
-        {{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
-        {{--                                        </div>--}}
-        {{--                                        <div class="d-atr-group">--}}
-        {{--                      <span class="d-atr"--}}
-        {{--                      ><img src="images/icons/1.svg" alt="" />7</span--}}
-        {{--                      >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/engine.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                />1500cc</span--}}
-        {{--                                            >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/transmission.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                />automatic</span--}}
-        {{--                                            >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/4.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                    height="25px"--}}
-        {{--                                                />MPV</span--}}
-        {{--                                            >--}}
-        {{--                                        </div>--}}
-        {{--                                        <div class="d-price">--}}
-        {{--                                            Daily rate from <span>Rp. 250K</span>--}}
-        {{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
-        {{--                                            >Rent Now</a--}}
-        {{--                                            >--}}
-        {{--                                        </div>--}}
-        {{--                                    </div>--}}
-        {{--                                </div>--}}
-        {{--                            </div>--}}
-        {{--                        </div>--}}
-
-        {{--                        <div class="col-lg-12">--}}
-        {{--                            <div class="de-item mb30">--}}
-        {{--                                <div class="d-img">--}}
-        {{--                                    <img--}}
-        {{--                                        src="images/cars/agya.png"--}}
-        {{--                                        class="img-fluid"--}}
-        {{--                                        alt=""--}}
-        {{--                                    />--}}
-        {{--                                </div>--}}
-        {{--                                <div class="d-info">--}}
-        {{--                                    <div class="d-text">--}}
-        {{--                                        <h4>Toyota All New Agya</h4>--}}
-        {{--                                        <div class="d-item_like">--}}
-        {{--                                            <i class="fa fa-heart"></i><span>74</span>--}}
-        {{--                                        </div>--}}
-        {{--                                        <div class="d-atr-group">--}}
-        {{--                      <span class="d-atr"--}}
-        {{--                      ><img src="images/icons/1.svg" alt="" />5</span--}}
-        {{--                      >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/engine.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                />1200cc</span--}}
-        {{--                                            >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/transmission.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                />automatic</span--}}
-        {{--                                            >--}}
-        {{--                                            <span class="d-atr"--}}
-        {{--                                            ><img--}}
-        {{--                                                    src="images/icons/4.svg"--}}
-        {{--                                                    alt=""--}}
-        {{--                                                    height="25px"--}}
-        {{--                                                />Hatchback</span--}}
-        {{--                                            >--}}
-        {{--                                        </div>--}}
-        {{--                                        <div class="d-price">--}}
-        {{--                                            Daily rate from <span>Rp. 200K</span>--}}
-        {{--                                            <a class="btn-main" href="{{ route('vehicle-detail') }}"--}}
-        {{--                                            >Rent Now</a--}}
-        {{--                                            >--}}
-        {{--                                        </div>--}}
-        {{--                                    </div>--}}
-        {{--                                </div>--}}
-        {{--                            </div>--}}
-        {{--                        </div>--}}
-        {{--                    </div>--}}
-        {{--                </div>--}}
-        {{--            </div>--}}
-        {{--        </section>--}}
 
         <section aria-label="section" class="no-top">
             <div class="container">
@@ -562,10 +367,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-3">
-                        <div
-                            class="box-icon s2 p-small mb20 wow fadeInRight"
-                            data-wow-delay=".5s"
-                        >
+                        <div class="box-icon s2 p-small mb20 wow fadeInRight" data-wow-delay=".5s">
                             <i class="fa bg-color fa-trophy"></i>
                             <div class="d-inner">
                                 <h4>First class services</h4>
@@ -573,10 +375,7 @@
                                 moments and exceeding your every expectation.
                             </div>
                         </div>
-                        <div
-                            class="box-icon s2 p-small mb20 wow fadeInL fadeInRight"
-                            data-wow-delay=".75s"
-                        >
+                        <div class="box-icon s2 p-small mb20 wow fadeInL fadeInRight" data-wow-delay=".75s">
                             <i class="fa bg-color fa-road"></i>
                             <div class="d-inner">
                                 <h4>24/7 road assistance</h4>
@@ -587,18 +386,11 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <img
-                            src="images/cars/nmax-no-bg.png"
-                            alt=""
-                            class="img-fluid wow fadeInUp"
-                        />
+                        <img src="{{ asset('images/misc/bike.png')}}" alt="" class="img-fluid wow fadeInUp"/>
                     </div>
 
                     <div class="col-lg-3">
-                        <div
-                            class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft"
-                            data-wow-delay="1s"
-                        >
+                        <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                             <i class="fa bg-color fa-tag"></i>
                             <div class="d-inner">
                                 <h4>Quality at Minimum Expense</h4>
@@ -606,10 +398,7 @@
                                 minimizing costs for maximum value.
                             </div>
                         </div>
-                        <div
-                            class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft"
-                            data-wow-delay="1.25s"
-                        >
+                        <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>Free Pick-Up & Drop-Off</h4>
@@ -623,7 +412,7 @@
         </section>
 
         <section class="text-light jarallax" aria-label="section">
-            <img src="images/background/16.jpg" alt="" class="jarallax-img"/>
+            <img src="{{asset('images/background/16.jpg')}}" alt="" class="jarallax-img"/>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3">
@@ -657,90 +446,11 @@
                 </div>
             </div>
         </section>
-
-        <section id="section-testimonials">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="de-image-text">
-                            <div class="d-text">
-                                <div class="d-quote id-color">
-                                    <i class="fa fa-quote-right"></i>
-                                </div>
-                                <h4>Excellent Service! Car Rent Service!</h4>
-                                <blockquote>
-                                    I have been using Rentaly for my Car Rental needs for over
-                                    5 years now. I have never had any problems with their
-                                    service. Their customer support is always responsive and
-                                    helpful. I would recommend Rentaly to anyone looking for a
-                                    reliable Car Rental provider.
-                                    <span class="by">Stepanie Hutchkiss</span>
-                                </blockquote>
-                            </div>
-                            <img
-                                src="images/testimonial/1.jpg"
-                                class="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="de-image-text">
-                            <div class="d-text">
-                                <div class="d-quote id-color">
-                                    <i class="fa fa-quote-right"></i>
-                                </div>
-                                <h4>Excellent Service! Car Rent Service!</h4>
-                                <blockquote>
-                                    We have been using Rentaly for our trips needs for several
-                                    years now and have always been happy with their service.
-                                    Their customer support is Excellent Service! and they are
-                                    always available to help with any issues we have. Their
-                                    prices are also very competitive.
-                                    <span class="by">Jovan Reels</span>
-                                </blockquote>
-                            </div>
-                            <img
-                                src="images/testimonial/2.jpg"
-                                class="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="de-image-text">
-                            <div class="d-text">
-                                <div class="d-quote id-color">
-                                    <i class="fa fa-quote-right"></i>
-                                </div>
-                                <h4>Excellent Service! Car Rent Service!</h4>
-                                <blockquote>
-                                    Endorsed by industry experts, Rentaly is the Car Rental
-                                    solution you can trust. With years of experience in the
-                                    field, we provide fast, reliable and secure Car Rental
-                                    services.
-                                    <span class="by">Kanesha Keyton</span>
-                                </blockquote>
-                            </div>
-                            <img
-                                src="images/testimonial/3.jpg"
-                                class="img-fluid"
-                                alt=""
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 @endsection
 
 @push('addon-script')
-    <script async src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&callback=initMap&libraries=places,maps,marker&v=weekly"
-    >
-    </script>
+    <script async src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&callback=initMap&libraries=places,maps,marker&v=weekly"></script>
     <script>
         $(document).ready(function () {
             $('#autocomplete_pickup').hide();

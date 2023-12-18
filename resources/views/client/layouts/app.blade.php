@@ -20,13 +20,13 @@
         gtag('config', 'G-5337SZ8686');
     </script>
 
-    <title>@yield('title')</title>
+    <title>@yield('title') | Batur Sari Rental Bali</title>
 
     {{-- style --}}
     @stack('prepend-style')
     @include('client.includes.style')
     @stack('addon-style')
-
+    @vite(['resources/assets/client/css/app.css', 'resources/assets/client/js/app.js'])
 </head>
 
 <body>

@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-4">
-                                        <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="logo" height="75"/>
+                                        <img src="{{ URL::asset('images/logo.png') }}" alt="logo" height="75"/>
                                     </div>
                                     <div class="text-muted">
                                         <p class="mb-0">Jl. Kayu Aya, Gg, Beji No. 60x, Seminyak, Kec. Kuta, Kabupaten

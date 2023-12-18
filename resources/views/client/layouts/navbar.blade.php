@@ -39,11 +39,11 @@
                                 <a href="{{ route('home') }}">
                                     <img
                                         class="logo-1"
-                                        src="/images/logo-with-text.png"
+                                        src="/images/logo.png"
                                         alt=""
                                         height="60px"
                                     />
-                                    <img class="logo-2" src="/images/logo-with-text.png" alt="" height="60px"/>
+                                    <img class="logo-2" src="/images/logo.png" alt="" height="60px"/>
                                 </a>
                             </div>
                             <!-- logo close -->
