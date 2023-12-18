@@ -4,14 +4,14 @@
 @import url('https://use.typekit.net/ssf2mnc.css');
 
 :root {
-    --primary-color: #151c24;
-    --primary-color-rgb: 120, 202, 92;
+    --primary-color: #00BE70;
+    --primary-color-rgb: 0, 190, 112;
 
-    --secondary-color: #599da6;
-    --secondary-color-rgb: 23, 149, 16;
+    --secondary-color: #27353E;
+    --secondary-color-rgb: 39, 53, 62;
 
-    --third-color: #ff5f02;
-    --third-color-rgb: 23, 149, 16;
+    --third-color: #FFBA3F;
+    --third-color-rgb: 256, 186, 63;
 }
 
 * {
@@ -53,7 +53,7 @@ html {
 }
 
 body {
-    font-family: var(--body-font);
+    font-family: var(--body-font), serif;
     font-size: 16px;
     font-weight: 400;
     color: var(--body-font-color);
@@ -10221,7 +10221,6 @@ object {
 .call-to-action-box {
     background: #f6f6f6;
     border: solid 1px #ddd;
-    background: rgb(255, 255, 255);
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(242, 242, 242, 1)));
     background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 1) 100%);

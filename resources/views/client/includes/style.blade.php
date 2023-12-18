@@ -11,10 +11,6 @@
 <!-- Daterangepicker CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-{{--<link href="/css/style.css" rel="stylesheet" type="text/css"/>--}}
-<link href="{{asset('css/coloring.css')}}" rel="stylesheet" type="text/css"/>
-<!-- color scheme -->
-<link id="colors" href="{{asset('css/colors/scheme-01.css')}}" rel="stylesheet" type="text/css"/>
 <link rel="shortcut icon" href="{{asset('favicon/favicon.ico')}}" type="image/x-icon"/>
 <link rel="icon" href="{{asset('favicon/favicon.ico')}}" type="image/x-icon"/>
 <!-- nanogallery2 -->
