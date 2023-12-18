@@ -1,6 +1,8 @@
+import 'jquery';
 import './bootstrap.js';
-
 import Alpine from 'alpinejs';
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
 import { ajaxProcessing, confirmAlert } from './sweetalert'
 
 window.Alpine = Alpine;
@@ -157,14 +159,14 @@ Alpine.start();
     initSelect2(".select2");
     initSelect2(".select2 #mahasiswa", "Pilih mahasiswa");
 
-    function initCKEditor(className) {
-        ClassicEditor.create($(className).get(0), {
-            toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList'],
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-    initCKEditor('.ckeditor');
+    // function initCKEditor(className) {
+    //     ClassicEditor.create($(className).get(0), {
+    //         toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+    //     }).catch(error => {
+    //         console.log(error);
+    //     });
+    // }
+    // initCKEditor('.ckeditor');
 
     function init() {
         initMetisMenu();
@@ -176,6 +178,8 @@ Alpine.start();
 
     init();
 
+    window.$ = window.jQuery = $;
+    window.ResizeObserver = ResizeObserver;
     window.ajaxProcessing = ajaxProcessing;
     window.confirmAlert = confirmAlert;
 })();

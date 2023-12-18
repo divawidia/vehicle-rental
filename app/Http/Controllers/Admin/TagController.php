@@ -47,7 +47,7 @@ class TagController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.tag.index');
+        return view('admin.pages.tag.index');
     }
 
     /**
@@ -55,7 +55,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.tag.create');
+        return view('admin.pages.tag.create');
     }
 
     /**
@@ -87,7 +87,7 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        return view('pages.admin.tag.edit',[
+        return view('admin.pages.tag.edit',[
             'tag' => $tag
         ]);
     }

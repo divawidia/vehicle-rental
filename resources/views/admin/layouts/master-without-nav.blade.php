@@ -13,15 +13,16 @@
     <!-- include head css -->
 
     @include('admin.includes.head-css')
+    @vite(['resources/assets/admin/css/app.css', 'resources/assets/admin/css/bootstrap.min.css', 'resources/assets/admin/js/app.js', ])
 </head>
 
 <body>
 
-@yield('content')
+    @yield('content')
 
-<!-- vendor-scripts -->
+    <!-- vendor-scripts -->
 
-@include('admin.includes.vendor-scripts')
+    @include('admin.includes.vendor-scripts')
 
 </body>
 

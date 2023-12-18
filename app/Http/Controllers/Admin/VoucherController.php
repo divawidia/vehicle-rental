@@ -62,7 +62,7 @@ class VoucherController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.promo.index');
+        return view('admin.pages.promo.index');
     }
 
     /**
@@ -70,7 +70,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.promo.voucher.create');
+        return view('admin.pages.promo.voucher.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class VoucherController extends Controller
     {
         $promo = Promo::findOrFail($id);
 
-        return view('pages.admin.promo.voucher.edit', [
+        return view('admin.pages.promo.voucher.edit', [
             'promo' => $promo
         ]);
     }

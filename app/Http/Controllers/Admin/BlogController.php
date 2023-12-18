@@ -21,7 +21,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::with(['user', 'tags'])->latest()->get();
-        return view('pages.admin.blog.index', [
+        return view('admin.pages.blog.index', [
             'blogs' => $blogs
         ]);
     }
@@ -33,7 +33,7 @@ class BlogController extends Controller
     {
         $tags = Tag::all();
 
-        return view('pages.admin.blog.create',[
+        return view('admin.pages.blog.create',[
             'tags' => $tags
         ]);
     }
@@ -60,7 +60,7 @@ class BlogController extends Controller
      */
     public function show(string $slug)
     {
-        return view('pages.admin.blog.detail')->with('blog', Blog::where('slug', $slug)->where('deleted_at', null)->first());
+        return view('admin.pages.blog.detail')->with('blog', Blog::where('slug', $slug)->where('deleted_at', null)->first());
     }
 
     /**
@@ -71,7 +71,7 @@ class BlogController extends Controller
         $artikel = Blog::with((['tags']))->findOrFail($id);
         $tags = Tag::all();
 
-        return view('pages.admin.blog.edit',[
+        return view('admin.pages.blog.edit',[
             'artikel' => $artikel,
             'tags' => $tags
         ]);

@@ -74,7 +74,7 @@ class DashboardController extends Controller
         }
 //        dd(json_encode($yearlyCountryTotalRentData));
 
-        return view('pages.admin.dashboard', [
+        return view('admin.pages.dashboard', [
             'monthTotalSales' => $monthTotalSales->build(),
             'yearTotalSales' => $yearTotalSales->build(),
             'weekTotalSalesChart' => $weekTotalSalesChart->build(),

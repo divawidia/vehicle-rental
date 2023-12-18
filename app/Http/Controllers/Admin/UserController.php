@@ -60,7 +60,7 @@ class UserController extends Controller
                 ->rawColumns(['action', 'photo_url', 'created_at', 'status'])
                 ->make();
         }
-        return view('pages.admin.user.index');
+        return view('admin.pages.user.index');
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create');
+        return view('admin.pages.user.create');
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        return view('pages.admin.user.edit',[
+        return view('admin.pages.user.edit',[
             'user' => $user
         ]);
     }

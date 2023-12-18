@@ -44,7 +44,7 @@ class TransmissionController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.vehicle-category.index');
+        return view('admin.pages.vehicle-category.index');
     }
 
     /**
@@ -52,7 +52,7 @@ class TransmissionController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.vehicle-category.transmission.create');
+        return view('admin.pages.vehicle-category.transmission.create');
     }
 
     /**
@@ -84,7 +84,7 @@ class TransmissionController extends Controller
     {
         $item = Transmission::findOrFail($id);
 
-        return view('pages.admin.vehicle-category.transmission.edit', [
+        return view('admin.pages.vehicle-category.transmission.edit', [
             'item' => $item
         ]);
     }

@@ -5,10 +5,6 @@
 @section('page-title')
     Login
 @endsection
-@section('body')
-
-    <body>
-    @endsection
     @section('content')
         <div class="authentication-bg min-vh-100">
             <div class="bg-overlay bg-light"></div>
@@ -18,11 +14,9 @@
                         <div class="col-md-8 col-lg-6 col-xl-5">
 
                             <div class="mb-4 pb-2">
-                                <a href="{{ route('admin-dashboard') }}" class="d-block auth-logo">
-                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
+                                <a href="{{ route('admin-dashboard') }}" class="d-block auth-logo text-center">
+                                    <img src="{{ URL::asset('images/logo.png') }}" alt="" height="80"
                                          class="auth-logo-dark me-start">
-                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
-                                         class="auth-logo-light me-start">
                                 </a>
                             </div>
 
@@ -39,7 +33,8 @@
                                                 <label for="email" class="form-label">Email
                                                     <span class="text-danger">*</span></label>
                                                 <input id="email" type="email"
-                                                       class="form-control @error('email') is-invalid @enderror" name="email"
+                                                       class="form-control @error('email') is-invalid @enderror"
+                                                       name="email"
                                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
                                                 @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -49,69 +44,33 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                {{--                                                <div class="float-end">--}}
-                                                {{--                                                    <a href="{{ route('password.update') }}"--}}
-                                                {{--                                                       class="text-muted text-decoration-underline">Forgot password?</a>--}}
-                                                {{--                                                </div>--}}
-                                                <label class="form-label" for="password-input">Password
-                                                    <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="password-input">
+                                                    Password<span class="text-danger">*</span>
+                                                </label>
                                                 <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                     <span class="bx bx-lock-alt"></span>
-                                                    <input type="password"
-                                                           class="form-control @error('password') is-invalid @enderror"
+                                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
                                                            placeholder="Enter password" id="password-input" name="password"
                                                            required autocomplete="current-password">
                                                 </div>
                                                 @error('password')
-                                                <span class="invalid-feedback" role="alert">
+                                                    <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
 
-                                            {{--                                            <div class="form-check">--}}
-                                            {{--                                                <input class="form-check-input" type="checkbox" name="remember"--}}
-                                            {{--                                                       id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
-                                            {{--                                                <label class="form-check-label" for="remember">Remember--}}
-                                            {{--                                                    me</label>--}}
-                                            {{--                                            </div>--}}
-
                                             <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Sign
-                                                    In
+                                                <button class="btn btn-primary w-100" type="submit">
+                                                    Sign In
                                                 </button>
                                             </div>
-
-                                            {{--                                            <div class="mt-4 text-center">--}}
-                                            {{--                                                <div class="signin-other-title">--}}
-                                            {{--                                                    <h5 class="font-size-14 mb-3 mt-2 title"> Sign in with </h5>--}}
-                                            {{--                                                </div>--}}
-
-                                            {{--                                                <ul class="list-inline mt-2">--}}
-                                            {{--                                                    <li class="list-inline-item">--}}
-                                            {{--                                                        <a href="javascript:void(0)"--}}
-                                            {{--                                                           class="social-list-item bg-primary text-white border-primary">--}}
-                                            {{--                                                            <i class="bx bxl-facebook"></i>--}}
-                                            {{--                                                        </a>--}}
-                                            {{--                                                    </li>--}}
-                                            {{--                                                    <li class="list-inline-item">--}}
-                                            {{--                                                        <a href="javascript:void(0)"--}}
-                                            {{--                                                           class="social-list-item bg-info text-white border-info">--}}
-                                            {{--                                                            <i class="bx bxl-linkedin"></i>--}}
-                                            {{--                                                        </a>--}}
-                                            {{--                                                    </li>--}}
-                                            {{--                                                    <li class="list-inline-item">--}}
-                                            {{--                                                        <a href="javascript:void(0)"--}}
-                                            {{--                                                           class="social-list-item bg-danger text-white border-danger">--}}
-                                            {{--                                                            <i class="bx bxl-google"></i>--}}
-                                            {{--                                                        </a>--}}
-                                            {{--                                                    </li>--}}
-                                            {{--                                                </ul>--}}
-                                            {{--                                            </div>--}}
                                             <div class="mt-4 text-center">
                                                 <p class="mb-0">Don't have an account ?
-                                                    <a href="{{ route('register') }}"
-                                                       class="fw-medium text-primary"> Register</a></p>
+                                                    <a href="{{ route('register') }}" class="fw-medium text-primary">
+                                                        Register
+                                                    </a>
+                                                </p>
                                             </div>
                                         </form>
                                     </div>
@@ -140,6 +99,3 @@
         </div>
         <!-- end authentication section -->
     @endsection
-    @section('scripts')
-        <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
-@endsection

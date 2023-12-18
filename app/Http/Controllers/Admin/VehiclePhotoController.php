@@ -36,7 +36,7 @@ class VehiclePhotoController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.vehicle-photo.index');
+        return view('admin.pages.vehicle-photo.index');
     }
 
     /**
@@ -46,7 +46,7 @@ class VehiclePhotoController extends Controller
     {
         $vehicles = Vehicle::all();
 
-        return view('pages.admin.vehicle-photo.create',[
+        return view('admin.pages.vehicle-photo.create',[
             'vehicles' => $vehicles
         ]);
     }

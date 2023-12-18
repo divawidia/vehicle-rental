@@ -64,7 +64,7 @@ class SaleController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.promo.index');
+        return view('admin.pages.promo.index');
     }
 
     /**
@@ -74,7 +74,7 @@ class SaleController extends Controller
     {
         $vehicles = Vehicle::all();
 //        dd($vehicles);
-        return view('pages.admin.promo.sale.create',[
+        return view('admin.pages.promo.sale.create',[
             'vehicles' => $vehicles
         ]);
     }
@@ -110,7 +110,7 @@ class SaleController extends Controller
         $promo = Promo::findOrFail($id);
         $vehicles = Vehicle::all();
 
-        return view('pages.admin.promo.sale.edit', [
+        return view('admin.pages.promo.sale.edit', [
             'promo' => $promo,
             'vehicles' => $vehicles
         ]);

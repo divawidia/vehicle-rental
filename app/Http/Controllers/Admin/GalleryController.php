@@ -39,7 +39,7 @@ class GalleryController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.gallery.index');
+        return view('admin.pages.gallery.index');
     }
 
     /**
@@ -47,7 +47,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.gallery.create');
+        return view('admin.pages.gallery.create');
     }
 
     public function uploadPhoto(Request $request) {

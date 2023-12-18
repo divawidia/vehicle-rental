@@ -8,13 +8,13 @@
                 <img src="{{ URL::asset('images/logo.png') }}" alt="" height="30">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="60">
+                <img src="{{ URL::asset('images/logo.png') }}" alt="" height="60">
             </span>
         </a>
 
         <a href="{{ route('admin-dashboard') }}" class="logo logo-light">
             <span class="logo-lg">
-                <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="75">
+                <img src="{{ URL::asset('images/logo.png') }}" alt="" height="75">
             </span>
             <span class="logo-sm">
                 <img src="{{ URL::asset('images/logo.png') }}" alt="" height="75">
@@ -38,7 +38,6 @@
                     <a href="{{ route('admin-dashboard') }}">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
-{{--                        <span class="badge rounded-pill bg-primary">2</span>--}}
                     </a>
                 </li>
 

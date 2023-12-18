@@ -49,7 +49,7 @@ class VehicleTypeController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.vehicle-category.index');
+        return view('admin.pages.vehicle-category.index');
     }
 
     /**
@@ -57,7 +57,7 @@ class VehicleTypeController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.vehicle-category.type.create');
+        return view('admin.pages.vehicle-category.type.create');
     }
 
     /**
@@ -90,7 +90,7 @@ class VehicleTypeController extends Controller
     {
         $item = VehicleType::findOrFail($id);
 
-        return view('pages.admin.vehicle-category.type.edit', [
+        return view('admin.pages.vehicle-category.type.edit', [
             'item' => $item
         ]);
     }

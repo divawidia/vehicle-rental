@@ -142,7 +142,7 @@ class BookingController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.booking.index');
+        return view('admin.pages.booking.index');
     }
 
     /**
@@ -158,7 +158,7 @@ class BookingController extends Controller
 //            ->get();
         $vehicles = Vehicle::where('unit_quantity', '>', 0)->get();
 
-        return view('pages.admin.booking.create', [
+        return view('admin.pages.booking.create', [
             'vehicles' => $vehicles
         ]);
     }
@@ -770,12 +770,12 @@ class BookingController extends Controller
      */
     public function show(string $id)
     {
-        return view('pages.admin.booking.detail')->with('booking', Booking::where('id', $id)->first());
+        return view('admin.pages.booking.detail')->with('booking', Booking::where('id', $id)->first());
     }
 
     public function invoice(string $id)
     {
-        return view('pages.admin.booking.invoice')->with('booking', Booking::where('id', $id)->first());
+        return view('admin.pages.booking.invoice')->with('booking', Booking::where('id', $id)->first());
     }
 
     public function invoicePDF(string $id){
@@ -784,7 +784,7 @@ class BookingController extends Controller
             'transaction_code' => $booking->transaction_code,
             'transaction_status' => $booking->transaction_status
         ];
-        $pdf = PDF::loadView('pages.admin.booking.invoice', $booking);
+        $pdf = PDF::loadView('admin.pages.booking.invoice', $booking);
         $filename = 'invoice_'. $booking->id .'_' . $booking->transaction_code . '.pdf';
         return $pdf->download($filename);
     }
@@ -797,7 +797,7 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         $vehicles = Vehicle::all();
 
-        return view('pages.admin.booking.edit', [
+        return view('admin.pages.booking.edit', [
             'booking' => $booking,
             'vehicles' => $vehicles
         ]);

@@ -97,7 +97,7 @@ Route::prefix('admin')
 
         Route::prefix('kategori-kendaraaan')
             ->group(function (){
-                Route::get('/', function () {return view('pages.admin.vehicle-category.index');})->name('vehicle-category-index');
+                Route::get('/', function () {return view('admin.pages.vehicle-category.index');})->name('vehicle-category-index');
                 Route::resource('tipe', VehicleTypeController::class);
                 Route::resource('transmisi', TransmissionController::class);
                 Route::resource('brand', VehicleBrandController::class);
@@ -122,7 +122,7 @@ Route::prefix('admin')
 
         Route::prefix('promos')
             ->group(function (){
-                Route::get('/', function () {return view('pages.admin.promo.index');})->name('promo-index');
+                Route::get('/', function () {return view('admin.pages.promo.index');})->name('promo-index');
                 Route::resource('vouchers', VoucherController::class);
                 Route::resource('sales', SaleController::class);
             });

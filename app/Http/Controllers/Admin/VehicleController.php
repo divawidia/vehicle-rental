@@ -60,7 +60,7 @@ class VehicleController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.vehicle.index');
+        return view('admin.pages.vehicle.index');
     }
 
     /**
@@ -72,7 +72,7 @@ class VehicleController extends Controller
         $transmissions = Transmission::all();
         $brands = VehicleBrand::all();
 
-        return view('pages.admin.vehicle.create',[
+        return view('admin.pages.vehicle.create',[
             'vehicleTypes' => $vehicleTypes,
             'transmissions' => $transmissions,
             'brands' => $brands
@@ -216,8 +216,8 @@ class VehicleController extends Controller
                 ->rawColumns(['action', 'booking_status', 'transaction_status', 'shipping_status', 'return_status', 'created_at', 'pick_up_datetime', 'return_datetime', 'whatsapp', 'name', 'total_days_rent'])
                 ->make();
         }
-//        return view('pages.admin.vehicle.detail');
-        return view('pages.admin.vehicle.detail')->with('vehicle', Vehicle::where('id', $id)->first());
+//        return view('admin.pages.vehicle.detail');
+        return view('admin.pages.vehicle.detail')->with('vehicle', Vehicle::where('id', $id)->first());
     }
 
     public function indexVehicleDetail($id)
@@ -264,7 +264,7 @@ class VehicleController extends Controller
         $transmissions = Transmission::all();
         $brands = VehicleBrand::all();
 
-        return view('pages.admin.vehicle.edit',[
+        return view('admin.pages.vehicle.edit',[
             'kendaraan' => $kendaraan,
             'vehicleTypes' => $vehicleTypes,
             'transmissions' => $transmissions,
@@ -277,7 +277,7 @@ class VehicleController extends Controller
         $vehicleDetail = VehicleDetail::findOrFail($id);
 //        dd($vehicleDetail);
 
-        return view('pages.admin.vehicle.edit-vehicle-detail',[
+        return view('admin.pages.vehicle.edit-vehicle-detail',[
             'vehicleDetail' => $vehicleDetail
         ]);
     }

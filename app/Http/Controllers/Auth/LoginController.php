@@ -41,6 +41,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm()
+    {
+        return view('admin.auth.login');
+    }
+
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -51,7 +56,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'roles' => 'ADMIN', 'status' => 1])) {
             $request->session()->regenerate();
 
-            return redirect($this->redirectTo); 
+            return redirect($this->redirectTo);
         }
 
         return back()->withErrors([
