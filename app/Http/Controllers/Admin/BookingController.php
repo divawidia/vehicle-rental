@@ -210,7 +210,7 @@ class BookingController extends Controller
 //                        ->get();
         $vehicles = Vehicle::where('unit_quantity', '>', 0)->get();
 
-        return view('pages.choose-vehicle', compact('booking', 'vehicles'));
+        return view('client.pages.choose-vehicle', compact('booking', 'vehicles'));
     }
 
 //    public function checkVoucher(Request $request){
