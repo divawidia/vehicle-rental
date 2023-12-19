@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
-        return view('pages.home',[
+        return view('client.pages.home',[
             'vehicles' => $vehicles
         ]);
     }
@@ -102,7 +102,7 @@ class HomeController extends Controller
         $vehicles = $vehicles->get();
 
 
-        return view('pages.vehicle-list', compact('vehicles', 'vehicleTypes', 'transmissions', 'brands', 'previousData'));
+        return view('client.pages.vehicle-list', compact('vehicles', 'vehicleTypes', 'transmissions', 'brands', 'previousData'));
     }
     public function vehicleDetail(Request $request, string $slug)
     {
@@ -113,7 +113,7 @@ class HomeController extends Controller
             ->where('vehicle_details.vehicle_id', $vehicle->id)
             ->count();
 //        dd($vehicleUnit);
-        return view('pages.vehicle-detail', compact(['vehicle', 'vehicleUnit', 'booking']));
+        return view('client.pages.vehicle-detail', compact(['vehicle', 'vehicleUnit', 'booking']));
     }
 
 //    public function filter_vehicle(Request $request)
@@ -149,14 +149,14 @@ class HomeController extends Controller
             ->where('status','1')
             ->get();
         $tags = Tag::all();
-        return view('pages.blog', compact(['blogs', 'tags']));
+        return view('client.pages.blog', compact(['blogs', 'tags']));
     }
 
     public function blogDetail(string $slug)
     {
         $blogs = Blog::where('status','1')->get();
         $tags = Tag::all();
-        return view('pages.blog-detail', compact(['blogs', 'tags']))->with('blog', Blog::where('slug', $slug)->first());
+        return view('client.pages.blog-detail', compact(['blogs', 'tags']))->with('blog', Blog::where('slug', $slug)->first());
     }
 
     public function gallery()
@@ -171,12 +171,12 @@ class HomeController extends Controller
             ];
         }
 
-        return view('pages.gallery', compact('items'));
+        return view('client.pages.gallery', compact('items'));
     }
 
     public function bookingPage(Request $request){
         $booking = $request->session()->get('booking');
         $vehicleTypes = VehicleType::all();
-        return view('pages.booking', compact(['booking', 'vehicleTypes']));
+        return view('client.pages.booking', compact(['booking', 'vehicleTypes']));
     }
 }

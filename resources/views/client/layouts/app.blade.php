@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <meta name="facebook-domain-verification" content="mdmpe6vvsqk7chu3lbj3xeu4aa6p7b"/>
@@ -27,39 +24,24 @@
 
     {{-- style --}}
     @stack('prepend-style')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/css/intlTelInput.css">
     @include('client.includes.style')
     @stack('addon-style')
 
 </head>
 
 <body>
-<div class="wrapper">
-    <!-- page preloader begin -->
-    <div id="de-preloader"></div>
-    <!-- page preloader close -->
+    <div class="wrapper">
+        @include('client.layouts.navbar')
 
-    {{-- navbar --}}
-    @include('client.layouts.navbar')
+        @yield('content')
 
-    <!-- Page Content -->
-    @yield('content')
+        <a href="#" id="back-to-top"></a>
 
-    <!-- content close -->
-    <a href="#" id="back-to-top"></a>
+        @include('client.layouts.footer')
+    </div>
 
-    {{-- footer --}}
-    @include('client.layouts.footer')
-</div>
-
-<!-- Bootstrap core JavaScript -->
-{{-- script --}}
-@stack('prepend-script')
-@include('client.includes.script')
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/intlTelInput.min.js"></script>
-@stack('addon-script')
-
+    @stack('prepend-script')
+    @include('client.includes.script')
+    @stack('addon-script')
 </body>
 </html>
