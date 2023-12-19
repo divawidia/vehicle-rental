@@ -390,7 +390,7 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
+                        <div class="box-icon s2  p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1s">
                             <i class="fa bg-color fa-tag"></i>
                             <div class="d-inner">
                                 <h4>Quality at Minimum Expense</h4>
@@ -398,7 +398,7 @@
                                 minimizing costs for maximum value.
                             </div>
                         </div>
-                        <div class="box-icon s2 d-invert p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
+                        <div class="box-icon s2 p-small mb20 wow fadeInL fadeInLeft" data-wow-delay="1.25s">
                             <i class="fa bg-color fa-map-pin"></i>
                             <div class="d-inner">
                                 <h4>Free Pick-Up & Drop-Off</h4>
