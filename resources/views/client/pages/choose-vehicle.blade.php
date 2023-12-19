@@ -36,6 +36,7 @@
                     <form name="contactForm" id="contact_form" class="form-border" action="{{ route('choose-vehicle.post') }}" method="POST">
                         @csrf
                         <div class="row">
+
                             <h2 class="border-bottom-padding pt-lg-5 mb-4">Choose Your Vehicle</h2>
                             <div class="de_form de_radio row d-flex justify-content-center">
                                 <div id="items-carousel" class="owl-carousel wow fadeIn">
@@ -59,17 +60,11 @@
                                                         </span>
                                                             <span class="d-atr">
                                                             <img src="images/icons/transmission.svg" alt=""/>
-                                                            @php
-                                                                $transmission = \App\Models\Transmission::findOrFail($vehicle->transmission_id);
-                                                            @endphp
-                                                                {{ $transmission->transmission_type }}
+                                                                {{ $vehicle->transmission->transmission_type }}
                                                         </span>
                                                             <span class="d-atr">
                                                             <img class="pt-0" src="images/icons/scooter.svg" alt="" height="30px"/>
-                                                            @php
-                                                                $vehicle_type = \App\Models\VehicleType::findOrFail($vehicle->vehicle_type_id);
-                                                            @endphp
-                                                                {{ $vehicle_type->vehicle_type_name }}
+                                                                {{ $vehicle->vehicle_type->vehicle_type_name }}
                                                         </span>
                                                         </div>
                                                         <div class="d-price">
@@ -609,11 +604,7 @@
                     $("#phone_holder_row").hide();
                 }
             });
+            $('#helmet').niceNumber();
         });
     </script>
-    <script src="/js/jquery.nice-number.js"></script>
-    <script>
-        $('#helmet').niceNumber();
-    </script>
-
 @endpush
