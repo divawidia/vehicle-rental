@@ -39,6 +39,6 @@ class LinkButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.button');
+        return view('components.admin.buttons.link-button');
     }
 }
