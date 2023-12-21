@@ -14,8 +14,10 @@ class TextArea extends Component
     public mixed $value;
     public string $placeholder;
     public bool $required;
+    public bool $isModal;
+    public bool $isCkeditor;
 
-    public function __construct($name, $id = null, $label = null, $value = null, $placeholder = null, $required = true)
+    public function __construct($name, $id = null, $label = null, $value = null, $placeholder = null, $required = true, $isModal = false, $isCkeditor = true)
     {
         $this->name = $name;
         $this->id = $id ?? $name; // Default ID to the name
@@ -23,6 +25,8 @@ class TextArea extends Component
         $this->value = $value;
         $this->placeholder = $placeholder;
         $this->required = $required;
+        $this->isModal = $isModal;
+        $this->isCkeditor = $isCkeditor;
     }
     /**
      * Get the view / contents that represent the component.
