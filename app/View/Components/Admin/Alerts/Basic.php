@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class Basic extends Component
 {
     public string $type;
-    public string $message;
+    public mixed $message;
 
     /**
      * Create a new component instance.
