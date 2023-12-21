@@ -22,7 +22,7 @@ class LinkButton extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($color, $icon, $route, $additionalClass, $text = '', $tooltipsTitle = '', $size = '', $iconMargin = 'me-2')
+    public function __construct($color = 'primary', $icon = '', $route = '#', $additionalClass ='', $text = '', $tooltipsTitle = '', $size = '', $iconMargin = 'me-2')
     {
         $this->size = $size;
         $this->additionalClass = $additionalClass;
