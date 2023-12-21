@@ -1,5 +1,5 @@
 import 'jquery';
-import './bootstrap.js';
+import * as bootstrap from 'bootstrap';
 import Alpine from 'alpinejs';
 import 'simplebar';
 import 'simplebar/dist/simplebar.css';
@@ -179,6 +179,7 @@ Alpine.start();
     init();
 
     window.$ = window.jQuery = $;
+    window.bootstrap = bootstrap;
     window.ResizeObserver = ResizeObserver;
     window.ajaxProcessing = ajaxProcessing;
     window.confirmAlert = confirmAlert;
