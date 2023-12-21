@@ -7,7 +7,7 @@
         </label>
     @endif
     <input type="{{ $type }}"
-           class="form-control @error($name) is-invalid @enderror"
+           class="form-control @if(!$isModal) @error($name) is-invalid @enderror @endif"
            name="{{ $name }}"
            id="{{ $id }}"
            placeholder="{{ $placeholder }}"
@@ -15,8 +15,6 @@
            @if($required) required @endif
            @if($readonly) readonly @endif
            @if(!$isModal) value="{{ old($name, $value) }}" @endif>
-    >
-
     @if($isModal)
         <span class="invalid-feedback {{ $name }}_error" role="alert"><strong></strong></span>
     @else
