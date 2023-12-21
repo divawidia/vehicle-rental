@@ -10,13 +10,18 @@
            class="form-control @error($name) is-invalid @enderror"
            name="{{ $name }}"
            id="{{ $id }}"
-           value="{{ old($name, $value) }}"
            placeholder="{{ $placeholder }}"
            accept="{{ $acceptFileType }}"
            @if($required) required @endif
-           @if($readonly) readonly @endif>
+           @if($readonly) readonly @endif
+           @if(!$isModal) value="{{ old($name, $value) }}" @endif>
+    >
 
-    @error($name)
-    <div class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></div>
-    @enderror
+    @if($isModal)
+        <span class="invalid-feedback {{ $name }}_error" role="alert"><strong></strong></span>
+    @else
+        @error($name)
+        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+        @enderror
+    @endif
 </div>

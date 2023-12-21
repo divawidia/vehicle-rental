@@ -17,8 +17,9 @@ class Input extends Component
     public bool $required;
     public string $acceptFileType;
     public bool $readonly;
+    public bool $isModal;
 
-    public function __construct($name, $type = "text", $id = null, $label = null, $value = null, $placeholder = null, $required = true,$acceptFileType = null, $readonly = false)
+    public function __construct($name, $type = "text", $id = null, $label = null, $value = null, $placeholder = null, $required = true,$acceptFileType = null, $readonly = false, $isModal = false)
     {
         $this->type = $type;
         $this->name = $name;
@@ -29,6 +30,7 @@ class Input extends Component
         $this->required = $required;
         $this->acceptFileType = $acceptFileType;
         $this->readonly = $readonly;
+        $this->isModal = $isModal;
     }
 
     /**
