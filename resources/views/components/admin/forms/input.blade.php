@@ -1,5 +1,11 @@
 <div class="mb-3">
-    @if($label) <label for="{{ $id }}" class="form-label text-capitalize">{{ $label }}</label>   @endif
+    @if($label)
+        <label for="{{ $id }}" class="form-label text-capitalize">
+            {{ $label }}
+            @if($required) <span class="text-danger">*</span> @else <span class="text-secondary">(Opsional)</span> @endif
+            :
+        </label>
+    @endif
     <input type="{{ $type }}"
            class="form-control @error($name) is-invalid @enderror"
            name="{{ $name }}"
