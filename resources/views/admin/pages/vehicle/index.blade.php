@@ -15,7 +15,6 @@
                 icon="plus"
                 text="Tambah Kendaraan Baru"
                 :route="route('kendaraan.create')"
-                size="sm"
             />
         </div>
         <div class="card-body">
