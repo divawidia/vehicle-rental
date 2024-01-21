@@ -6,24 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Blog extends Model
+class BlogPhoto extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id','title', 'slug', 'body'
+        'blog_id',
+        'photo_url'
     ];
 
     protected $hidden = [
 
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function photos(){
-        return $this->hasMany(BlogPhoto::class, 'blog_id', 'id');
+    public function blog(){
+        return $this->belongsTo(Blog::class, 'blog_id', 'id');
     }
 }
-
