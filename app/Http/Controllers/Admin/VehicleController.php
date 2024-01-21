@@ -255,7 +255,7 @@ class VehicleController extends Controller
 
         $vehicle->update($data);
 
-        return redirect()->route('kendaraan.index');
+        return redirect()->route('kendaraan.index')->with('status', 'Data kendaraan berhasil diedit!');
     }
 
     /**
@@ -263,9 +263,9 @@ class VehicleController extends Controller
      */
     public function destroy(string $id)
     {
-        $vehicle = VehicleType::findOrFail($id);
+        $vehicle = Vehicle::findOrFail($id);
         $vehicle->delete();
 
-        return redirect()->route('kendaraan.index');
+        return redirect()->route('kendaraan.index')->with('status', 'Data kendaraan berhasil dihapus!');
     }
 }
