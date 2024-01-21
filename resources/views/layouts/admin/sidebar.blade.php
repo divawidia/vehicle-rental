@@ -66,10 +66,14 @@
                 <li class="menu-title" data-key="t-applications">Artikel Blog</li>
 
                 <li>
-                    <a href="">
-                        <i class="bx bx-notepad icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Artikel Blog</span>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx-text icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-blog">Artikel Blog</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('kategori-blog.index') }}">Kategori Blog</a></li>
+                        <li><a href="{{ route('blogs.index') }}">List Blog</a></li>
+                    </ul>
                 </li>
 
                 <li class="menu-title" data-key="t-applications">Gallery</li>
