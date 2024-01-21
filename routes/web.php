@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\VehicleBrandController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,8 @@ Route::get('/booking', function () {
 })->name('booking');
 
 Route::prefix('admin')
+    ->namespace('App\Http\Controllers\Admin')
+    ->middleware(['auth', 'admin'])
     ->group(function() {
         Route::get('/', function () {return view('pages.admin.dashboard');})->name('admin-dashboard');
         Route::prefix('kategori-kendaraaan')
@@ -82,3 +85,13 @@ Route::prefix('admin')
         Route::resource('blogs', BlogController::class);
         Route::resource('kategori-blog', BlogCategoryController::class);
     });
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
+Auth::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
