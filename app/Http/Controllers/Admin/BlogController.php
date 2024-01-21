@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogPhoto;
 use App\Models\Transmission;
 use App\Models\VehicleBrand;
 use App\Models\VehicleType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -40,7 +43,21 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->title);
+        $data['user_id'] = Auth::user()->id;
+
+        $blog = Blog::create($data);
+
+        $gallery = [
+            'blog_id' => $blog->id,
+            'photo_url' => $request->file('photo_url')->store('assets/blog-photo', 'public')
+        ];
+
+        BlogPhoto::create($gallery);
+
+        return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
     }
 
     /**
