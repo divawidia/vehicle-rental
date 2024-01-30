@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TagRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class TagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tag_name' => 'required|max:100|unique:tags,tag_name'
+            'tag_name' => ['required', 'max:100', Rule::unique('tags', 'tag_name')->ignore($this->tag)]
         ];
     }
 }

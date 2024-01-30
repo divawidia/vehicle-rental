@@ -63,7 +63,7 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
         $data['slug'] = Str::slug($request->tag_name);
 
@@ -95,11 +95,12 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TagRequest $request, string $id)
+    public function update(TagRequest $request, Tag $tag)
     {
-        $data = $request->all();
+//        dd($request);
+        $data = $request->validated();
 
-        $tag = Tag::findOrFail($id);
+        $tag = Tag::findOrFail($tag->id);
 
         $data['slug'] = Str::slug($request->tag_name);
 
