@@ -16,7 +16,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Vehicle Fleet</h1>
+                            <h1>{{ $vehicle->vehicle_name }}</h1>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -31,7 +31,7 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                <img src="images/cars/nmax-new.jpg" alt="" />
+                                <img src="{{ Storage::url($vehicle->photos->first()->photo_url) }}" alt="" />
                             </div>
                             <!-- <div class="item">
                                               <img src="images/car-single/2.jpg" alt="">
@@ -46,10 +46,9 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <h3>Yamaha All New Nmax</h3>
+                        <h3>{{ $vehicle->vehicle_name }}</h3>
                         <p>
-                            The Yamaha All New Nmax 155 is the most complete automatic
-                            scooter that is perfect for you.
+                            @php echo $vehicle->description @endphp
                         </p>
 
                         <div class="spacer-10"></div>
@@ -58,61 +57,52 @@
                         <div class="de-spec">
                             <div class="d-row">
                                 <span class="d-title">Body</span>
-                                <spam class="d-value">Maxi Scooter</spam>
+                                <spam class="d-value">{{ $vehicle->body }}</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Seat</span>
-                                <spam class="d-value">2 seats</spam>
+                                <spam class="d-value">{{ $vehicle->passenger }} seats</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Fue Capacity</span>
-                                <spam class="d-value">7.1 Litre</spam>
+                                <spam class="d-value">{{ $vehicle->fuel_capacity }} Litre</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Fuel Type</span>
-                                <spam class="d-value">Petrol (Pertamax)</spam>
+                                <spam class="d-value">{{ $vehicle->fuel_type }}</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Engine</span>
-                                <spam class="d-value">155cc</spam>
+                                <spam class="d-value">{{ $vehicle->engine_capacity }}cc</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Transmission</span>
-                                <spam class="d-value">Automatic</spam>
+                                <spam class="d-value">{{ $vehicle->transmission->transmission_type }}</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Year</span>
-                                <spam class="d-value">2022</spam>
+                                <spam class="d-value">{{ $vehicle->year }}</spam>
                             </div>
                             <div class="d-row">
                                 <span class="d-title">Fuel Economy</span>
-                                <spam class="d-value">36,7 Km/L</spam>
+                                <spam class="d-value">{{ $vehicle->fuel_economy }} Km/L</spam>
                             </div>
                         </div>
 
                         <div class="spacer-single"></div>
 
                         <h4>Features</h4>
-                        <ul class="ul-style-2">
-                            <li>ABS</li>
-                            <li>Free Helmet</li>
-                            <li>TCS (Traction Control System)</li>
-                            <li>Stop & Start System</li>
-                            <li>Multifunction Big Luggage</li>
-                            <li>Relax Riding Position</li>
-                            <li>Keyless (Smart Key System)</li>
-                            <li>Electric Power Socket</li>
-                        </ul>
+                        @php echo $vehicle->features @endphp
                     </div>
 
                     <div class="col-lg-3">
                         <div class="de-price text-center">
                             Daily
-                            <h4>Rp. 150K/day</h4>
+                            <h4>Rp. {{ number_format($vehicle->daily_price) }}</h4>
                         </div>
                         <div class="de-price text-center">
                             Monthly
-                            <h4>Rp. 2.000K/month</h4>
+                            <h4>Rp. {{ number_format($vehicle->monthly_price) }}</h4>
                         </div>
                         <div class="spacer-30"></div>
                         <div class="de-box mb25">

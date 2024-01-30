@@ -573,7 +573,7 @@
       },
     });
 
-    jQuery("#blog-carousel").owlCarousel({
+    jQuery("#blog_images-carousel").owlCarousel({
       center: false,
       items: 3,
       loop: true,
@@ -591,7 +591,7 @@
       },
     });
 
-    jQuery("#blog-carousel-3").owlCarousel({
+    jQuery("#blog_images-carousel-3").owlCarousel({
       center: true,
       items: 5,
       loop: true,
@@ -671,10 +671,10 @@
 
     // Custom Navigation owlCarousel
     $(".next").on("click", function () {
-      $(this).parent().parent().find(".blog-slide").trigger("owl.next");
+      $(this).parent().parent().find(".blog_images-slide").trigger("owl.next");
     });
     $(".prev").on("click", function () {
-      $(this).parent().parent().find(".blog-slide").trigger("owl.prev");
+      $(this).parent().parent().find(".blog_images-slide").trigger("owl.prev");
     });
 
     jQuery(".owl-custom-nav").each(function () {
@@ -2017,12 +2017,12 @@
     // close bootstrap
 
     // --------------------------------------------------
-    // blog list hover
+    // blog_images list hover
     // --------------------------------------------------
-    jQuery(".blog-list")
+    jQuery(".blog_images-list")
       .on("mouseenter", function () {
-        var v_height = jQuery(this).find(".blog-slide").css("height");
-        var v_width = jQuery(this).find(".blog-slide").css("width");
+        var v_height = jQuery(this).find(".blog_images-slide").css("height");
+        var v_width = jQuery(this).find(".blog_images-slide").css("width");
         var newheight = v_height.substring(0, v_height.length - 2) / 2 - 40;
         var owa = jQuery(this).find(".owl-arrow");
         owa.css("margin-top", newheight);

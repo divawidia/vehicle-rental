@@ -6,21 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BlogCategory extends Model
+class Tag extends Model
 {
     use SoftDeletes;
 
     protected $fillable = [
-        'category_name', 'slug'
+        'user_id','tag_name', 'slug'
     ];
 
     protected $hidden = [
 
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function blogs()
     {
-        return $this->belongsToMany(Blog::class, 'blog_category_details', 'blog_id', 'blog_categories_id', 'id');
+        return $this->belongsToMany(Blog::class, 'blog_tag', 'tag_id', 'blog_id', 'id');
     }
 
 }

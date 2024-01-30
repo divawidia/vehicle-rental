@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('fine_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('booking_id');
+            $table->unsignedBigInteger('booking_id');
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->string('fine_type');
             $table->integer('fine_price');
             $table->softDeletes();

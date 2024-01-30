@@ -1,7 +1,11 @@
 @extends('layouts.admin.master')
+
 @section('title')
     Tambah Artikel Blog
 @endsection
+{{--@section('css')--}}
+{{--    <link rel="stylesheet" href="{{ URL::asset('build/js/jpreview/jpreview.css') }}" type="text/css" />--}}
+{{--    @endsection--}}
 @section('page-title')
     Tambah Artikel Blog
 @endsection
@@ -20,6 +24,12 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
+                                <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
+                                <div class="col-md-10">
+                                    <input type="file" name="thumbnail_photo" class="form-control" accept="image/*" required/>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
                                 <label for="title" class="col-md-2 col-form-label">Judul Artikel</label>
                                 <div class="col-md-10">
                                     <input class="form-control" type="text" autocomplete="off" name="title" id="title">
@@ -32,23 +42,23 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label">Kategori Artikel</label>
+                                <label class="col-md-2 col-form-label" for="tag">Tag Artikel</label>
                                 <div class="col-md-10">
-                                    <select class="form-select" name="blog_categories_id">
-                                        <option selected>Pilih Kategori Artikel</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                    <select class="form-select" name="tag_id[]" multiple="multiple" data-placeholder="Pilih Tag Artikel Blog" id="tag" required>
+                                        @foreach($tags as $tag)
+                                            <option value="{{ $tag->id }}">{{ $tag->tag_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <div class="form-group">
-                                    <label>Foto Artikel</label>
-                                    <input type="file" name="photo_url" class="form-control" />
-                                    <p class="text-muted">
-                                        Kamu dapat memilih lebih dari satu file
-                                    </p>
+                                <label class="col-md-2 col-form-label" for="status">Status Publish Artikel</label>
+                                <div class="col-md-10">
+                                    <select class="form-select" name="status" data-placeholder="Pilih status publish artikel" id="status" required>
+                                        @foreach([1 => "Publish", 0 => "Private"] AS $status => $status_label)
+                                            <option value="{{ $status }}">{{ $status_label }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="mt-4">
@@ -61,11 +71,29 @@
         </div>
         <!-- end row -->
     @endsection
+
     @section('scripts')
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
-        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
         <script>
-            CKEDITOR.replace('body');
+            ClassicEditor.create( document.querySelector( '#body' ),{
+                ckfinder: {
+                    uploadUrl: '{{route('blog-photo-upload', ['_token' => csrf_token()])}}'
+                }
+            })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#tag').select2({
+                    width:'100%',
+                    theme: 'bootstrap-5'
+                });
+            });
         </script>
 @endsection

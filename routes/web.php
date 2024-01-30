@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\TransmissionController;
@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\VehicleBrandController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,17 +38,13 @@ Route::get('/about-us', function () {
     return view('pages.about-us');
 })->name('about-us');
 
-Route::get('/our-vehicles', function () {
-    return view('pages.vehicle-list');
-})->name('vehicle-list');
+Route::get('/vehicles', [HomeController::class, 'vehicleList'])->name('vehicle-list');
 
 Route::get('/blog', function () {
-    return view('pages.blog');
+    return view('vendor.binshopsblog.index');
 })->name('blog');
 
-Route::get('/vehicle-detail', function () {
-    return view('pages.vehicle-detail');
-})->name('vehicle-detail');
+Route::get('/vehicles/{vehicle}', [HomeController::class, 'vehicleDetail'])->name('vehicle-detail');
 
 Route::get('/contact-us', function () {
     return view('pages.contact-us');
@@ -83,7 +80,11 @@ Route::prefix('admin')
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
         Route::resource('blogs', BlogController::class);
-        Route::resource('kategori-blog', BlogCategoryController::class);
+        Route::post('upload-blog-photo', [BlogController::class, 'uploadPhoto'])->name('blog-photo-upload');
+        Route::post('upload-blog-thumbnail', [BlogController::class, 'uploadPhotoThumbnail'])->name('blog-thumbnail-upload');
+        Route::get('delete-blog-photo/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
+
+        Route::resource('tags', TagController::class);
     });
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
 Auth::routes();
