@@ -37,11 +37,13 @@
                                          class="img-thumbnail">
                                 </div>
                             </div>
-                            <div class="flex-1 ms-3">
+                            <div class="mt-3">
                                 <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">{{ $blog->title }}</a></h5>
                                 @foreach($blog->tags as $tag)
                                     <span class="badge badge-soft-primary mb-0">{{ $tag->tag_name }}</span>
                                 @endforeach
+                            </div>
+                            <div class="mt-2">
                                 @if($blog->status == 1)
                                     <span class="badge badge-soft-success mb-0">Published</span>
                                 @elseif($blog->status == 0)
@@ -49,7 +51,7 @@
                                 @endif
                             </div>
                             <p class="text-muted mt-3 mb-0">
-                                @php echo \Illuminate\Support\Str::limit($blog->body, 100); @endphp
+                                @php echo \Illuminate\Support\Str::limit($blog->body, 200); @endphp
                             </p>
 
                             <div class="mt-3 pt-1">
@@ -77,7 +79,7 @@
                                     <h4 class="modal-title w-100">Apakah anda yakin?</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Apakah anda yakin ingin menghapus data artikel blog ini?</p>
+                                    <p>Apakah anda yakin ingin menghapus artikel {{ $blog->title }} dengan id {{ $blog->id }}?</p>
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
