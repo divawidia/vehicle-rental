@@ -51,7 +51,7 @@ class BlogController extends Controller
         $blog = Blog::create($data);
         $blog->tags()->sync((array)$request->input('tag_id'));
 
-        return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
+        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
     }
 
     /**
@@ -76,12 +76,12 @@ class BlogController extends Controller
         ]);
     }
 
-    public function uploadPhotoThumbnail(Request $request){
-        $data = $request->all();
-        $data['thumbnail_photo'] = $request->file('thumbnail_photo')->store('assets/blog-thumbnail', 'public');
-        BlogPhoto::create($data);
-        return redirect()->route('blogs.edit', $data['blog_id']);
-    }
+//    public function uploadPhotoThumbnail(Request $request){
+//        $data = $request->all();
+//        $data['thumbnail_photo'] = $request->file('thumbnail_photo')->store('assets/blog-thumbnail', 'public');
+//        BlogPhoto::create($data);
+//        return redirect()->route('artikel-blog.edit', $data['blog_id']);
+//    }
 
     public function uploadPhoto(Request $request){
         if ($request->hasFile('upload')) {
@@ -98,14 +98,6 @@ class BlogController extends Controller
         }
     }
 
-    public function deletePhoto(Request $request, $id)
-    {
-        $item = BlogPhoto::findOrFail($id);
-        $item->delete();
-
-        return redirect()->route('blogs.edit', $item->blog_id);
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -120,7 +112,7 @@ class BlogController extends Controller
         $blog->update($data);
 //        $blog->categories()->synch($data['blog_categories_id']);
 
-        return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil diedit!');
+        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil diedit!');
     }
 
     /**
@@ -132,6 +124,6 @@ class BlogController extends Controller
         $blog->categories()->detach();
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('status', 'Data artikel blog berhasil dihapus!');
+        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil dihapus!');
     }
 }
