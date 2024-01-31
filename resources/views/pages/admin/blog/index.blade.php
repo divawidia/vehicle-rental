@@ -19,12 +19,18 @@
             <div class="col-md-6">
                 <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                     <div>
-                        <a href="{{ route('artikel-blog.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
+                        <a href="{{ route('artikel.create') }}" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Tambah Artikel Blog</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- end row -->
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session('status') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         <div class="row mt-2">
             @foreach($blogs as $blog)
@@ -47,7 +53,7 @@
                                 @if($blog->status == 1)
                                     <span class="badge badge-soft-success mb-0">Published</span>
                                 @elseif($blog->status == 0)
-                                    <span class="badge badge-soft-info mb-0">Private</span>
+                                    <span class="badge badge-soft-secondary mb-0">Private</span>
                                 @endif
                             </div>
                             <p class="text-muted mt-3 mb-0">
@@ -64,15 +70,15 @@
                             </div>
 
                             <div class="d-flex justify-content-center gap-2 pt-4">
-                                <a href="{{ route('artikel-blog.edit', $blog->id) }}" class="btn btn-success me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Edit Blog"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('artikel-blog.show', $blog->slug) }}" class="btn btn-primary me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Lihat Blog"><i class="fa fa-eye"></i></a>
-                                <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <a href="{{ route('artikel.edit', $blog->id) }}" class="btn btn-success me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Edit Blog"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('artikel.show', $blog->slug) }}" class="btn btn-primary me-1 w-100" data-toggle="tooltip" data-placement="bottom" title="Lihat Blog"><i class="fa fa-eye"></i></a>
+                                <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $blog->id }}">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div id="deleteModal{{ $blog->id }}" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-confirm">
                             <div class="modal-content d-flex justify-content-center">
                                 <div class="modal-header">
@@ -83,7 +89,7 @@
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <form action="{{ route('artikel-blog.destroy', $blog->id) }}" method="POST">
+                                    <form action="{{ route('artikel.destroy', $blog->id) }}" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Hapus Booking">

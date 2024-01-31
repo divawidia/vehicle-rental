@@ -16,7 +16,7 @@
     @section('content')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('artikel-blog.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('artikel.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -26,20 +26,29 @@
                             <div class="mb-3 row">
                                 <label class="col-md-2 col-form-label">Thumbnail Artikel Blog</label>
                                 <div class="col-md-10">
-                                    <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required/>
-                                    <img id="preview" class="rounded img-thumbnail mt-3" src="#" alt="image thumbnail" style="display:none;"/>
+                                    <input type="file" id="thumbnail_photo" name="thumbnail_photo" class="form-control" accept="image/*" required value="{{ old('thumbnail_photo') }}"/>
+                                    <img id="preview" class="rounded img-thumbnail mt-3" src="{{ old('thumbnail_photo') }}" alt="image thumbnail" style="display:none;"/>
+                                    @error('thumbnail_photo')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="title" class="col-md-2 col-form-label">Judul Artikel</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="title" id="title">
+                                    <input class="form-control" type="text" autocomplete="off" name="title" id="title" value="{{ old('title') }}">
+                                    @error('title')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="body" class="col-md-2 col-form-label">Isi Konten Artikel</label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="body" name="body"></textarea>
+                                    <textarea class="form-control" id="body" name="body">{{ old('body') }}</textarea>
+                                    @error('body')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -50,6 +59,9 @@
                                             <option value="{{ $tag->id }}">{{ $tag->tag_name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('tags')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -60,6 +72,9 @@
                                         @foreach([1 => "Publish", 0 => "Private"] AS $status => $status_label)
                                             <option value="{{ $status }}">{{ $status_label }}</option>
                                         @endforeach
+                                        @error('status')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </select>
                                 </div>
                             </div>

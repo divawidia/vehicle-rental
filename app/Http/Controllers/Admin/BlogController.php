@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\BlogPhoto;
@@ -40,9 +41,9 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $data['slug'] = Str::slug($request->title);
         $data['user_id'] = Auth::user()->id;
@@ -51,7 +52,7 @@ class BlogController extends Controller
         $blog = Blog::create($data);
         $blog->tags()->sync((array)$request->input('tag_id'));
 
-        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
+        return redirect()->route('artikel.index')->with('status', 'Data artikel blog berhasil ditambahkan!');
     }
 
     /**
@@ -67,11 +68,11 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = Blog::with((['tags']))->findOrFail($id);
+        $artikel = Blog::with((['tags']))->findOrFail($id);
         $tags = Tag::all();
 
         return view('pages.admin.blog.edit',[
-            'blog' => $blog,
+            'artikel' => $artikel,
             'tags' => $tags
         ]);
     }
@@ -83,36 +84,37 @@ class BlogController extends Controller
 //        return redirect()->route('artikel-blog.edit', $data['blog_id']);
 //    }
 
-    public function uploadPhoto(Request $request){
-        if ($request->hasFile('upload')) {
-            $originName = $request->file('upload')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
-
-            $request->file('upload')->move(public_path('assets/blog-photo'), $fileName);
-
-            $url = asset('assets/blog-photo/' . $fileName);
-            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
-
-        }
-    }
+//    public function uploadPhoto(BlogRequest $request, Blog $blog){
+//        if ($request->hasFile('upload')) {
+//            $originName = $request->file('upload')->getClientOriginalName();
+//            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+//            $extension = $request->file('upload')->getClientOriginalExtension();
+//            $fileName = $fileName . '_' . time() . '.' . $extension;
+//
+//            $request->file('upload')->move(public_path('assets/blog-photo'), $fileName);
+//
+//            $url = asset('assets/blog-photo/' . $fileName);
+//            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+//
+//        }
+//    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogRequest $request, Blog $artikel)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail($artikel->id);
 
         $data['slug'] = Str::slug($request->title);
+        $data['thumbnail_photo'] = $request->file('thumbnail_photo')->store('assets/blog-thumbnail', 'public');
 
         $blog->update($data);
-//        $blog->categories()->synch($data['blog_categories_id']);
+        $blog->tags()->sync((array)$request->input('tag_id'));
 
-        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil diedit!');
+        return redirect()->route('artikel.index')->with('status', 'Data artikel blog berhasil diedit!');
     }
 
     /**
@@ -124,6 +126,6 @@ class BlogController extends Controller
         $blog->categories()->detach();
         $blog->delete();
 
-        return redirect()->route('artikel-blog.index')->with('status', 'Data artikel blog berhasil dihapus!');
+        return redirect()->route('artikel.index')->with('status', 'Data artikel blog berhasil dihapus!');
     }
 }

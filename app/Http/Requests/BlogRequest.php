@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BlogRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class BlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,12 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'max:255', Rule::unique('blogs', 'title')->ignore($this->artikel)],
+            'body' => ['required'],
+            'thumbnail_photo' => ['required', 'image'],
+            'status' => ['required', 'in:1,0'],
+            'tags.*' => ['required', 'exist:tags,id']
+
         ];
     }
 }
