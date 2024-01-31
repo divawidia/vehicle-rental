@@ -16,19 +16,29 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Tambah Data Kendaraan</h4>
+                            <h4 class="card-title">Tambah Kendaraan</h4>
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <label for="vehicle_name" class="col-md-2 col-form-label">Nama Kendaraan</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="vehicle_name" id="vehicle_name">
+                                    <input class="form-control" type="text" autocomplete="off" name="vehicle_name" id="vehicle_name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-md-2 col-form-label">Thumbnail Kendaraan</label>
+                                <div class="col-md-10">
+                                    <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*" required value="{{ old('thumbnail_photo') }}"/>
+                                    <img id="preview" class="rounded img-thumbnail mt-3" src="{{ old('thumbnail') }}" alt="image thumbnail" style="display:none;"/>
+                                    @error('thumbnail')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label for="description" class="col-md-2 col-form-label">Deskripsi Kendaraan</label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="description" name="description"></textarea>
+                                    <textarea class="form-control" id="description" name="description" required></textarea>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -161,12 +171,13 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <div class="form-group">
-                                        <label>Foto Kendaraan</label>
-                                    <input type="file" name="photo_url" class="form-control" />
-                                    <p class="text-muted">
-                                        Kamu dapat memilih lebih dari satu file
-                                    </p>
+                                <label class="col-md-2 col-form-label">Thumbnail Kendaraan</label>
+                                <div class="col-md-10">
+                                    <input type="file" id="thumbnail" name="thumbnail" class="form-control" accept="image/*" required value="{{ old('thumbnail') }}"/>
+                                    <img id="preview" class="rounded img-thumbnail mt-3" src="{{ old('thumbnail') }}" alt="image thumbnail" style="display:none;"/>
+                                    @error('thumbnail')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mt-4">
@@ -182,11 +193,25 @@
     @section('scripts')
         <!-- App js -->
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
-        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
         <script>
-            CKEDITOR.replace('description');
+            ClassicEditor.create( document.querySelector( '#description' ),{
+                ckfinder: {
+                    uploadUrl: '{{route('blog-photo-upload', ['_token' => csrf_token()])}}'
+                }
+            })
+                .catch( error => {
+                    console.error( error );
+                } );
         </script>
         <script>
-            CKEDITOR.replace('features');
+            ClassicEditor.create( document.querySelector( '#features' ),{
+                ckfinder: {
+                    uploadUrl: '{{route('blog-photo-upload', ['_token' => csrf_token()])}}'
+                }
+            })
+                .catch( error => {
+                    console.error( error );
+                } );
         </script>
 @endsection
