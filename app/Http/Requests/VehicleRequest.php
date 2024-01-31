@@ -25,6 +25,7 @@ class VehicleRequest extends FormRequest
         return [
             'vehicle_name' => ['required', 'max:255', Rule::unique('vehicles', 'vehicle_name')->ignore($this->vehicle)],
             'description' => ['required'],
+            'slug' => ['required'],
             'thumbnail' => ['required', 'image'],
             'features' => ['required'],
             'body' => ['required'],
