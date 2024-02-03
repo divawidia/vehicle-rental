@@ -60,6 +60,15 @@
                                     <div
                                         class="swiper product-thumbnail-slider rounded border overflow-hidden position-relative">
                                         <div class="swiper-wrapper">
+                                            <div class="swiper-slide rounded">
+                                                <div class="p-3">
+                                                    <div class="product-img bg-light rounded p-3">
+                                                        <img
+                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                            class="img-fluid d-block"/>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @foreach($vehicle->photos as $vehiclePhoto)
                                                 <div class="swiper-slide rounded">
                                                     <div class="p-3">
@@ -81,6 +90,11 @@
                                     <div class="mt-4">
                                         <div thumbsSlider="" class="swiper product-nav-slider mt-2 overflow-hidden">
                                             <div class="swiper-wrapper">
+                                                <div class="swiper-slide rounded">
+                                                    <div class="nav-slide-item"><img
+                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                            class="img-fluid p-1 d-block rounded"/></div>
+                                                </div>
                                                 @foreach($vehicle->photos as $vehiclePhoto)
                                                     <div class="swiper-slide rounded">
                                                         <div class="nav-slide-item"><img
@@ -130,7 +144,11 @@
                                                     <h5 class="font-size-14">Fitur :</h5>
 
                                                     <p class="text-muted mb-1 text-truncate">
-                                                        @php echo $vehicle->features @endphp</p>
+                                                    <ul class="ul-style-2">
+                                                        @foreach($vehicle->features as $feature)
+                                                            <li>{{ $feature->feature }}</li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
