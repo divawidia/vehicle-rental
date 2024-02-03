@@ -84,20 +84,20 @@ class BlogController extends Controller
 //        return redirect()->route('artikel-blog.edit', $data['blog_id']);
 //    }
 
-//    public function uploadPhoto(BlogRequest $request, Blog $blog){
-//        if ($request->hasFile('upload')) {
-//            $originName = $request->file('upload')->getClientOriginalName();
-//            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-//            $extension = $request->file('upload')->getClientOriginalExtension();
-//            $fileName = $fileName . '_' . time() . '.' . $extension;
-//
-//            $request->file('upload')->move(public_path('assets/blog-photo'), $fileName);
-//
-//            $url = asset('assets/blog-photo/' . $fileName);
-//            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
-//
-//        }
-//    }
+    public function uploadPhoto(BlogRequest $request, Blog $blog){
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+            $request->file('upload')->move(public_path('assets/blog-photo'), $fileName);
+
+            $url = asset('assets/blog-photo/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+
+        }
+    }
 
     /**
      * Update the specified resource in storage.

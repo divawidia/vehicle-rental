@@ -23,7 +23,7 @@
                             <div class="mb-3 row">
                                 <label for="example-text-input" class="col-md-2 col-form-label">Nama Brand Kendaraan</label>
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" autocomplete="off" name="brand_name" id="brand_name" value="{{ $item->brand_name }}">
+                                    <input class="form-control" type="text" autocomplete="off" name="brand_name" id="brand_name" value="{{ $item->brand_name }}" required>
                                 </div>
                             </div>
                             <div class="mt-4">

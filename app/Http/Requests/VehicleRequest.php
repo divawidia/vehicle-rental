@@ -23,7 +23,7 @@ class VehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vehicle_name' => ['required', 'max:255', Rule::unique('vehicles', 'vehicle_name')->ignore($this->vehicle)],
+            'vehicle_name' => ['required', 'max:255'],
             'description' => ['required'],
             'slug' => ['required'],
             'thumbnail' => ['required', 'image'],
@@ -37,7 +37,6 @@ class VehicleRequest extends FormRequest
             'year' => ['required', 'digits_between:2010,2024'],
             'color' => ['required', 'string'],
             'daily_price' => ['required', 'numeric'],
-            'weekly_price' => ['numeric'],
             'monthly_price' => ['required', 'numeric'],
             'unit_quantity' => ['required', 'numeric'],
             'vehicle_type_id' => ['required', 'exists:vehicle_types,id'],
