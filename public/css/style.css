@@ -3957,6 +3957,8 @@ hr {
 }
 
 .form-border input[type=text],
+.form-border input[type=tel],
+.form-border input[type=email],
 .form-border textarea,
 .form-underline input[type=email],
 .form-border input[type=password],

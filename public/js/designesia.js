@@ -969,13 +969,13 @@
       }
       return jQuery(this).data("bgimage");
     });
-    $("body,div,section").css("background-size", function () {
-      return "100% auto";
-    });
-
-    $("body,div,section").css("background-repeat", function () {
-      return "no-repeat";
-    });
+    // $("body,div,section").css("background-size", function () {
+    //   return "100% auto";
+    // });
+    //
+    // $("body,div,section").css("background-repeat", function () {
+    //   return "no-repeat";
+    // });
   }
   /* --------------------------------------------------
    * custom elements

@@ -13,6 +13,7 @@
 
     {{-- style --}}
     @stack('prepend-style')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/css/intlTelInput.css">
     @include('includes.style')
     @stack('addon-style')
 
@@ -41,6 +42,7 @@
 {{-- script --}}
 @stack('prepend-script')
 @include('includes.script')
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/intlTelInput.min.js"></script>
 @stack('addon-script')
 
 </body>
