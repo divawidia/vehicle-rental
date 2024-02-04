@@ -2,6 +2,9 @@
 @section('title')
     Edit Invoice Booking
 @endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/css/intlTelInput.css">
+@endsection
 @section('page-title')
     Edit Invoice Booking
 @endsection
@@ -29,11 +32,17 @@
                                         <label class="form-label" for="pick_up_loc">Lokasi Pengambilan</label>
                                         <input type="text" class="form-control" placeholder="Masukan Lokasi Pengambilan"
                                                id="autocomplete_pickup" name="pick_up_loc" value="{{ $booking->pick_up_loc }}">
+                                        @error('pick_up_loc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="pick_up_datetime">Tanggal dan Waktu Pengambilan</label>
                                         <input type="datetime-local" class="form-control" placeholder="Masukan Lokasi Pengambilan"
                                                id="pick_up_datetime" name="pick_up_datetime" value="{{ $booking->pick_up_datetime }}">
+                                        @error('pick_up_datetime')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group d-none" id="pickupLatitudeArea">
                                         <label>Latitude</label>
@@ -51,11 +60,17 @@
                                         <label class="form-label" for="return_loc">Lokasi Pengembalian</label>
                                         <input type="text" class="form-control" placeholder="Masukan Lokasi Pengembalian"
                                                id="autocomplete_return" name="return_loc" value="{{ $booking->return_loc }}">
+                                        @error('return_loc')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="return_datetime">Tanggal dan Waktu Pengembalian</label>
                                         <input type="datetime-local" class="form-control" placeholder="Masukan Lokasi Pengambilan"
                                                id="return_datetime" name="return_datetime" value="{{ $booking->return_datetime }}">
+                                        @error('return_datetime')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group d-none" id="returnLatitudeArea">
                                         <label>Latitude</label>
@@ -79,26 +94,47 @@
                                             <label class="form-label" for="first_name">Nama Depan</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nama Depan"
                                                    id="first_name" name="first_name" value="{{ $booking->first_name }}">
+                                            @error('first_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="no_hp_wa">No. HP/WA</label>
-                                            <input type="tel" class="form-control" placeholder="Masukan No. HP/WA"
-                                                   id="no_hp_wa" name="no_hp_wa" value="{{ $booking->no_hp_wa }}">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label class="form-label" for="no_hp_wa">No. HP/Whatsapp</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="tel" class="form-control" required placeholder="Masukan No. HP/WA"
+                                                           id="no_hp_wa" name="no_hp_wa" value="{{ $booking->no_hp_wa }}">
+                                                    @error('no_hp_wa')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="instagram">Akun Instagram</label>
                                             <input type="text" class="form-control" placeholder="Masukan Instagram"
                                                    id="instagram" name="instagram" value="{{ $booking->instagram }}">
+                                            @error('instagram')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="country">Asal Negara</label>
                                             <input type="text" class="form-control" placeholder="Masukan Asal Negara"
                                                    id="country" name="country" value="{{ $booking->country }}">
+                                            @error('country')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="hotel_booking_name">Nama di Booking Hotel</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nama di Booking Hotel"
                                                    id="hotel_booking_name" name="hotel_booking_name" value="{{ $booking->hotel_booking_name }}">
+                                            @error('hotel_booking_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -108,26 +144,41 @@
                                             <label class="form-label" for="last_name">Nama Belakang</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nama Belakang"
                                                    id="last_name" name="last_name" value="{{ $booking->last_name }}">
+                                            @error('last_name')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
                                             <input type="email" class="form-control" placeholder="Masukan Email"
                                                    id="email" name="email" value="{{ $booking->email }}">
+                                            @error('email')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="facebook">Akun Facebook</label>
                                             <input type="text" class="form-control" placeholder="Masukan Akun Facebook"
                                                    id="facebook" name="facebook" value="{{ $booking->facebook }}">
+                                            @error('facebook')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="home_address">Alamat Asal</label>
                                             <input type="text" class="form-control" placeholder="Masukan Alamat Asal"
                                                    id="home_address" name="home_address" value="{{ $booking->home_address }}">
+                                            @error('home_address')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="room_number">Nomor Kamar</label>
                                             <input type="text" class="form-control" placeholder="Masukan Nomor Kamar"
                                                    id="room_number" name="room_number" value="{{ $booking->room_number }}">
+                                            @error('room_number')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -135,6 +186,9 @@
                                     <label class="form-label" for="note">Booking Note</label>
                                     <textarea class="form-control"
                                               id="note" name="note">{{ $booking->note }}</textarea>
+                                    @error('note')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -148,6 +202,9 @@
                                         <option value="{{ $vehicle->id }}" {{ $vehicle->id == $booking->vehicle_id ? 'selected' : '' }}>{{ $vehicle->vehicle_name }}</option>
                                     @endforeach
                                 </select>
+                                @error('vehicle_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -156,6 +213,9 @@
                                             <label class="form-label" for="vehicle_license_plate">Plat Kendaraan</label>
                                             <input type="text" class="form-control" placeholder="Masukan PLat Kendaraan"
                                                    id="vehicle_license_plate" name="vehicle_license_plate" value="{{ $booking->vehicle_license_plate }}">
+                                            @error('vehicle_license_plate')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="row">
                                             <div class="col-12">
@@ -167,24 +227,36 @@
                                                     <label class="form-check-label" for="insurance">
                                                         Asuransi
                                                     </label>
+                                                    @error('insurance')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" value="include" type="checkbox" id="first_aid_kit" name="first_aid_kit" {{ $booking->first_aid_kit == 'include' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="first_aid_kit">
                                                         First Aid Kit
                                                     </label>
+                                                    @error('first_aid_kit')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" value="include" type="checkbox" id="phone_holder" name="phone_holder" {{ $booking->phone_holder == 'include' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="phone_holder">
                                                         Phone Holder
                                                     </label>
+                                                    @error('phone_holder')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" value="include" type="checkbox" id="raincoat" name="raincoat" {{ $booking->raincoat == 'include' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="raincoat">
                                                         Jas Hujan
                                                     </label>
+                                                    @error('raincoat')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -196,11 +268,17 @@
                                             <label class="form-label" for="start_km_vehicle">Jumlah Awal KM Kendaraan</label>
                                             <input type="number" class="form-control" placeholder="Masukan Jumlah Awal KM Kendaraan"
                                                    id="start_km_vehicle" name="start_km_vehicle" value="{{ $booking->start_km_vehicle }}">
+                                            @error('start_km_vehicle')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="return_km_vehicle">Jumlah Akhir KM Kendaraan</label>
                                             <input type="number" class="form-control" placeholder="Masukan Jumlah Akhir KM Kendaraan"
                                                    id="return_km_vehicle" name="return_km_vehicle" value="{{ $booking->return_km_vehicle }}">
+                                            @error('helmet')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="helmet">Helm</label>
@@ -225,20 +303,23 @@
                                             Transfer
                                         </label>
                                     </div>
+                                    @error('transaction_type')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="mt-4">
                             <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>
-                                Status Booking</h5>
+                                Status Rental</h5>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mt-4 mt-xl-0">
                                         <div class="mt-4 mb-3">
-                                            <label class="form-label" for="booking_status">Pilih Status Booking</label>
-                                            <select class="form-select" name="booking_status" id="booking_status">
-                                                @foreach(["Selesai" => "Selesai", "Sedang Disewa" => "Sedang Disewa", "Batal" => "Batal"] AS $status_booking => $status_booking_label)
-                                                    <option value="{{ $status_booking }}" {{ old("booking_status", $booking->booking_status) == $status_booking ? "selected" : "" }}>{{ $status_booking_label }}</option>
+                                            <label class="form-label" for="rent_status">Pilih Status Rental</label>
+                                            <select class="form-select" name="rent_status" id="rent_status">
+                                                @foreach(["Selesai" => "Selesai", "Disewa" => "Disewa", "Batal" => "Batal", "Dibooking" => "Dibooking"] AS $status_rental => $status_rental_label)
+                                                    <option value="{{ $status_rental }}" {{ old("rent_status", $booking->rent_status) == $status_rental ? "selected" : "" }}>{{ $status_rental_label }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -319,5 +400,74 @@
                 $('#longitude_return').val(place.geometry['location'].lng());
             });
         }
+    </script>
+    <script>
+        $("input[name='pick_up_datetime']").change(function() {
+            var date = new Date($(this).val());
+            var date = date.setDate(date.getDate()+1);
+            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
+            $("input[name='return_datetime']").attr({
+                "min" : date
+            });
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/intlTelInput.min.js"></script>
+    <script>
+        const input = document.querySelector("#no_hp_wa");
+        const countryData = window.intlTelInputGlobals.getCountryData();
+        const addressDropdown = document.querySelector("#country");
+        const output = document.querySelector("#output");
+
+        const iti = window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("id"));
+            },
+            nationalMode: true,
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/utils.js",
+        });
+
+        for (let i = 0; i < countryData.length; i++) {
+            const country = countryData[i];
+            const optionNode = document.createElement("option");
+            optionNode.value = country.iso2;
+            const textNode = document.createTextNode(country.name);
+            optionNode.appendChild(textNode);
+            addressDropdown.appendChild(optionNode);
+        }
+
+        const handleChange = () => {
+            let text;
+            if (input.value) {
+                text = iti.isValidNumber()
+                    ? "Valid number! Full international format: " + iti.getNumber()
+                    : "Invalid number - please try again";
+                input.value = iti.getNumber();
+            } else {
+                text = "Please enter a valid number below";
+            }
+            const textNode = document.createTextNode(text);
+            output.innerHTML = "";
+            output.appendChild(textNode);
+        };
+        // listen to "keyup", but also "change" to update when the user selects a country
+        input.addEventListener('change', handleChange);
+        input.addEventListener('keyup', handleChange);
+
+        // set it's initial value
+        addressDropdown.value = iti.getSelectedCountryData().name;
+
+        // listen to the telephone input for changes
+        input.addEventListener('countrychange', () => {
+            addressDropdown.value = iti.getSelectedCountryData().name;
+        });
+
+        // listen to the address dropdown for changes
+        addressDropdown.addEventListener('change', () => {
+            iti.setCountry(this.value);
+        });
     </script>
 @endsection

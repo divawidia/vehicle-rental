@@ -54,13 +54,15 @@ class BookingController extends Controller
                             </ul>
                         </div>';
                 })
-                ->editColumn('booking_status', function ($item){
-                        if ($item->booking_status == 'Selesai') {
-                            $badge = '<span class="badge bg-success">' . $item->booking_status; '</span>';
-                        }elseif ($item->booking_status == 'Sedang Disewa'){
-                            $badge = '<span class="badge bg-warning">' . $item->booking_status; '</span>';
+                ->editColumn('rent_status', function ($item){
+                        if ($item->rent_status == 'Selesai') {
+                            $badge = '<span class="badge bg-success">' . $item->rent_status; '</span>';
+                        }elseif ($item->rent_status == 'Disewa'){
+                            $badge = '<span class="badge bg-warning">' . $item->rent_status; '</span>';
+                        }elseif ($item->rent_status == 'Dibooking'){
+                            $badge = '<span class="badge bg-secondary">' . $item->rent_status; '</span>';
                         }else{
-                            $badge = '<span class="badge bg-danger">' . $item->booking_status; '</span>';
+                            $badge = '<span class="badge bg-danger">' . $item->rent_status; '</span>';
                         }
                     return $badge;
                 })
@@ -102,9 +104,21 @@ class BookingController extends Controller
                 })
                 ->editColumn('whatsapp', function ($item){
                     return '<a
-                        href="https://wa.me/' . $item->no_hp_wa .'"
+                        href="https://wa.me/' . trim($item->no_hp_wa, "+") .'"
                         class="btn btn-success mx-1 my-1"
                     ><i class="bx bxl-whatsapp"></i></a>';
+                })
+                ->editColumn('maps_pickup', function ($item){
+                    return '<a
+                        href="https://www.google.com/maps/search/?api=1&query=' . $item->latitude_pickup . '%2C' . $item->longitude_pickup . '"
+                        class="btn btn-primary mx-1 my-1"
+                    ><i class="bx bx-map"></i></a>';
+                })
+                ->editColumn('maps_return', function ($item){
+                    return '<a
+                        href="https://www.google.com/maps/search/?api=1&query=' . $item->latitude_return . '%2C' . $item->longitude_return . '"
+                        class="btn btn-primary mx-1 my-1"
+                    ><i class="bx bx-map"></i></a>';
                 })
                 ->editColumn('name', function ($item){
                     return '<p>' . $item->first_name . ' ' . $item->last_name . '</p>';
@@ -115,7 +129,7 @@ class BookingController extends Controller
                 ->editColumn('total_price', function ($item){
                     return 'Rp. ' . number_format($item->total_price);
                 })
-                ->rawColumns(['action', 'booking_status', 'transaction_status', 'shipping_status', 'return_status', 'created_at', 'pick_up_datetime', 'return_datetime', 'whatsapp', 'name', 'total_days_rent'])
+                ->rawColumns(['action', 'rent_status', 'transaction_status', 'shipping_status', 'return_status', 'created_at', 'pick_up_datetime', 'return_datetime', 'whatsapp', 'maps_pickup', 'maps_return', 'name', 'total_days_rent'])
                 ->make();
         }
 
@@ -247,12 +261,7 @@ class BookingController extends Controller
             $shipping_price = $distance_pickup_pay * 10000;
         }
 
-        if ($rounded_distance_return <= 5){
-            $collection_price = 0;
-        }else{
-            $distance_return_pay = $rounded_distance_return - 5;
-            $collection_price = $distance_return_pay * 10000;
-        }
+        $collection_price = 0;
 
         if ($request->insurance){
             $insurance_price = $rent_price * 25/100;
@@ -371,8 +380,8 @@ class BookingController extends Controller
             ->get();
         $response_return = \GoogleMaps::load('distancematrix')
             ->setParam ([
-                'origins'    => $data['return_loc'],
-                'destinations' => 'Batur Sari Rental',
+                'origins'    => 'Batur Sari Rental',
+                'destinations' => $data['return_loc'],
                 'units' => 'metrics',
                 'mode' => 'driving ',
                 'avoid' => 'tolls'
@@ -428,12 +437,7 @@ class BookingController extends Controller
             $shipping_price = $distance_pickup_pay * 10000;
         }
 
-        if ($rounded_distance_return <= 5){
-            $collection_price = 0;
-        }else{
-            $distance_return_pay = $rounded_distance_return - 5;
-            $collection_price = $distance_return_pay * 10000;
-        }
+        $collection_price = 0;
 
         if ($request->insurance){
             $insurance_price = $rent_price * 25/100;
@@ -536,8 +540,8 @@ class BookingController extends Controller
             ->get();
         $response_return = \GoogleMaps::load('distancematrix')
             ->setParam ([
-                'origins'    => $request->return_loc,
-                'destinations' => 'Batur Sari Rental',
+                'origins'    => 'Batur Sari Rental',
+                'destinations' => $request->return_loc,
                 'units' => 'metrics',
                 'mode' => 'driving ',
                 'avoid' => 'tolls'
@@ -594,12 +598,7 @@ class BookingController extends Controller
             $shipping_price = $distance_pickup_pay * 10000;
         }
 
-        if ($rounded_distance_return <= 5){
-            $collection_price = 0;
-        }else{
-            $distance_return_pay = $rounded_distance_return - 5;
-            $collection_price = $distance_return_pay * 10000;
-        }
+        $collection_price = 0;
 
         if ($request->insurance == 'include'){
             $insurance_price = $rent_price * 25/100;
@@ -609,7 +608,7 @@ class BookingController extends Controller
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
         }
 
-        if ($request->booking_status == 'Selesai' || $request->booking_status == 'Batal' || $request->transaction_status == 'Batal' || $request->return_status == 'Sudah'){
+        if ($request->rent_status == 'Selesai' || $request->rent_status == 'Batal' || $request->transaction_status == 'Batal' || $request->return_status == 'Sudah'){
             Vehicle::find($request->vehicle_id)->increment('unit_quantity', 1);
         }
 
@@ -649,6 +648,7 @@ class BookingController extends Controller
     {
         $item = Booking::findOrFail($id);
         $item->delete();
+        Vehicle::find($item->vehicle_id)->increment('unit_quantity', 1);
 
         return redirect()->route('bookings.index')->with('status', 'Data Booking berhasil dihapus!');
     }

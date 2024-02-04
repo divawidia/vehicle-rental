@@ -38,7 +38,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="pick_up_datetime">Tanggal dan Waktu Pengambilan</label>
                                         <input type="datetime-local" class="form-control" required placeholder="Masukan Lokasi Pengambilan"
-                                               id="pick_up_datetime" name="pick_up_datetime" min=<?php echo date('Y-m-d\TH:i');;?>>
+                                               id="pick_up_datetime" name="pick_up_datetime">
                                         @error('pick_up_datetime')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -317,6 +317,13 @@
 
 @section('scripts')
     <script>
+        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        const localTime = date.toLocaleString();
+        $("input[name='pick_up_datetime']").attr({
+            "min" : localTime
+        });
+    </script>
+    <script>
         $("input[name='pick_up_datetime']").change(function() {
             var date = new Date($(this).val());
             var date = date.setDate(date.getDate()+1);
@@ -331,6 +338,7 @@
         const input = document.querySelector("#no_hp_wa");
         const countryData = window.intlTelInputGlobals.getCountryData();
         const addressDropdown = document.querySelector("#country");
+        const output = document.querySelector("#output");
 
         const iti = window.intlTelInput(input, {
             initialCountry: "auto",
@@ -341,7 +349,6 @@
                     .catch(() => callback("id"));
             },
             nationalMode: true,
-            showSelectedDialCode: true,
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/js/utils.js",
         });
 
@@ -353,12 +360,31 @@
             optionNode.appendChild(textNode);
             addressDropdown.appendChild(optionNode);
         }
+
+        const handleChange = () => {
+            let text;
+            if (input.value) {
+                text = iti.isValidNumber()
+                    ? "Valid number! Full international format: " + iti.getNumber()
+                    : "Invalid number - please try again";
+                input.value = iti.getNumber();
+            } else {
+                text = "Please enter a valid number below";
+            }
+            const textNode = document.createTextNode(text);
+            output.innerHTML = "";
+            output.appendChild(textNode);
+        };
+        // listen to "keyup", but also "change" to update when the user selects a country
+        input.addEventListener('change', handleChange);
+        input.addEventListener('keyup', handleChange);
+
         // set it's initial value
-        addressDropdown.value = iti.getSelectedCountryData().iso2;
+        addressDropdown.value = iti.getSelectedCountryData().name;
 
         // listen to the telephone input for changes
         input.addEventListener('countrychange', () => {
-            addressDropdown.value = iti.getSelectedCountryData().iso2;
+            addressDropdown.value = iti.getSelectedCountryData().name;
         });
 
         // listen to the address dropdown for changes

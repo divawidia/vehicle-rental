@@ -75,22 +75,46 @@
                                     <p class="col-md-9">{{ $booking->pick_up_loc }}</p>
                                 </div>
                                 <div class="py-1 row">
+                                    <h5 class="col-md-3 font-size-14">Google Maps Pengantaran:</h5>
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_pickup}}%2C'{{$booking->longitude_pickup}}'"
+                                        class="btn btn-primary mx-1 my-1 col-1"
+                                    ><i class="bx bx-map"></i></a>
+                                </div>
+                                <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Tanggal dan Waktu Selesai Sewa:</h5>
                                     @php $return_date = strtotime($booking->return_datetime) @endphp
                                     <p class="col-md-9">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_date) }}</p>
                                 </div>
                                 <div class="py-1 row">
-                                    <h5 class="col-md-3 font-size-14">Lokasi Pengambilan:</h5>
+                                    <h5 class="col-md-3 font-size-14">Lokasi Pengembalian:</h5>
                                     <p class="col-md-9">{{ $booking->return_loc }}</p>
                                 </div>
                                 <div class="py-1 row">
-                                    <h5 class="col-md-3 font-size-14">Nama di Reservasi Hotel/Villa:</h5>
-                                    <p class="col-md-9">{{ $booking->hotel_booking_name }}</p>
+                                    <h5 class="col-md-3 font-size-14">Google Maps Pengembalian:</h5>
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query={{$booking->latitude_return}}%2C'{{$booking->longitude_return}}'"
+                                        class="btn btn-primary mx-1 my-1 col-1"
+                                    ><i class="bx bx-map"></i></a>
                                 </div>
-                                <div class="py-1 row">
-                                    <h5 class="col-md-3 font-size-14">Nomor Kamar:</h5>
-                                    <p class="col-md-9">{{ $booking->room_number }}</p>
-                                </div>
+                                @if($booking->hotel_booking_name)
+                                    <div class="py-1 row">
+                                        <h5 class="col-md-3 font-size-14">Nama di Reservasi Hotel/Villa:</h5>
+                                        <p class="col-md-9">{{ $booking->hotel_booking_name }}</p>
+                                    </div>
+                                @endif
+                                @if($booking->room_number)
+                                    <div class="py-1 row">
+                                        <h5 class="col-md-3 font-size-14">Nomor Kamar:</h5>
+                                        <p class="col-md-9">{{ $booking->room_number }}</p>
+                                    </div>
+                                @endif
+                                @if($booking->note)
+                                    <div class="py-1 row">
+                                        <h5 class="col-md-3 font-size-14">Note:</h5>
+                                        <p class="col-md-9">{{ $booking->note }}</p>
+                                    </div>
+                                @endif
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Asuransi:</h5>
                                     <p class="col-md-9">{{ $booking->insurance }}</p>
@@ -150,16 +174,18 @@
                                             <td>{{ $booking->day_rent }} Day</td>
                                             <td class="text-end">Rp. {{ number_format($booking->daily_rent_price ?? 0) }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div>
-                                                    <p class="text-muted mb-0">Monthly</p>
-                                                </div>
-                                            </td>
-                                            <td>Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
-                                            <td>{{ $booking->month_rent }} Month</td>
-                                            <td class="text-end">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
-                                        </tr>
+                                        @if($booking->monthly_rent_price > 0)
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                        <p class="text-muted mb-0">Monthly</p>
+                                                    </div>
+                                                </td>
+                                                <td>Rp. {{ number_format($booking->vehicle->monthly_price ?? 0) }}</td>
+                                                <td>{{ $booking->month_rent }} Month</td>
+                                                <td class="text-end">Rp. {{ number_format($booking->monthly_rent_price ?? 0) }}</td>
+                                            </tr>
+                                        @endif
                                         <tr class="py-0">
                                             <th scope="row" colspan="3" class="text-end fw-bold">Sub Total :</th>
                                             <td class="text-end">Rp. {{ number_format($booking->booking_price ?? 0) }}</td>
@@ -210,13 +236,6 @@
                                                 Delivery Charge ({{ $booking->rounded_distance_pickup }} KM x Rp. 10.000):</th>
                                             <td class="border-0 text-end">Rp. {{ number_format($booking->shipping_price) }}</td>
                                         </tr>
-
-                                        <tr>
-                                            <th scope="row" colspan="3" class="border-0 text-end fw-bold">
-                                                Collection Charge ({{ $booking->rounded_distance_return }} KM x Rp. 10.000):</th>
-                                            <td class="border-0 text-end">Rp. {{ number_format($booking->collection_price) }}</td>
-                                        </tr>
-                                        <!-- end tr -->
                                         <tr>
                                             <th scope="row" colspan="3" class="border-0 text-end fw-bold">Total :</th>
                                             <td class="border-0 text-end">
@@ -234,20 +253,22 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="invoice-title">
-                                    <h5 class="py-3">Status Booking:</h5>
+                                    <h5 class="py-3">Status Rental:</h5>
                                 </div>
 
                                 <hr class="my-1">
 
                                 <div class="mt-4 py-1 row">
-                                    <h5 class="col-md-6 font-size-14">Status Booking:</h5>
+                                    <h5 class="col-md-6 font-size-14">Status Rental:</h5>
                                     <div class="col-md-6">
-                                        @if($booking->booking_status == 'Selesai')
-                                            <span class="badge bg-success">{{ $booking->booking_status }}</span>
-                                        @elseif($booking->booking_status == 'Sedang Disewa')
-                                            <span class="badge bg-warning">{{ $booking->booking_status }}</span>
+                                        @if($booking->rent_status == 'Selesai')
+                                            <span class="badge bg-success">{{ $booking->rent_status }}</span>
+                                        @elseif($booking->rent_status == 'Disewa')
+                                            <span class="badge bg-warning">{{ $booking->rent_status }}</span>
+                                        @elseif($booking->rent_status == 'Dibooking')
+                                            <span class="badge bg-secondary">{{ $booking->rent_status }}</span>
                                         @else
-                                            <span class="badge bg-danger">{{ $booking->booking_status }}</span>
+                                            <span class="badge bg-danger">{{ $booking->rent_status }}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -256,8 +277,10 @@
                                     <div class="col-md-6">
                                         @if($booking->transaction_status == 'Belum Dibayar')
                                             <span class="badge bg-warning">{{ $booking->transaction_status }}</span>
-                                        @else
+                                        @elseif($booking->transaction_status == 'Sudah Dibayar')
                                             <span class="badge bg-success">{{ $booking->transaction_status }}</span>
+                                        @else
+                                            <span class="badge bg-danger">{{ $booking->transaction_status }}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -308,7 +331,7 @@
                                     <h5 class="col-md-6 font-size-14">Whatsapp:</h5>
                                     <div class="col-md-6">
                                         <a
-                                            href="https://wa.me/{{ $booking->no_hp_wa }}"
+                                            href="https://wa.me/{{ trim($booking->no_hp_wa, "+") }}"
                                             class="btn btn-success mx-1 my-1"
                                         ><i class="bx bxl-whatsapp"></i></a>
                                     </div>
