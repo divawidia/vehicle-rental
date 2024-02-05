@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Gallery;
 use App\Models\Tag;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
@@ -51,5 +52,11 @@ class HomeController extends Controller
         $blogs = Blog::where('status','1')->get();
         $tags = Tag::all();
         return view('pages.blog-detail', compact(['blogs', 'tags']))->with('blog', Blog::where('slug', $slug)->first());
+    }
+
+    public function gallery()
+    {
+        $galleries = Gallery::all();
+        return view('pages.gallery', compact('galleries'));
     }
 }

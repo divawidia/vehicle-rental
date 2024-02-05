@@ -59,9 +59,7 @@ Route::get('/contact-us', function () {
 })->name('contact-us');
 
 
-Route::get('/gallery', function () {
-    return view('pages.gallery');
-})->name('gallery');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 
 Route::get('/booking', function () {
     return view('pages.booking');

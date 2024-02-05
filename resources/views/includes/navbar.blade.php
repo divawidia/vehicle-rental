@@ -46,7 +46,7 @@
                                     <img class="logo-2" src="/images/logo-with-text.png" alt="" height="60px"/>
                                 </a>
                             </div>
-                            <!-- logo close --> 
+                            <!-- logo close -->
                         </div>
                     </div>
                     <div class="de-flex-col header-col-mid">
@@ -62,6 +62,9 @@
                             </li>
                             <li>
                                 <a class="menu-item" href="{{ route('blog-list') }}">Blog</a>
+                            </li>
+                            <li>
+                                <a class="menu-item" href="{{ route('gallery') }}">Gallery</a>
                             </li>
                             <li>
                                 <a class="menu-item" href="{{ route('contact-us') }}">Contact Us</a>
