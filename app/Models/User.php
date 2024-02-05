@@ -76,4 +76,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class, 'user_id', 'id');
     }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class, 'user_id', 'id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Gallery::class, 'user_id', 'id');
+    }
 }
