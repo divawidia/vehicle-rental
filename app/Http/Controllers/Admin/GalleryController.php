@@ -31,7 +31,11 @@ class GalleryController extends Controller
                 ->editColumn('photo_url', function ($item) {
                     return $item->photo_url ? '<img src="' . Storage::url($item->photo_url) . '" style="max-height: 80px;"/>' : '';
                 })
-                ->rawColumns(['action', 'photo_url'])
+                ->editColumn('created_at', function ($item){
+                    $date = strtotime($item->created_at);
+                    return date('l, M d, Y',$date);
+                })
+                ->rawColumns(['action', 'photo_url', 'created_at'])
                 ->make();
         }
 

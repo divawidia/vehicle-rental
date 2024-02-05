@@ -76,12 +76,12 @@
                     </ul>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Gallery</li>
+                <li class="menu-title" data-key="t-gallery">Gallery</li>
 
                 <li>
-                    <a href="">
+                    <a href="{{ route('galleries.index') }}">
                         <i class="bx bx-photo-album icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-email">Galeri Foto</span>
+                        <span class="menu-item" data-key="t-gallery">Gallery</span>
                     </a>
                 </li>
 

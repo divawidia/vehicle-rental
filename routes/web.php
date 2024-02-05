@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BookingController;
@@ -97,6 +98,9 @@ Route::prefix('admin')
                 Route::post('upload-blog-thumbnail', [BlogController::class, 'uploadPhotoThumbnail'])->name('blog-thumbnail-upload');
                 Route::get('delete-blog-photo/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
             });
+
+        Route::resource('galleries', GalleryController::class);
+        Route::post('/galleries/photo/upload', [GalleryController::class, 'uploadPhoto'])->name('gallery-photo-upload');
     });
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
 Auth::routes();
