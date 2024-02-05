@@ -4,6 +4,7 @@
     Gallery | Batur Sari Rental Bali
 @endsection
 
+
 @section('content')
     <!-- content begin -->
     <div class="no-bottom space-top" id="content">

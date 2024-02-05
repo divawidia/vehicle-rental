@@ -38,13 +38,20 @@ Route::get('/about-us', function () {
     return view('pages.about-us');
 })->name('about-us');
 
-Route::get('/vehicles', [HomeController::class, 'vehicleList'])->name('vehicle-list');
+Route::prefix('vehicles')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'vehicleList'])->name('vehicle-list');
+        Route::get('/{slug}', [HomeController::class, 'vehicleDetail'])->name('vehicle-detail');
+    });
 
-Route::get('/blog', function () {
-    return view('vendor.binshopsblog.index');
-})->name('blog');
-
-Route::get('/vehicles/{vehicle}', [HomeController::class, 'vehicleDetail'])->name('vehicle-detail');
+Route::prefix('blogs')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'blogList'])->name('blog-list');
+//        Route::get('/', function () {
+//            return view('pages.blog');
+//        })->name('blog');
+        Route::get('/{slug}', [HomeController::class, 'blogDetail'])->name('blog-detail');
+    });
 
 Route::get('/contact-us', function () {
     return view('pages.contact-us');

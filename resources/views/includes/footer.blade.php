@@ -44,7 +44,7 @@
                         <div class="widget">
                             <ul>
                                 <li><a href="{{ route('about-us') }}">About</a></li>
-                                <li><a href="{{ route('blog') }}">Blog</a></li>
+                                <li><a href="{{ route('blog-list') }}">Blog</a></li>
                                 <li><a href="{{ route('booking') }}">Book Rent Now</a></li>
                                 <li><a href="{{ route('gallery') }}"></a>Gallery</li>
                                 <li><a href="{{ route('contact-us') }}">Contact Us</a></li>

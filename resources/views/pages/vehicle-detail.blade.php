@@ -11,7 +11,7 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="images/background/16.jpg" class="jarallax-img" alt="" />
+            <img src="/images/background/16.jpg" class="jarallax-img" alt="" />
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">
@@ -31,7 +31,10 @@
                     <div class="col-lg-6">
                         <div id="slider-carousel" class="owl-carousel">
                             <div class="item">
-                                <img src="{{ Storage::url($vehicle->photos->first()->photo_url) }}" alt="" />
+{{--                                <img src="{{ Storage::url($vehicle->thumbnail) }}" alt="" />--}}
+                                @foreach($vehicle->photos as $photo)
+                                    <img src="{{ Storage::url($photo->photo_url) }}" alt="" />
+                                @endforeach
                             </div>
                             <!-- <div class="item">
                                               <img src="images/car-single/2.jpg" alt="">
@@ -97,7 +100,6 @@
                                 <li>{{ $feature->feature }}</li>
                             @endforeach
                         </ul>
-                        @php echo $vehicle->features @endphp
                     </div>
 
                     <div class="col-lg-3">
