@@ -36,6 +36,68 @@
                 </div>
             </div>
         </div>
+        <div id="addVehicleDetailModal" class="modal fade" tabindex="-1" aria-labelledby="addVehicleDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content d-flex justify-content-center">
+                    <div class="modal-header">
+                        <h4 class="modal-title w-100">Tambah Detail Kendaraan</h4>
+                    </div>
+                    <form action="{{ route('tambah-detail-kendaraan', $vehicle->id) }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3 row">
+                                <label for="plate_number" class="col-md-3 col-form-label">Plat Kendaraan</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" autocomplete="off" name="plate_number" value="{{ old('plate_number') }}" id="plate_number" required>
+                                    @error('plate_number')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="odometer" class="col-md-3 col-form-label">Total Odometer</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" autocomplete="off" name="odometer" value="{{ old('odometer') }}" id="odometer" required>
+                                    @error('odometer')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="status" class="col-md-3 col-form-label">Status</label>
+                                <div class="col-md-9">
+{{--                                    <select class="form-select" name="status" id="status" >--}}
+{{--                                        <option disabled>Pilih status kendaraan</option>--}}
+{{--                                        @foreach(["tersedia" => "Tersedia", "disewa" => "Disewa", "rusak" => "Rusak"] AS $status => $status_label)--}}
+{{--                                            <option value="{{ $status }}">{{ $status_label }}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="tersedia" value="tersedia">
+                                        <label class="form-check-label" for="tersedia">Tersedia</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="disewa" value="disewa">
+                                        <label class="form-check-label" for="disewa">Disewa</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status" id="rusak" value="rusak">
+                                        <label class="form-check-label" for="rusak">Rusak</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom">
+                                    Submit
+                                </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="row py-3">
@@ -211,6 +273,36 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
+                                <h5 class="font-size-16 mb-3">Detail Kendaraan : </h5>
+                            </div>
+
+                            <div class="table-responsive">
+                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVehicleDetailModal">
+                                    <i class="fa fa-plus"></i> Tambah Detail Kendaraan Baru
+                                </button>
+                                <table class="table table-hover mb-0" id="vehicleDetailTable">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Plat Kendaraan</th>
+                                        <th>Total Odometer</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
                                 <h5 class="font-size-16 mb-3">Daftar Penyewaan : </h5>
                             </div>
 
@@ -260,6 +352,30 @@
         <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection
     @push('addon-script')
+        <script>
+            // AJAX DataTable
+            var datatable = $('#vehicleDetailTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                ajax: {
+                    url: '{!! url()->route('index-detail-kendaraan', $vehicle->id) !!}',
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'plate_number', name: 'plate_number'},
+                    {data: 'odometer', name: 'odometer'},
+                    {data: 'status', name: 'status'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        width: '15%'
+                    },
+                ]
+            });
+        </script>
         <script>
             // AJAX DataTable
             var datatable = $('#crudTable').DataTable({

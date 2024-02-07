@@ -1,28 +1,68 @@
-@extends('layouts.app')
+@extends('layouts.admin.master-without-nav')
+@section('title')
+    Waiting for Admin Approval
+@endsection
+@section('page-title')
+    Waiting for Admin Approval
+@endsection
+@section('body')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+    <body>
+    @endsection
+    @section('content')
+        <div class="authentication-bg min-vh-100">
+            <div class="bg-overlay bg-light"></div>
+            <div class="container">
+                <div class="d-flex flex-column min-vh-100 px-3 pt-4">
+                    <div class="row justify-content-center my-auto">
+                        <div class="col-md-8 col-lg-6 col-xl-5">
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+                            <div class="mb-4 pb-2">
+                                <a href="index" class="d-block auth-logo">
+                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
+                                         class="auth-logo-dark me-start">
+                                    <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
+                                         class="auth-logo-light me-start">
+                                </a>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body p-4">
+                                    <div class="text-center mt-2">
+                                        <h5>Waiting for Admin Approval !</h5>
+                                        <p class="text-muted">Please wait for your account approval by admin</p>
+                                    </div>
+                                    <div class="p-2 mt-4">
+                                            <div class="mt-4">
+                                                <a class="btn btn-primary w-100" href="{{ route('login') }}">
+                                                    Go To Sign In Page
+                                                </a>
+                                            </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="text-center p-4">
+                                <p>©
+                                    <script>
+                                        document.write(new Date().getFullYear())
+                                    </script> Batur Sari Rental.
+                                </p>
+                            </div>
                         </div>
-                    @endif
+                    </div>
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
                 </div>
-            </div>
+            </div><!-- end container -->
         </div>
-    </div>
-</div>
+        <!-- end authentication section -->
+    @endsection
+    @section('scripts')
+        <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
 @endsection

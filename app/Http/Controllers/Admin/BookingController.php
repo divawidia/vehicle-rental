@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Transmission;
 use App\Models\Vehicle;
+use App\Models\VehicleDetail;
 use App\Models\VehicleType;
 use DateTime;
 use Exception;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -141,8 +143,12 @@ class BookingController extends Controller
      */
     public function create()
     {
-        $vehicles = Vehicle::where('unit_quantity', '>', 0)
-                            ->get();
+        $vehicles = DB::table('vehicles')
+            ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
+            ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
+            ->where('vehicle_details.status', '=', 'tersedia')
+            ->groupBy('vehicles.id')
+            ->get();
 
         return view('pages.admin.booking.create', [
             'vehicles' => $vehicles
@@ -170,10 +176,6 @@ class BookingController extends Controller
             'longitude_return' => 'required',
         ]);
 
-//        $booking = new Booking();
-//        $vehicle = $validatedData['vehicle_type_id'];
-
-//        $booking->fill($validatedData);
         $request->session()->put('booking', $validatedData);
 
         return redirect()->route('choose-vehicle');
@@ -182,7 +184,13 @@ class BookingController extends Controller
     public function userPageBooking2(Request $request){
         $booking = $request->session()->get('booking');
 
-        $vehicles = Vehicle::where('vehicle_type_id', $booking['vehicle_type_id'])->get();
+        $vehicles = DB::table('vehicles')
+                        ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
+                        ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
+                        ->where('vehicle_details.status', '=', 'tersedia')
+                        ->where('vehicles.vehicle_type_id', '=', $booking['vehicle_type_id'])
+                        ->groupBy('vehicles.id')
+                        ->get();
 
         return view('pages.choose-vehicle', compact('booking', 'vehicles'));
     }
@@ -297,6 +305,10 @@ class BookingController extends Controller
         $data['pick_up_datetime'] = $booking['pick_up_datetime'];
         $data['return_datetime'] = $booking['return_datetime'];
 
+        $vehicleDetail = VehicleDetail::where('vehicle_id', '=', $request->vehicle_id)->where('status', '=', 'tersedia')->first();
+        $data['vehicle_detail_id'] = $vehicleDetail->id;
+
+
         $newBooking = new Booking();
 
         $newBooking->fill($data);
@@ -318,7 +330,11 @@ class BookingController extends Controller
         if ($request->transaction_type == 'COD') {
             $booking->fill($data);
             $booking->save();
-//        dd($booking);
+
+            DB::table('vehicle_details')
+                ->where('id', '=', $booking['vehicle_detail_id'])
+                ->update(['status' => 'disewa']);
+
             return redirect()->route('finish-payment');
         }elseif ($request->transaction_type == 'Transfer'){
             $code = 'RENT-' . mt_rand(00000, 999999);
@@ -358,6 +374,11 @@ class BookingController extends Controller
         $booking = $request->session()->get('booking');
 
         return view('pages.finish-payment', compact('booking'));
+    }
+
+    public function fetchVehicleDetail(Request $request){
+        $data['vehicleDetails'] = VehicleDetail::where('vehicle_id', $request->vehicle_id)->where('status', 'tersedia')->get();
+        return response()->json($data);
     }
 
 
@@ -466,9 +487,9 @@ class BookingController extends Controller
 
         $booking = Booking::create($data);
 
-        Vehicle::find($request->vehicle_id)->decrement('unit_quantity', 1);
-
-//        dd($month_rent, $monthly_rent_price, $week_rent, $weekly_rent_price, $days_left, $daily_rent_price, $insurance_price, $total_price);
+        DB::table('vehicle_details')
+            ->where('id', '=', $request->vehicle_detail_id)
+            ->update(['status' => 'disewa']);
 
         return redirect()->route('bookings.show', [$booking->id])->with('status', 'Data Booking berhasil dibuat!');
     }
@@ -609,7 +630,9 @@ class BookingController extends Controller
         }
 
         if ($request->rent_status == 'Selesai' || $request->rent_status == 'Batal' || $request->transaction_status == 'Batal' || $request->return_status == 'Sudah'){
-            Vehicle::find($request->vehicle_id)->increment('unit_quantity', 1);
+            DB::table('vehicle_details')
+                ->where('id', '=', $request->vehicle_detail_id)
+                ->update(['status' => 'tersedia']);
         }
 
         $data = $request->all();
@@ -648,7 +671,9 @@ class BookingController extends Controller
     {
         $item = Booking::findOrFail($id);
         $item->delete();
-        Vehicle::find($item->vehicle_id)->increment('unit_quantity', 1);
+        DB::table('vehicle_details')
+            ->where('id', '=', $item->vehicle_detail_id)
+            ->update(['status' => 'tersedia']);
 
         return redirect()->route('bookings.index')->with('status', 'Data Booking berhasil dihapus!');
     }

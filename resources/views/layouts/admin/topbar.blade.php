@@ -58,7 +58,7 @@
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ URL::asset('build/images/users/user-circle.png') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">Admin</span>
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
 {{--                    <div class="p-3 border-bottom">--}}
@@ -83,9 +83,16 @@
 {{--                            class="mdi mdi-lock text-muted font-size-16 align-middle me-2"></i> <span--}}
 {{--                            class="align-middle">Lock screen</span></a>--}}
 {{--                    <div class="dropdown-divider"></div>--}}
-                    <a class="dropdown-item" href=""><i
-                            class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span
-                            class="align-middle">Logout</span></a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="dropdown-item">
+                            <i class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span
+                                class="align-middle">Logout</span>
+                        </button>
+                    </form>
+{{--                    <a class="dropdown-item" href=""><i--}}
+{{--                            class="mdi mdi-logout text-muted font-size-16 align-middle me-2"></i> <span--}}
+{{--                            class="align-middle">Logout</span></a>--}}
                 </div>
             </div>
         </div>

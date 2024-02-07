@@ -80,9 +80,15 @@ Route::prefix('admin')
         Route::get('/kendaraan/photo/delete/{id}', [VehicleController::class, 'deletePhoto'])->name('vehicle-photo-delete');
         Route::post('/kendaraan-tambah-fitur', [VehicleController::class, 'addFeature'])->name('tambah-fitur');
         Route::get('/kendaraan-hapus-fitur/{id}', [VehicleController::class, 'deleteFeature'])->name('hapus-fitur');
+        Route::post('/kendaraan/{id}', [VehicleController::class, 'storeVehicleDetail'])->name('tambah-detail-kendaraan');
+        Route::get('/kendaraan/{id}/vehicle-detail', [VehicleController::class, 'indexVehicleDetail'])->name('index-detail-kendaraan');
+        Route::get('/kendaraan/{vehicles_id}/vehicle-detail/{id}/edit', [VehicleController::class, 'editVehicleDetail'])->name('edit-detail-kendaraan');
+        Route::put('/kendaraan/vehicle-detail/{id}', [VehicleController::class, 'updateVehicleDetail'])->name('update-detail-kendaraan');
+        Route::delete('/kendaraan/{vehicles_id}/vehicle-detail/{id}', [VehicleController::class, 'destroyVehicleDetail'])->name('hapus-detail-kendaraan');
 
         Route::resource('foto-kendaraan', VehiclePhotoController::class);
         Route::resource('bookings', BookingController::class);
+        Route::post('api/fetch-vehicleDetail', [BookingController::class, 'fetchVehicleDetail'])->name('fetch-vehicle-detail');
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
         Route::prefix('blogs')
@@ -97,5 +103,6 @@ Route::prefix('admin')
         Route::resource('galleries', GalleryController::class);
         Route::post('/galleries/photo/upload', [GalleryController::class, 'uploadPhoto'])->name('gallery-photo-upload');
     });
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
+Route::get('/waiting-for-approval', function () {return view('auth.verify');})->name('waiting-for-approval');
+//Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
 Auth::routes();
