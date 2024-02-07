@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\TransmissionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VehicleBrandController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
@@ -102,7 +103,7 @@ Route::prefix('admin')
 
         Route::resource('galleries', GalleryController::class);
         Route::post('/galleries/photo/upload', [GalleryController::class, 'uploadPhoto'])->name('gallery-photo-upload');
+        Route::resource('users', UserController::class);
     });
 Route::get('/waiting-for-approval', function () {return view('auth.verify');})->name('waiting-for-approval');
-//Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout-admin');
 Auth::routes();
