@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BlogController;
@@ -67,7 +68,9 @@ Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')
     ->middleware(['auth', 'admin'])
     ->group(function() {
-        Route::get('/', function () {return view('pages.admin.dashboard');})->name('admin-dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
+        Route::get('/api/fetch-totalRentCountry', [DashboardController::class, 'totalRentCountry'])->name('fetch-totalRentCountry');
+
         Route::prefix('kategori-kendaraaan')
             ->group(function (){
                 Route::get('/', function () {return view('pages.admin.vehicle-category.index');})->name('vehicle-category-index');

@@ -218,14 +218,6 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mt-4 mt-xl-0">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="vehicle_license_plate">Plat Kendaraan</label>
-                                            <input type="text" class="form-control" placeholder="Masukan PLat Kendaraan"
-                                                   id="vehicle_license_plate" name="vehicle_license_plate">
-                                            @error('vehicle_license_plate')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
                                         <div class="row">
                                             <div class="col-12">
                                                 <label class="form-label" >Fitur Booking</label>
@@ -269,6 +261,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div>
+                                            <h5 class="font-size-14 mb-4">Metode Pembayaran</h5>
+                                            <div class="form-check mb-3 form-check-inline">
+                                                <input class="form-check-input" value="COD" type="radio" name="transaction_type"
+                                                       id="COD">
+                                                <label class="form-check-label" for="COD">
+                                                    Cash
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" value="Transfer" type="radio" name="transaction_type"
+                                                       id="Transfer">
+                                                <label class="form-check-label" for="Transfer">
+                                                    Transfer
+                                                </label>
+                                            </div>
+                                            @error('transaction_type')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 ms-lg-auto">
@@ -291,26 +303,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <h5 class="font-size-14 mb-4">Metode Pembayaran</h5>
-                                    <div class="form-check mb-3 form-check-inline">
-                                        <input class="form-check-input" value="COD" type="radio" name="transaction_type"
-                                               id="COD">
-                                        <label class="form-check-label" for="COD">
-                                            Cash
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" value="Transfer" type="radio" name="transaction_type"
-                                               id="Transfer">
-                                        <label class="form-check-label" for="Transfer">
-                                            Transfer
-                                        </label>
-                                    </div>
-                                    @error('transaction_type')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
                         </div>
                         <div class="mt-4">
@@ -325,13 +317,6 @@
 @endsection
 
 @section('scripts')
-    <script>
-        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
-        const localTime = date.toLocaleString();
-        $("input[name='pick_up_datetime']").attr({
-            "min" : localTime
-        });
-    </script>
     <script>
         $("input[name='pick_up_datetime']").change(function() {
             var date = new Date($(this).val());

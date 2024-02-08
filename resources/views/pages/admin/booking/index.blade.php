@@ -77,7 +77,7 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'vehicle.vehicle_name', name: 'vehicle.vehicle_name' },
-                    { data: 'vehicle_license_plate', name: 'vehicle_license_plate' },
+                    { data: 'vehicle_detail.plate_number', name: 'vehicle_detail.plate_number' },
                     { data: 'total_days_rent', name: 'total_days_rent' },
                     { data: 'name', name: 'name' },
                     { data: 'created_at', name: 'created_at' },
