@@ -11,7 +11,7 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="images/background/16.jpg" class="jarallax-img" alt="">
+            <img src="/images/background/16.jpg" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">

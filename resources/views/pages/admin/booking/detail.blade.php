@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Plat Nomor Kendaraan:</h5>
-                                    <p class="col-md-9">{{ $booking->vehicle_license_plate }}</p>
+                                    <p class="col-md-9">{{ $booking->vehicle_detail->plate_number }}</p>
                                 </div>
                                 <div class="py-1 row">
                                     <h5 class="col-md-3 font-size-14">Total Lama Penyewaan:</h5>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VehiclePageBookingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,16 @@ Route::prefix('vehicles')
     ->group(function () {
         Route::get('/', [HomeController::class, 'vehicleList'])->name('vehicle-list');
         Route::get('/{slug}', [HomeController::class, 'vehicleDetail'])->name('vehicle-detail');
+        Route::post('/{slug}', [VehiclePageBookingController::class, 'postUserPageBooking1'])->name('book-vehicle.post');
+        Route::get('/{slug}/choose-features', [VehiclePageBookingController::class, 'userPageBooking2'])->name('choose-features');
+        Route::post('/{slug}/choose-features', [VehiclePageBookingController::class, 'postUserPageBooking2'])->name('choose-features.post');
+        Route::get('/{slug}/booking-payment', [VehiclePageBookingController::class, 'userPageBooking3'])->name('vehicle-booking-payment');
+        Route::post('/{slug}/booking-payment', [VehiclePageBookingController::class, 'postUserPageBooking3'])->name('vehicle-booking-payment.post');
+        Route::get('/{slug}/finish-payment', [VehiclePageBookingController::class, 'userPageBooking4'])->name('vehicle-finish-payment');
+
     });
+
+Route::post('/api/get-rent-price', [BookingController::class, 'getRentPrice'])->name('get-rent-price');
 
 Route::prefix('blogs')
     ->group(function () {
@@ -60,9 +70,7 @@ Route::get('/contact-us', function () {
 
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 
-Route::get('/booking', function () {
-    return view('pages.booking');
-})->name('booking');
+Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking');
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')

@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use App\Models\Tag;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -33,9 +34,16 @@ class HomeController extends Controller
         $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
         return view('pages.vehicle-list', compact('vehicles'));
     }
-    public function vehicleDetail(string $slug)
+    public function vehicleDetail(Request $request, string $slug)
     {
-        return view('pages.vehicle-detail')->with('vehicle', Vehicle::where('slug', $slug)->first());
+        $booking = $request->session()->get('booking');
+        $vehicle = Vehicle::where('slug', $slug)->first();
+        $vehicleUnit = DB::table('vehicle_details')
+            ->where('vehicle_details.status', '=', 'tersedia')
+            ->where('vehicle_details.vehicle_id', $vehicle->id)
+            ->count();
+//        dd($vehicleUnit);
+        return view('pages.vehicle-detail', compact(['vehicle', 'vehicleUnit', 'booking']));
     }
 
     public function blogList()
@@ -58,5 +66,12 @@ class HomeController extends Controller
     {
         $galleries = Gallery::all();
         return view('pages.gallery', compact('galleries'));
+    }
+
+    public function bookingPage(){
+        $vehicles = Vehicle::with('photos', 'transmission', 'vehicle_type', 'brand')->get();
+        return view('pages.booking',[
+            'vehicles' => $vehicles
+        ]);
     }
 }

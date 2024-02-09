@@ -32,60 +32,31 @@
                     <div class="col-lg-12">
                         <div class="spacer-single sm-hide"></div>
                         <div class="p-4 rounded-3 shadow-soft" data-bgcolor="#ffffff">
-
-
-                            <form name="contactForm" id='contact_form' action="{{ route('choose-vehicle') }}">
+                            <form name="contactForm" id="contact_form" action="{{ route('home.post') }}" method="POST">
+                                @csrf
                                 <div id="step-1" class="row">
                                     <div class="col-lg-6 mb30">
                                         <h5>What is your vehicle type?</h5>
 
                                         <div class="de_form de_radio row g-3">
-                                            <div class="radio-img col-6 col-sm-4">
-                                                <input
-                                                    id="radio-1a"
-                                                    name="Car_Type"
-                                                    type="radio"
-                                                    value="motorbike"
-                                                />
-                                                <label for="radio-1a"
-                                                ><img
-                                                        src="images/select-form/scooter.svg"
-                                                        alt=""
-                                                        height="40px"
-                                                    />Scooter</label
-                                                >
-                                            </div>
-                                            <div class="radio-img col-6 col-sm-4">
-                                                <input
-                                                    id="radio-1b"
-                                                    name="Car_Type"
-                                                    type="radio"
-                                                    value="motorbike"
-                                                />
-                                                <label for="radio-1b"
-                                                ><img
-                                                        src="images/select-form/motorbike.svg"
-                                                        alt=""
-                                                        height="40px"
-                                                    />Motorbike</label
-                                                >
-                                            </div>
-
-                                            <div class="radio-img col-6 col-sm-4">
-                                                <input
-                                                    id="radio-1c"
-                                                    name="Car_Type"
-                                                    type="radio"
-                                                    value="car"
-                                                />
-                                                <label for="radio-1c"
-                                                ><img
-                                                        src="images/select-form/car.svg"
-                                                        alt=""
-                                                        height="40px"
-                                                    />Car</label
-                                                >
-                                            </div>
+                                            @foreach($vehicleTypes as $vehicleType)
+                                                <div class="radio-img col-6 col-sm-4">
+                                                    <input
+                                                        id="{{ $vehicleType->id }}"
+                                                        name="vehicle_type_id"
+                                                        type="radio"
+                                                        value="{{ $vehicleType->id }}"
+                                                        required
+                                                    />
+                                                    <label for="{{ $vehicleType->id }}"
+                                                    ><img
+                                                            src="{{ Storage::url($vehicleType->icon) }}"
+                                                            alt=""
+                                                            height="40px"
+                                                        />{{ $vehicleType->vehicle_type_name }}</label
+                                                    >
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
 
@@ -93,148 +64,82 @@
                                         <div class="row">
                                             <div class="col-lg-6 mb20">
                                                 <h5>Pick Up Location</h5>
-                                                <input type="text" name="PickupLocation" onfocus="geolocate()" placeholder="Enter your pickup location" id="autocomplete" autocomplete="off" class="form-control">
-
-                                                <div class="jls-address-preview jls-address-preview--hidden">
-                                                    <div class="jls-address-preview__header">
-                                                    </div>
+                                                <input
+                                                    type="text"
+                                                    name="pick_up_loc"
+                                                    placeholder="Enter your pickup location"
+                                                    id="autocomplete_pickup"
+                                                    autocomplete="on"
+                                                    class="form-control"
+                                                    value="{{ old('pick_up_loc') }}"
+                                                    required
+                                                />
+                                                <div class="form-group d-none" id="pickupLatitudeArea">
+                                                    <label>Latitude</label>
+                                                    <input type="text" id="latitude_pickup" name="latitude_pickup" class="form-control">
+                                                </div>
+                                                <div class="form-group d-none" id="pickupLongtitudeArea">
+                                                    <label>Longitude</label>
+                                                    <input type="text" name="longitude_pickup" id="longitude_pickup" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 mb20">
                                                 <h5>Drop Off Location</h5>
-                                                <input type="text" name="DropoffLocation" onfocus="geolocate()" placeholder="Enter your dropoff location" id="autocomplete2" autocomplete="off" class="form-control">
-
-                                                <div class="jls-address-preview jls-address-preview--hidden">
-                                                    <div class="jls-address-preview__header">
-                                                    </div>
+                                                <input
+                                                    type="text"
+                                                    name="return_loc"
+                                                    placeholder="Enter your dropoff location"
+                                                    id="autocomplete_return"
+                                                    autocomplete="on"
+                                                    class="form-control"
+                                                    value="{{ old('return_loc') }}"
+                                                    required
+                                                />
+                                                <div class="form-group d-none" id="returnLatitudeArea">
+                                                    <label>Latitude</label>
+                                                    <input type="text" id="latitude_return" name="latitude_return" class="form-control">
+                                                </div>
+                                                <div class="form-group d-none" id="returnLongtitudeArea">
+                                                    <label>Longitude</label>
+                                                    <input type="text" name="longitude_return" id="longitude_return" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6 mb20">
-                                                <h5>Pick Up Date & Time</h5>
-                                                <div class="date-time-field">
-                                                    <input type="text" id="date-picker" name="Pick Up Date" value="">
-                                                    <select name="Pick Up Time" id="pickup-time">
-                                                        <option selected disabled value="Select time">Time</option>
-                                                        <option value="00:00">00:00</option>
-                                                        <option value="00:30">00:30</option>
-                                                        <option value="01:00">01:00</option>
-                                                        <option value="01:30">01:30</option>
-                                                        <option value="02:00">02:00</option>
-                                                        <option value="02:30">02:30</option>
-                                                        <option value="03:00">03:00</option>
-                                                        <option value="03:30">03:30</option>
-                                                        <option value="04:00">04:00</option>
-                                                        <option value="04:30">04:30</option>
-                                                        <option value="05:00">05:00</option>
-                                                        <option value="05:30">05:30</option>
-                                                        <option value="06:00">06:00</option>
-                                                        <option value="06:30">06:30</option>
-                                                        <option value="07:00">07:00</option>
-                                                        <option value="07:30">07:30</option>
-                                                        <option value="08:00">08:00</option>
-                                                        <option value="08:30">08:30</option>
-                                                        <option value="09:00">09:00</option>
-                                                        <option value="09:30">09:30</option>
-                                                        <option value="10:00">10:00</option>
-                                                        <option value="10:30">10:30</option>
-                                                        <option value="11:00">11:00</option>
-                                                        <option value="11:30">11:30</option>
-                                                        <option value="12:00">12:00</option>
-                                                        <option value="12:30">12:30</option>
-                                                        <option value="13:00">13:00</option>
-                                                        <option value="13:30">13:30</option>
-                                                        <option value="14:00">14:00</option>
-                                                        <option value="14:30">14:30</option>
-                                                        <option value="15:00">15:00</option>
-                                                        <option value="15:30">15:30</option>
-                                                        <option value="16:00">16:00</option>
-                                                        <option value="16:30">16:30</option>
-                                                        <option value="17:00">17:00</option>
-                                                        <option value="17:30">17:30</option>
-                                                        <option value="18:00">18:00</option>
-                                                        <option value="18:30">18:30</option>
-                                                        <option value="19:00">19:00</option>
-                                                        <option value="19:30">19:30</option>
-                                                        <option value="20:00">20:00</option>
-                                                        <option value="20:30">20:30</option>
-                                                        <option value="21:00">21:00</option>
-                                                        <option value="21:30">21:30</option>
-                                                        <option value="22:00">22:00</option>
-                                                        <option value="22:30">22:30</option>
-                                                        <option value="23:00">23:00</option>
-                                                        <option value="23:30">23:30</option>
-                                                    </select>
-                                                </div>
+                                                <h5>Pick Up Date & time</h5>
+                                                <input
+                                                    type="datetime-local"
+                                                    class="form-control"
+                                                    id="pick_up_datetime"
+                                                    name="pick_up_datetime"
+                                                    value="{{ old('pick_up_datetime') }}"
+                                                    required
+                                                />
                                             </div>
-
                                             <div class="col-lg-6 mb20">
-                                                <h5>Return Date & Time</h5>
-                                                <div class="date-time-field">
-                                                    <input type="text" id="date-picker-2" name="Collection Date" value="">
-                                                    <select name="Collection Time" id="collection-time">
-                                                        <option selected disabled value="Select time">Time</option>
-                                                        <option value="00:00">00:00</option>
-                                                        <option value="00:30">00:30</option>
-                                                        <option value="01:00">01:00</option>
-                                                        <option value="01:30">01:30</option>
-                                                        <option value="02:00">02:00</option>
-                                                        <option value="02:30">02:30</option>
-                                                        <option value="03:00">03:00</option>
-                                                        <option value="03:30">03:30</option>
-                                                        <option value="04:00">04:00</option>
-                                                        <option value="04:30">04:30</option>
-                                                        <option value="05:00">05:00</option>
-                                                        <option value="05:30">05:30</option>
-                                                        <option value="06:00">06:00</option>
-                                                        <option value="06:30">06:30</option>
-                                                        <option value="07:00">07:00</option>
-                                                        <option value="07:30">07:30</option>
-                                                        <option value="08:00">08:00</option>
-                                                        <option value="08:30">08:30</option>
-                                                        <option value="09:00">09:00</option>
-                                                        <option value="09:30">09:30</option>
-                                                        <option value="10:00">10:00</option>
-                                                        <option value="10:30">10:30</option>
-                                                        <option value="11:00">11:00</option>
-                                                        <option value="11:30">11:30</option>
-                                                        <option value="12:00">12:00</option>
-                                                        <option value="12:30">12:30</option>
-                                                        <option value="13:00">13:00</option>
-                                                        <option value="13:30">13:30</option>
-                                                        <option value="14:00">14:00</option>
-                                                        <option value="14:30">14:30</option>
-                                                        <option value="15:00">15:00</option>
-                                                        <option value="15:30">15:30</option>
-                                                        <option value="16:00">16:00</option>
-                                                        <option value="16:30">16:30</option>
-                                                        <option value="17:00">17:00</option>
-                                                        <option value="17:30">17:30</option>
-                                                        <option value="18:00">18:00</option>
-                                                        <option value="18:30">18:30</option>
-                                                        <option value="19:00">19:00</option>
-                                                        <option value="19:30">19:30</option>
-                                                        <option value="20:00">20:00</option>
-                                                        <option value="20:30">20:30</option>
-                                                        <option value="21:00">21:00</option>
-                                                        <option value="21:30">21:30</option>
-                                                        <option value="22:00">22:00</option>
-                                                        <option value="22:30">22:30</option>
-                                                        <option value="23:00">23:00</option>
-                                                        <option value="23:30">23:30</option>
-                                                    </select>
-                                                </div>
+                                                <h5>Drop Off Date & Time</h5>
+                                                <input
+                                                    type="datetime-local"
+                                                    class="form-control"
+                                                    id="return_datetime"
+                                                    name="return_datetime"
+                                                    value="{{ old('return_datetime') }}"
+                                                    required
+                                                />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <input type='submit' id='send_message' value='Find a Vehicle' class="btn-main pull-right">
+                                        <input
+                                            type="submit"
+                                            id="send_message"
+                                            value="Find a Vehicle"
+                                            class="btn-main pull-right"
+                                        />
                                     </div>
-
                                 </div>
-
                             </form>
                         </div>
                     </div>
@@ -293,3 +198,51 @@
     </div>
     <!-- content close -->
 @endsection
+@push('addon-script')
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
+
+    <script>
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function initialize() {
+            var input_pickup = document.getElementById('autocomplete_pickup');
+            var input_return = document.getElementById('autocomplete_return');
+            var autocomplete_pickup = new google.maps.places.Autocomplete(input_pickup);
+            var autocomplete_return = new google.maps.places.Autocomplete(input_return);
+            autocomplete_pickup.setComponentRestrictions({
+                country: 'id',
+            });
+            autocomplete_return.setComponentRestrictions({
+                country: 'id',
+            });
+
+            autocomplete_pickup.addListener('place_changed', function() {
+                var place = autocomplete_pickup.getPlace();
+                $('#latitude_pickup').val(place.geometry['location'].lat());
+                $('#longitude_pickup').val(place.geometry['location'].lng());
+            });
+            autocomplete_return.addListener('place_changed', function() {
+                var place = autocomplete_return.getPlace();
+                $('#latitude_return').val(place.geometry['location'].lat());
+                $('#longitude_return').val(place.geometry['location'].lng());
+            });
+        }
+    </script>
+    <script>
+        var date = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        const localTime = date.toLocaleString();
+        $("input[name='pick_up_datetime']").attr({
+            "min" : localTime
+        });
+    </script>
+    <script>
+        $("input[name='pick_up_datetime']").change(function() {
+            var date = new Date($(this).val());
+            var date = date.setDate(date.getDate()+1);
+            var date = new Date(date).toISOString().slice(0,new Date(date).toISOString().lastIndexOf(":"));
+            $("input[name='return_datetime']").attr({
+                "min" : date
+            });
+        })
+    </script>
+@endpush

@@ -13,6 +13,8 @@
 
     {{-- style --}}
     @stack('prepend-style')
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.16/build/css/intlTelInput.css">
     @include('includes.style')
     @stack('addon-style')

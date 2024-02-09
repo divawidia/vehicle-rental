@@ -419,12 +419,6 @@
     </script>
     <script>
         $(document).ready(function () {
-
-            /*------------------------------------------
-            --------------------------------------------
-            Country Dropdown Change Event
-            --------------------------------------------
-            --------------------------------------------*/
             $('#vehicle_id').on('change', function () {
                 var vehicleId = this.value;
                 $("#vehicle_detail_id").html('');
