@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Vehicle extends Model
 {
     use SoftDeletes;
@@ -34,6 +35,11 @@ class Vehicle extends Model
 
     protected $hidden = [
 
+    ];
+
+    protected $filters = [
+        'between',
+        'in',
     ];
 
     public function photos(){
