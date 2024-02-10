@@ -11,7 +11,7 @@
 
         <!-- section begin -->
         <section id="subheader" class="jarallax text-light">
-            <img src="images/background/16.jpg" class="jarallax-img" alt="">
+            <img src="/images/background/16.jpg" class="jarallax-img" alt="">
             <div class="center-y relative text-center">
                 <div class="container">
                     <div class="row">
@@ -20,6 +20,11 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <p>Your order has been processed, We will Contact you shortly</p>
+                            <a
+                                type="button"
+                                href="{{ route('home') }}"
+                                class="btn-main"
+                            ><i class="fa fa-home"></i>  Return to Home</a>
                         </div>
                         <div class="clearfix"></div>
                     </div>

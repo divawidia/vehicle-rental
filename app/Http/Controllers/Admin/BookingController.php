@@ -424,6 +424,7 @@ class BookingController extends Controller
 
             return redirect()->route('finish-payment');
         }elseif ($request->transaction_type == 'Transfer'){
+            $booking->fill($data);
             $code = 'RENT-' . mt_rand(00000, 999999);
 
             Config::$serverKey = config('services.midtrans.serverKey');
@@ -447,14 +448,36 @@ class BookingController extends Controller
             ];
 
             try {
-                $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+                $snaptoken = Snap::getSnapToken($midtrans);
+                $booking['snap_token'] = $snaptoken;
+                $booking['transaction_code'] = $code;
+                $booking->save();
 
-                return redirect($paymentUrl);
+                return redirect()->route('pay-booking', $booking->transaction_code);
             }
             catch (Exception $e){
                 echo $e->getMessage();
             }
         }
+    }
+
+    public function payBooking(string $transaction_code){
+        $booking = Booking::where('transaction_code', $transaction_code)->first();
+
+        if ($booking->transaction_status == 'Belum Dibayar'){
+            return view('pages.transfer-payment', compact('booking'));
+        }else{
+            return redirect()->route('pay-success', $booking->transaction_code);
+        }
+    }
+
+    public function successPayment(string $transaction_code){
+        $booking = Booking::where('transaction_code', $transaction_code)->first();
+        $booking->transaction_status = 'Sudah Dibayar';
+        $booking->update();
+        VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
+
+        return view('pages.finish-payment', compact('booking'));
     }
 
     public function userPageBooking4(Request $request){
