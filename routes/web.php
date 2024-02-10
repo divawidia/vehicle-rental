@@ -78,7 +78,7 @@ Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking');
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')
-    ->middleware(['auth', 'admin'])
+    ->middleware(['auth'])
     ->group(function() {
         Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
         Route::get('/api/fetch-totalRentCountry', [DashboardController::class, 'totalRentCountry'])->name('fetch-totalRentCountry');
@@ -121,4 +121,4 @@ Route::prefix('admin')
         Route::resource('users', UserController::class);
     });
 Route::get('/waiting-for-approval', function () {return view('auth.verify');})->name('waiting-for-approval');
-Auth::routes();
+Auth::routes((array)'/');
