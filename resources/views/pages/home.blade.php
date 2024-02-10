@@ -577,7 +577,9 @@
 
 @push('addon-script')
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&libraries=places&callback=initAutocomplete" type="text/javascript"></script>
-
+{{--    <script async--}}
+{{--            src="https://maps.google.com/maps/api/js?key=AIzaSyBzmaIUkgLYiiWK_0tbyqbx31ZsmyA0uoY&loading=async&libraries=places&callback=initAutocomplete">--}}
+{{--    </script>--}}
     <script>
         google.maps.event.addDomListener(window, 'load', initialize);
 
