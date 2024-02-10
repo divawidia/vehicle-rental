@@ -5851,7 +5851,7 @@ body[data-layout-mode=dark] .apexcharts-pie line {
 .authentication-bg {
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url(/build/icons/login-img.png);
+    background-color: #eeeff1;
     display: flex;
     align-items: center;
     justify-content: center

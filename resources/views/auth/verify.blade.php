@@ -18,7 +18,7 @@
                         <div class="col-md-8 col-lg-6 col-xl-5">
 
                             <div class="mb-4 pb-2">
-                                <a href="index" class="d-block auth-logo">
+                                <a href="{{ route('admin-dashboard') }}" class="d-block auth-logo">
                                     <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
                                          class="auth-logo-dark me-start">
                                     <img src="{{ URL::asset('images/logo-with-text.png') }}" alt="" height="80"
