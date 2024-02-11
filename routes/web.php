@@ -98,9 +98,9 @@ Route::prefix('admin')
         Route::get('/kendaraan-hapus-fitur/{id}', [VehicleController::class, 'deleteFeature'])->name('hapus-fitur');
         Route::post('/kendaraan/{id}', [VehicleController::class, 'storeVehicleDetail'])->name('tambah-detail-kendaraan');
         Route::get('/kendaraan/{id}/vehicle-detail', [VehicleController::class, 'indexVehicleDetail'])->name('index-detail-kendaraan');
-        Route::get('/kendaraan/{vehicles_id}/vehicle-detail/{id}/edit', [VehicleController::class, 'editVehicleDetail'])->name('edit-detail-kendaraan');
+        Route::get('/kendaraan/{vehicle_id}/vehicle-detail/{id}/edit', [VehicleController::class, 'editVehicleDetail'])->name('edit-detail-kendaraan');
         Route::put('/kendaraan/vehicle-detail/{id}', [VehicleController::class, 'updateVehicleDetail'])->name('update-detail-kendaraan');
-        Route::delete('/kendaraan/{vehicles_id}/vehicle-detail/{id}', [VehicleController::class, 'destroyVehicleDetail'])->name('hapus-detail-kendaraan');
+        Route::delete('/kendaraan/{vehicle_id}/vehicle-detail/{id}', [VehicleController::class, 'destroyVehicleDetail'])->name('hapus-detail-kendaraan');
 
         Route::resource('foto-kendaraan', VehiclePhotoController::class);
         Route::resource('bookings', BookingController::class);

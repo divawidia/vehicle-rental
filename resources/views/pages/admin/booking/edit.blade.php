@@ -104,7 +104,7 @@
                                                     <label class="form-label" for="no_hp_wa">No. HP/Whatsapp</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input type="tel" class="form-control" required placeholder="Masukan No. HP/WA"
+                                                    <input type="text" class="form-control" required placeholder="Masukan No. HP/WA"
                                                            id="no_hp_wa" name="no_hp_wa" value="{{ $booking->no_hp_wa }}">
                                                     @error('no_hp_wa')
                                                     <div class="alert alert-danger">{{ $message }}</div>

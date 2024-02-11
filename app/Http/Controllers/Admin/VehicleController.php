@@ -224,7 +224,7 @@ class VehicleController extends Controller
     public function indexVehicleDetail($id)
     {
         if (request()->ajax()) {
-            $query = VehicleDetail::where('vehicles_id', $id)->get();
+            $query = VehicleDetail::where('vehicle_id', $id)->get();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
@@ -235,10 +235,10 @@ class VehicleController extends Controller
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="' . route('edit-detail-kendaraan',['vehicles_id' => $item->vehicles_id, 'id'=>$item->id]) . '">Edit</a>
+                                    <a class="dropdown-item" href="' . route('edit-detail-kendaraan',['vehicle_id' => $item->vehicle_id, 'id'=>$item->id]) . '">Edit</a>
                                 </li>
                                 <li>
-                                <form action="' . route('hapus-detail-kendaraan', ['vehicles_id' => $item->vehicles_id, 'id'=>$item->id]) . '" method="POST">
+                                <form action="' . route('hapus-detail-kendaraan', ['vehicle_id' => $item->vehicle_id, 'id'=>$item->id]) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
                                     <button type="submit" class="dropdown-item">
                                         Hapus
@@ -273,7 +273,7 @@ class VehicleController extends Controller
         ]);
     }
 
-    public function editVehicleDetail(string $vehicles_id, string $id)
+    public function editVehicleDetail(string $vehicle_id, string $id)
     {
         $vehicleDetail = VehicleDetail::findOrFail($id);
 //        dd($vehicleDetail);
@@ -360,7 +360,7 @@ class VehicleController extends Controller
         $data = $request->all();
 
         $vehicleDetail = VehicleDetail::findOrFail($id);;
-        $kendaraan = Vehicle::findOrFail($vehicleDetail->vehicles_id);
+        $kendaraan = Vehicle::findOrFail($vehicleDetail->vehicle_id);
         $vehicleDetail->update($data);
 
         return redirect()->route('kendaraan.show', ["kendaraan"=>$kendaraan])->with('status', 'Data detail kendaraan berhasil diedit!');
@@ -377,9 +377,9 @@ class VehicleController extends Controller
         return redirect()->route('kendaraan.index')->with('status', 'Data kendaraan berhasil dihapus!');
     }
 
-    public function destroyVehicleDetail(string $vehicles_id,string $id)
+    public function destroyVehicleDetail(string $vehicle_id,string $id)
     {
-        $vehicle = Vehicle::findOrFail($vehicles_id);
+        $vehicle = Vehicle::findOrFail($vehicle_id);
 
         $vehicleDetail = VehicleDetail::findOrFail($id);
 
