@@ -28,12 +28,16 @@
         <section id="section-cars">
             <div class="container">
                 <div class="row">
-                        <div class="col-lg-3">
-                            <form action="{{ route('vehicle-list') }}" method="get">
-                                <div class="item_filter_group">
-                                    <h4>Vehicle Type</h4>
-                                    <div class="de_form">
-                                        @foreach($vehicleTypes as $vehicleType)
+                        <div class="col-lg-3 mb-5">
+                            <a class="btn-main w-100" data-bs-toggle="collapse" href="#collapseFilter" role="button" aria-expanded="false" aria-controls="collapseFilter">
+                                Filter <i class="fa fa-filter"></i>
+                            </a>
+                            <div class="collapse" id="collapseFilter">
+                                <form action="{{ route('vehicle-list') }}" method="get">
+                                    <div class="item_filter_group mt-3">
+                                        <h4>Vehicle Type</h4>
+                                        <div class="de_form">
+                                            @foreach($vehicleTypes as $vehicleType)
                                                 <div class="de_checkbox">
                                                     <input
                                                         id="{{ $vehicleType->id }}"
@@ -44,161 +48,332 @@
                                                     />
                                                     <label for="{{ $vehicleType->id }}">{{ $vehicleType->vehicle_type_name }}</label>
                                                 </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="item_filter_group">
-                                    <h4>Transmission Type</h4>
-                                    <div class="de_form">
-                                        @foreach($transmissions as $transmission)
-                                            <div class="de_checkbox">
-                                                <input
-                                                    id="{{ $transmission->id }}"
-                                                    name="transmission_id[]"
-                                                    type="checkbox"
-                                                    value="{{ $transmission->id }}"
-                                                    {{ in_array($transmission->id, $previousData['transmission_id']) ? 'checked' : '' }}
-                                                />
-                                                <label for="{{ $transmission->id }}">{{ $transmission->transmission_type }}</label>
+                                    <div class="item_filter_group">
+                                        <h4>Transmission Type</h4>
+                                        <div class="de_form">
+                                            @foreach($transmissions as $transmission)
+                                                <div class="de_checkbox">
+                                                    <input
+                                                        id="{{ $transmission->id }}"
+                                                        name="transmission_id[]"
+                                                        type="checkbox"
+                                                        value="{{ $transmission->id }}"
+                                                        {{ in_array($transmission->id, $previousData['transmission_id']) ? 'checked' : '' }}
+                                                    />
+                                                    <label for="{{ $transmission->id }}">{{ $transmission->transmission_type }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <div class="item_filter_group">
+                                        <h4>Vehicle Brand</h4>
+                                        <div class="de_form">
+                                            @foreach($brands as $brand)
+                                                <div class="de_checkbox">
+                                                    <input
+                                                        id="{{ $brand->id }}"
+                                                        name="brand_id[]"
+                                                        type="checkbox"
+                                                        value="{{ $brand->id }}"
+                                                        {{ in_array($brand->id, $previousData['brand_id']) ? 'checked' : '' }}
+                                                    />
+                                                    <label for="{{ $brand->id }}">{{ $brand->brand_name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="item_filter_group">
+                                        <h4>Engine Capacity (Cc)</h4>
+                                        <div class="price-input">
+                                            <div class="field">
+                                                <span>Min</span>
+                                                <input type="number" class="input-min" name="engine_capacity_min" value="{{ $previousData['engine_capacity_min'] }}" />
                                             </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                                <div class="item_filter_group">
-                                    <h4>Vehicle Brand</h4>
-                                    <div class="de_form">
-                                        @foreach($brands as $brand)
-                                            <div class="de_checkbox">
-                                                <input
-                                                    id="{{ $brand->id }}"
-                                                    name="brand_id[]"
-                                                    type="checkbox"
-                                                    value="{{ $brand->id }}"
-                                                    {{ in_array($brand->id, $previousData['brand_id']) ? 'checked' : '' }}
-                                                />
-                                                <label for="{{ $brand->id }}">{{ $brand->brand_name }}</label>
+                                            <div class="field">
+                                                <span>Max</span>
+                                                <input type="number" class="input-max" name="engine_capacity_max" value="{{ $previousData['engine_capacity_max'] }}" />
                                             </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="item_filter_group">
-                                    <h4>Engine Capacity (Cc)</h4>
-                                    <div class="price-input">
-                                        <div class="field">
-                                            <span>Min</span>
-                                            <input type="number" class="input-min" name="engine_capacity_min" value="{{ $previousData['engine_capacity_min'] }}" />
                                         </div>
-                                        <div class="field">
-                                            <span>Max</span>
-                                            <input type="number" class="input-max" name="engine_capacity_max" value="{{ $previousData['engine_capacity_max'] }}" />
+                                        <div class="slider">
+                                            <div class="progress"></div>
                                         </div>
-                                    </div>
-                                    <div class="slider">
-                                        <div class="progress"></div>
-                                    </div>
-                                    <div class="range-input">
-                                        <input
-                                            type="range"
-                                            class="range-min"
-                                            min="0"
-                                            max="2000"
-                                            value="{{ $previousData['engine_capacity_min'] }}"
-                                            step="1"
-                                            name="engine_capacity_min"
-                                        />
-                                        <input
-                                            type="range"
-                                            class="range-max"
-                                            min="0"
-                                            max="2000"
-                                            value="{{ $previousData['engine_capacity_max'] }}"
-                                            step="1"
-                                            name="engine_capacity_max"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="item_filter_group">
-                                    <h4>Price per Day (Rp)</h4>
-                                    <div class="price-input">
-                                        <div class="field">
-                                            <span>Min</span>
-                                            <input type="number" class="input-min" name="daily_price_min" value="{{ $previousData['daily_price_min'] }}" />
-                                        </div>
-                                        <div class="field">
-                                            <span>Max</span>
-                                            <input type="number" class="input-max" name="daily_price_max" value="{{ $previousData['daily_price_max'] }}" />
+                                        <div class="range-input">
+                                            <input
+                                                type="range"
+                                                class="range-min"
+                                                min="0"
+                                                max="2000"
+                                                value="{{ $previousData['engine_capacity_min'] }}"
+                                                step="1"
+                                                name="engine_capacity_min"
+                                            />
+                                            <input
+                                                type="range"
+                                                class="range-max"
+                                                min="0"
+                                                max="2000"
+                                                value="{{ $previousData['engine_capacity_max'] }}"
+                                                step="1"
+                                                name="engine_capacity_max"
+                                            />
                                         </div>
                                     </div>
-                                    <div class="slider">
-                                        <div class="progress"></div>
-                                    </div>
-                                    <div class="range-input">
-                                        <input
-                                            type="range"
-                                            class="range-min"
-                                            min="0"
-                                            max="3000000"
-                                            value="{{ $previousData['daily_price_min'] }}"
-                                            step="1"
-                                            name="daily_price_min"
-                                        />
-                                        <input
-                                            type="range"
-                                            class="range-max"
-                                            min="0"
-                                            max="3000000"
-                                            value="{{ $previousData['daily_price_max'] }}"
-                                            step="1"
-                                            name="daily_price_max"
+                                    <div class="item_filter_group">
+                                        <h4>Price per Day (Rp)</h4>
+                                        <div class="price-input">
+                                            <div class="field">
+                                                <span>Min</span>
+                                                <input type="number" class="input-min" name="daily_price_min" value="{{ $previousData['daily_price_min'] }}" />
+                                            </div>
+                                            <div class="field">
+                                                <span>Max</span>
+                                                <input type="number" class="input-max" name="daily_price_max" value="{{ $previousData['daily_price_max'] }}" />
+                                            </div>
+                                        </div>
+                                        <div class="slider">
+                                            <div class="progress"></div>
+                                        </div>
+                                        <div class="range-input">
+                                            <input
+                                                type="range"
+                                                class="range-min"
+                                                min="0"
+                                                max="3000000"
+                                                value="{{ $previousData['daily_price_min'] }}"
+                                                step="1"
+                                                name="daily_price_min"
+                                            />
+                                            <input
+                                                type="range"
+                                                class="range-max"
+                                                min="0"
+                                                max="3000000"
+                                                value="{{ $previousData['daily_price_max'] }}"
+                                                step="1"
+                                                name="daily_price_max"
 
-                                        />
-                                    </div>
-                                </div>
-                                <div class="item_filter_group">
-                                    <h4>Price per Month (Rp)</h4>
-                                    <div class="price-input">
-                                        <div class="field">
-                                            <span>Min</span>
-                                            <input type="number" class="input-min" name="monthly_price_min" value="{{ $previousData['monthly_price_min'] }}" />
-                                        </div>
-                                        <div class="field">
-                                            <span>Max</span>
-                                            <input type="number" class="input-max" name="monthly_price_max" value="{{ $previousData['monthly_price_max'] }}" />
+                                            />
                                         </div>
                                     </div>
-                                    <div class="slider">
-                                        <div class="progress"></div>
+                                    <div class="item_filter_group">
+                                        <h4>Price per Month (Rp)</h4>
+                                        <div class="price-input">
+                                            <div class="field">
+                                                <span>Min</span>
+                                                <input type="number" class="input-min" name="monthly_price_min" value="{{ $previousData['monthly_price_min'] }}" />
+                                            </div>
+                                            <div class="field">
+                                                <span>Max</span>
+                                                <input type="number" class="input-max" name="monthly_price_max" value="{{ $previousData['monthly_price_max'] }}" />
+                                            </div>
+                                        </div>
+                                        <div class="slider">
+                                            <div class="progress"></div>
+                                        </div>
+                                        <div class="range-input">
+                                            <input
+                                                type="range"
+                                                class="range-min"
+                                                min="0"
+                                                max="3000000"
+                                                value="{{ $previousData['monthly_price_min'] }}"
+                                                step="1"
+                                                name="monthly_price_min"
+                                            />
+                                            <input
+                                                type="range"
+                                                class="range-max"
+                                                min="0"
+                                                max="3000000"
+                                                value="{{ $previousData['monthly_price_max'] }}"
+                                                step="1"
+                                                name="monthly_price_max"
+                                            />
+                                        </div>
                                     </div>
-                                    <div class="range-input">
-                                        <input
-                                            type="range"
-                                            class="range-min"
-                                            min="0"
-                                            max="3000000"
-                                            value="{{ $previousData['monthly_price_min'] }}"
-                                            step="1"
-                                            name="monthly_price_min"
-                                        />
-                                        <input
-                                            type="range"
-                                            class="range-max"
-                                            min="0"
-                                            max="3000000"
-                                            value="{{ $previousData['monthly_price_max'] }}"
-                                            step="1"
-                                            name="monthly_price_max"
-                                        />
-                                    </div>
-                                </div>
-                                <input
-                                    type="submit"
-                                    id="send_message"
-                                    value="Apply Filter"
-                                    class="btn-main pull-right w-100"
-                                />
-                            </form>
+                                    <input
+                                        type="submit"
+                                        id="send_message"
+                                        value="Apply Filter"
+                                        class="btn-main pull-right w-100"
+                                    />
+                                </form>
+                            </div>
+{{--                            <form action="{{ route('vehicle-list') }}" method="get">--}}
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Vehicle Type</h4>--}}
+{{--                                    <div class="de_form">--}}
+{{--                                        @foreach($vehicleTypes as $vehicleType)--}}
+{{--                                                <div class="de_checkbox">--}}
+{{--                                                    <input--}}
+{{--                                                        id="{{ $vehicleType->id }}"--}}
+{{--                                                        name="vehicle_type_id[]"--}}
+{{--                                                        type="checkbox"--}}
+{{--                                                        value="{{ $vehicleType->id }}"--}}
+{{--                                                        {{ in_array($vehicleType->id, $previousData['vehicle_type_id'])  ? 'checked' : '' }}--}}
+{{--                                                    />--}}
+{{--                                                    <label for="{{ $vehicleType->id }}">{{ $vehicleType->vehicle_type_name }}</label>--}}
+{{--                                                </div>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Transmission Type</h4>--}}
+{{--                                    <div class="de_form">--}}
+{{--                                        @foreach($transmissions as $transmission)--}}
+{{--                                            <div class="de_checkbox">--}}
+{{--                                                <input--}}
+{{--                                                    id="{{ $transmission->id }}"--}}
+{{--                                                    name="transmission_id[]"--}}
+{{--                                                    type="checkbox"--}}
+{{--                                                    value="{{ $transmission->id }}"--}}
+{{--                                                    {{ in_array($transmission->id, $previousData['transmission_id']) ? 'checked' : '' }}--}}
+{{--                                                />--}}
+{{--                                                <label for="{{ $transmission->id }}">{{ $transmission->transmission_type }}</label>--}}
+{{--                                            </div>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Vehicle Brand</h4>--}}
+{{--                                    <div class="de_form">--}}
+{{--                                        @foreach($brands as $brand)--}}
+{{--                                            <div class="de_checkbox">--}}
+{{--                                                <input--}}
+{{--                                                    id="{{ $brand->id }}"--}}
+{{--                                                    name="brand_id[]"--}}
+{{--                                                    type="checkbox"--}}
+{{--                                                    value="{{ $brand->id }}"--}}
+{{--                                                    {{ in_array($brand->id, $previousData['brand_id']) ? 'checked' : '' }}--}}
+{{--                                                />--}}
+{{--                                                <label for="{{ $brand->id }}">{{ $brand->brand_name }}</label>--}}
+{{--                                            </div>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Engine Capacity (Cc)</h4>--}}
+{{--                                    <div class="price-input">--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Min</span>--}}
+{{--                                            <input type="number" class="input-min" name="engine_capacity_min" value="{{ $previousData['engine_capacity_min'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Max</span>--}}
+{{--                                            <input type="number" class="input-max" name="engine_capacity_max" value="{{ $previousData['engine_capacity_max'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="slider">--}}
+{{--                                        <div class="progress"></div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="range-input">--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-min"--}}
+{{--                                            min="0"--}}
+{{--                                            max="2000"--}}
+{{--                                            value="{{ $previousData['engine_capacity_min'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="engine_capacity_min"--}}
+{{--                                        />--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-max"--}}
+{{--                                            min="0"--}}
+{{--                                            max="2000"--}}
+{{--                                            value="{{ $previousData['engine_capacity_max'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="engine_capacity_max"--}}
+{{--                                        />--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Price per Day (Rp)</h4>--}}
+{{--                                    <div class="price-input">--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Min</span>--}}
+{{--                                            <input type="number" class="input-min" name="daily_price_min" value="{{ $previousData['daily_price_min'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Max</span>--}}
+{{--                                            <input type="number" class="input-max" name="daily_price_max" value="{{ $previousData['daily_price_max'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="slider">--}}
+{{--                                        <div class="progress"></div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="range-input">--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-min"--}}
+{{--                                            min="0"--}}
+{{--                                            max="3000000"--}}
+{{--                                            value="{{ $previousData['daily_price_min'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="daily_price_min"--}}
+{{--                                        />--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-max"--}}
+{{--                                            min="0"--}}
+{{--                                            max="3000000"--}}
+{{--                                            value="{{ $previousData['daily_price_max'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="daily_price_max"--}}
+
+{{--                                        />--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="item_filter_group">--}}
+{{--                                    <h4>Price per Month (Rp)</h4>--}}
+{{--                                    <div class="price-input">--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Min</span>--}}
+{{--                                            <input type="number" class="input-min" name="monthly_price_min" value="{{ $previousData['monthly_price_min'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                        <div class="field">--}}
+{{--                                            <span>Max</span>--}}
+{{--                                            <input type="number" class="input-max" name="monthly_price_max" value="{{ $previousData['monthly_price_max'] }}" />--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="slider">--}}
+{{--                                        <div class="progress"></div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="range-input">--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-min"--}}
+{{--                                            min="0"--}}
+{{--                                            max="3000000"--}}
+{{--                                            value="{{ $previousData['monthly_price_min'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="monthly_price_min"--}}
+{{--                                        />--}}
+{{--                                        <input--}}
+{{--                                            type="range"--}}
+{{--                                            class="range-max"--}}
+{{--                                            min="0"--}}
+{{--                                            max="3000000"--}}
+{{--                                            value="{{ $previousData['monthly_price_max'] }}"--}}
+{{--                                            step="1"--}}
+{{--                                            name="monthly_price_max"--}}
+{{--                                        />--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <input--}}
+{{--                                    type="submit"--}}
+{{--                                    id="send_message"--}}
+{{--                                    value="Apply Filter"--}}
+{{--                                    class="btn-main pull-right w-100"--}}
+{{--                                />--}}
+{{--                            </form>--}}
                         </div>
 
                     <div class="col-lg-9">
@@ -245,11 +420,14 @@
                                                         >
                                                     </div>
                                                     <div class="d-price">
-                                                        Daily rate from <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
-                                                        <a class="btn-main" href="{{ route('vehicle-detail', $vehicle->slug) }}"
-                                                        >Rent Now</a
-                                                        >
+                                                        Daily rate <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
                                                     </div>
+                                                    <div class="d-price-month">
+                                                        Monthly rate <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
+                                                    </div>
+                                                    <a class="btn-main w-100 mt-3" href="{{ route('vehicle-detail', $vehicle->slug) }}"
+                                                    >Rent Now</a
+                                                    >
                                                 </div>
                                             </div>
                                         </div>

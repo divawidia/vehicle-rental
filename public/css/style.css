@@ -11862,13 +11862,20 @@ input[type="range"]::-moz-range-thumb {
     transform: scale(1.05);
 }
 
-.de-item .d-price{
+.de-item .d-price, .de-item .d-price-month{
     position: relative;
     margin-top: 10px;
     font-size: 14px;
 }
 .de-item .d-price span{
-    font-size: 26px;
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    color:#000000;
+}
+
+.de-item .d-price-month span{
+    font-size: 24px;
     font-weight: bold;
     display: block;
     color:#000000;
