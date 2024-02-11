@@ -17,7 +17,7 @@
             aria-label="section"
             class="full-height vertical-center"
         >
-            <div class="container">
+            <div class="container pt-5">
                 <div class="row align-items-center">
                     <div class="spacer-double sm-hide"></div>
                     <div class="col-lg-6">
