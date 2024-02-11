@@ -54,7 +54,7 @@
                                                 <p class="text-muted text-truncate">Total Pendapatan per Tahun</p>
                                             </div>
                                         </div>
-                                        <h4 class="mb-0 font-size-22">Rp. {{ number_format($yearlyTotalSales[0]->total_sales) }}
+                                        <h4 class="mb-0 font-size-22">Rp. {{ number_format($yearlyTotalSales[0]->total_sales ?? 0) }}
                                             {{--                                            <span class="text-success fw-medium font-size-13 align-middle"> --}}
                                             {{--                                                <i class="mdi mdi-arrow-up"></i> 8.34% --}}
                                             {{--                                            </span> --}}
@@ -378,24 +378,24 @@
                         <div class="row align-items-center">
                             <div class="col-md-5">
                                 <div class="popular-product-img p-2">
-                                    <img src="{{ Storage::url($yearlyKendaraanTerlaris[0]->thumbnail) }}" alt="">
+                                    <img src="{{ Storage::url($yearlyKendaraanTerlaris[0]->thumbnail ?? '') }}" alt="">
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                        <span class="badge badge-soft-primary font-size-10 text-uppercase ls-05"> Kendaraan Terlaris</span>
-                                <h5 class="mt-2 font-size-16"><a href="" class="text-dark"></a>{{ $yearlyKendaraanTerlaris[0]->vehicle_name }}</h5>
+                                <span class="badge badge-soft-primary font-size-10 text-uppercase ls-05"> Kendaraan Terlaris</span>
+                                <h5 class="mt-2 font-size-16"><a href="" class="text-dark"></a>{{ $yearlyKendaraanTerlaris[0]->vehicle_name ?? '' }}</h5>
 
                                 <div class="row g-0 mt-3 pt-1 align-items-end">
                                     <div class="col-4">
                                         <div class="mt-1">
                                             <p class="text-muted mb-1">Total Disewa</p>
-                                            <h4 class="font-size-16">{{ $yearlyKendaraanTerlaris[0]->total_sewa }}</h4>
+                                            <h4 class="font-size-16">{{ $yearlyKendaraanTerlaris[0]->total_sewa ?? 0 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="mt-1">
                                             <p class="text-muted mb-1">Total Penjualan</p>
-                                            <h4 class="font-size-16">Rp. {{ number_format($yearlyKendaraanTerlaris[0]->total_penjualan) }}</h4>
+                                            <h4 class="font-size-16">Rp. {{ number_format($yearlyKendaraanTerlaris[0]->total_penjualan ?? 0) }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -462,68 +462,68 @@
         </div>
 
         <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start mb-3">
-                            <div class="flex-grow-1">
-                                <h5 class="card-title">Total Pendapatan Berdasarkan Negara</h5>
-                            </div>
-                            <div class="flex-shrink-0">
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                        <span class="fw-semibold">Year:</span> <span class="text-muted">2024<i
-                                                class="mdi mdi-chevron-down ms-1"></i></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">2019</a>
-                                        <a class="dropdown-item" href="#">2020</a>
-                                        <a class="dropdown-item" href="#">2021</a>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="flex-grow-1">
+                            <h5 class="card-title">Total Pendapatan Berdasarkan Negara</h5>
                         </div>
-
-                        <div class="row align-items-center">
-                            <div class="col-xxl-7">
-                                <div class="py-3">
-                                    <div id="world-map" style="height: 400px"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-5">
-                                <div class="table-responsive">
-                                    <table class="table table-centered align-middle table-nowrap mb-0">
-                                        <thead>
-                                        <tr>
-                                            <th style="width: 500px;">Negara</th>
-                                            <th>Total Sewa</th>
-                                            <th>Total Pendapatan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($yearlyCountryTotalRent as $countryTotalRent)
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="https://flagsapi.com/{{ $countryTotalRent->country_code }}/flat/64.png" class="rounded"
-                                                             alt="user-image" height="18">
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <p class="mb-0 text-truncate">{{ $countryTotalRent->country }}</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>{{ $countryTotalRent->total_sewa }}</td>
-                                                <td>Rp. {{ number_format($countryTotalRent->total_pendapatan) }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                        <div class="flex-shrink-0">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle text-reset" href="#" data-bs-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <span class="fw-semibold">Year:</span> <span class="text-muted">2024<i
+                                            class="mdi mdi-chevron-down ms-1"></i></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">2019</a>
+                                    <a class="dropdown-item" href="#">2020</a>
+                                    <a class="dropdown-item" href="#">2021</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-xxl-7">
+                            <div class="py-3">
+                                <div id="world-map" style="height: 400px"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-5">
+                            <div class="table-responsive">
+                                <table class="table table-centered align-middle table-nowrap mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 500px;">Negara</th>
+                                        <th>Total Sewa</th>
+                                        <th>Total Pendapatan</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($yearlyCountryTotalRent as $countryTotalRent)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="https://flagsapi.com/{{ $countryTotalRent->country_code }}/flat/64.png" class="rounded"
+                                                         alt="user-image" height="18">
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <p class="mb-0 text-truncate">{{ $countryTotalRent->country }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ $countryTotalRent->total_sewa }}</td>
+                                            <td>Rp. {{ number_format($countryTotalRent->total_pendapatan) }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -572,7 +572,7 @@
             </div>
         </div>
 
-            @endsection
+    @endsection
     @push('addon-script')
         <script>
             // AJAX DataTable
@@ -687,4 +687,4 @@
     {{ $weekTotalSalesChart->script() }}
     {{ $todayTotalSalesChart->script() }}
     {{ $vehicleTypeTotalRentChart->script() }}
-    @endsection
+@endsection
