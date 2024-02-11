@@ -126,7 +126,7 @@
                                                 <div class="p-3">
                                                     <div class="product-img bg-light rounded p-3">
                                                         <img
-                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                            src="{{ $vehicle->thumbnail ?? '' }}"
                                                             class="img-fluid d-block"/>
                                                     </div>
                                                 </div>
@@ -136,7 +136,7 @@
                                                     <div class="p-3">
                                                         <div class="product-img bg-light rounded p-3">
                                                             <img
-                                                                src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
+                                                                src="{{ $vehiclePhoto->photo_url ?? '' }}"
                                                                 class="img-fluid d-block"/>
                                                         </div>
                                                     </div>
@@ -154,13 +154,13 @@
                                             <div class="swiper-wrapper">
                                                 <div class="swiper-slide rounded">
                                                     <div class="nav-slide-item"><img
-                                                            src="{{ Storage::url($vehicle->thumbnail ?? '') }}"
+                                                            src="{{ $vehicle->thumbnail ?? '' }}"
                                                             class="img-fluid p-1 d-block rounded"/></div>
                                                 </div>
                                                 @foreach($vehicle->photos as $vehiclePhoto)
                                                     <div class="swiper-slide rounded">
                                                         <div class="nav-slide-item"><img
-                                                                src="{{ Storage::url($vehiclePhoto->photo_url ?? '') }}"
+                                                                src="{{ $vehiclePhoto->photo_url ?? '' }}"
                                                                 class="img-fluid p-1 d-block rounded"/></div>
                                                     </div>
                                                 @endforeach
