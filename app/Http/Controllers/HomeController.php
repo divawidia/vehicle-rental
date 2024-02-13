@@ -11,6 +11,7 @@ use App\Models\VehicleBrand;
 use App\Models\VehicleType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -161,7 +162,16 @@ class HomeController extends Controller
     public function gallery()
     {
         $galleries = Gallery::all();
-        return view('pages.gallery', compact('galleries'));
+        $items = [];
+        foreach ($galleries as $gallery) {
+            $items[] = [
+                'src' => asset('/storage/'.$gallery->photo_url),
+                'srct' => asset('/storage/'.$gallery->photo_url),
+                'title' => '',
+            ];
+        }
+
+        return view('pages.gallery', compact('items'));
     }
 
     public function bookingPage(Request $request){

@@ -103,7 +103,7 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail($id);
 
         $data = $request->all();
-        $data['vehicles_id'] = $vehicle->id;
+        $data['vehicle_id'] = $vehicle->id;
 
 //        dd($data);
         VehicleDetail::create($data);
