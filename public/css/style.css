@@ -13407,8 +13407,13 @@ section.no-padding {
 }
 
 .form-control{
-    border:solid 1px #aaaaaa;
     border-radius: 10px;
+    height: 40px;
+}
+
+.form-select{
+    border-radius: 10px;
+    height: 40px;
 }
 
 
