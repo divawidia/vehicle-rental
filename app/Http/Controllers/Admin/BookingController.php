@@ -464,6 +464,9 @@ class BookingController extends Controller
         }elseif ($request->transaction_type == 'Transfer'){
             $booking->fill($data);
             $code = 'RENT-' . mt_rand(00000, 999999);
+            if ($this->transactionCodeExist($code)) {
+                $code = 'RENT-' . mt_rand(00000, 999999);
+            }
 
             Config::$serverKey = config('services.midtrans.serverKey');
             Config::$isProduction = config('services.midtrans.isProduction');
@@ -499,6 +502,10 @@ class BookingController extends Controller
         }
     }
 
+    function transactionCodeExist($code) {
+        return Booking::where('transaction_code', $code)->exists();
+    }
+
     public function payBooking(string $transaction_code){
         $booking = Booking::where('transaction_code', $transaction_code)->first();
 
@@ -509,8 +516,8 @@ class BookingController extends Controller
         }
     }
 
-    public function updateStatusIfSuccess(string $transaction_code){
-        $booking = Booking::where('transaction_code', $transaction_code)->first();
+    public function updateStatusIfSuccess(string $id, string $transaction_code){
+        $booking = Booking::where('id', $id)->where('transaction_code', $transaction_code)->first();
         $booking->transaction_status = 'Sudah Dibayar';
         $booking->update();
         VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
@@ -519,10 +526,6 @@ class BookingController extends Controller
     public function successPayment(string $transaction_code){
         $booking = Booking::where('transaction_code', $transaction_code)->first();
         if ($booking->transaction_status == 'Belum Dibayar'){
-//            $booking->transaction_status = 'Sudah Dibayar';
-//            $booking->update();
-//            VehicleDetail::where('id', $booking->vehicle_detail_id)->update(['status' => 'disewa']);
-
             return redirect()->route('pay-booking',$transaction_code);
         }elseif ($booking->transaction_status == 'Sudah Dibayar'){
             return view('pages.finish-payment', compact('booking'));

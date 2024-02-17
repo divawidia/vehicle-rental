@@ -48,7 +48,7 @@
                 // Optional
                 onSuccess: function(result){
                     /* You may add your own js here, this is just example */
-                    fetch('{{ url()->route('update-payment-booking-status', $booking->transaction_code) }}', {
+                    fetch('{{ url()->route('update-payment-booking-status', ['id' => $booking->id, 'transaction_code' => $booking->transaction_code]) }}', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
