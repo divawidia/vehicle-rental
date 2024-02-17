@@ -164,21 +164,28 @@ class BookingController extends Controller
     }
 
     public function postUserPageBooking1(Request $request){
-//        $validatedData = $request->validate([
-//            'vehicle_type_id' => 'required',
-//            'pisckup_location_type' => 'required',
-//            'return_location_type' => 'required',
-//            'pick_up_loc' => '',
-//            'return_loc' => '',
-//            'pick_up_datetime' => 'required',
-//            'return_datetime' => 'required',
-//            'latitude_pickup' => 'required',
-//            'longitude_pickup' => 'required',
-//            'latitude_return' => 'required',
-//            'longitude_return' => 'required',
-//        ]);
+        $validatedData = $request->validate([
+            'vehicle_type_id' => 'required',
+            'pickup_location_type' => 'required',
+            'return_location_type' => 'required',
+            'pick_up_loc' => '',
+            'return_loc' => '',
+            'pick_up_date' => 'required|date',
+            'pick_up_time' => 'required|date_format:H:i',
+            'return_date' => 'required|date',
+            'return_time' => 'required|date_format:H:i',
+            'latitude_pickup' => 'required',
+            'longitude_pickup' => 'required',
+            'latitude_return' => 'required',
+            'longitude_return' => 'required',
+        ],[
+            'vehicle_type_id.required' => 'Please choose vehicle type!',
+            'pickup_location_type.required' => 'Please choose delivery location!',
+            'return_location_type.required' => 'Please choose return location!'
+//            'body.required' => 'A message is required',
+        ]);
 
-        $request->session()->put('booking', $request->all());
+        $request->session()->put('booking', $validatedData);
 
         return redirect()->route('choose-vehicle');
     }
@@ -226,10 +233,10 @@ class BookingController extends Controller
         $distance_return = $response_return["rows"][0]["elements"][0]["distance"]["value"] / 1000;
         $rounded_distance_return = round($distance_return);
 
-        $pickup_date = new DateTime($data['pick_up_datetime']);
-        $return_date = new DateTime($data['return_datetime']);
+        $pickup_date = new DateTime($data['pick_up_date']);
+        $return_date = new DateTime($data['return_date']);
         $total_days_rent = $pickup_date->diff($return_date)->format('%a');
-        $vehicle = Vehicle::where('id', $request->vehicle_id)->get();
+        $vehicle = Vehicle::where('id', $request->vehicle_id)->first();
 
         $month_rent = 0;
         $monthly_rent_price = 0;
@@ -238,15 +245,15 @@ class BookingController extends Controller
 
         if ($total_days_rent >= 30){
             $month_rent = floor($total_days_rent/30);
-            $monthly_rent_price = $vehicle[0]['monthly_price'] * $month_rent;
+            $monthly_rent_price = $vehicle['monthly_price'] * $month_rent;
 
             $days_rent = $total_days_rent-($month_rent*30);
-            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+            $daily_rent_price = $vehicle['daily_price'] * $days_rent;
 
             $rent_price = $monthly_rent_price + $daily_rent_price;
         } else {
             $days_rent = $total_days_rent;
-            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+            $daily_rent_price = $vehicle['daily_price'] * $days_rent;
 
             $rent_price = $daily_rent_price;
         }
@@ -267,6 +274,10 @@ class BookingController extends Controller
             $insurance_price = 0;
             $total_price = $rent_price + $insurance_price + $shipping_price + $collection_price;
         }
+        $data['vehicle_name'] = $vehicle->vehicle_name;
+        $data['vehicle_daily_price'] = $vehicle->daily_price;
+        $data['vehicle_year'] = $vehicle->year;
+        $data['vehicle_color'] = $vehicle->color;
         $data['total_days_rent'] = $total_days_rent;
         $data['month_rent'] = $month_rent;
         $data['monthly_rent_price'] = $monthly_rent_price;
@@ -319,10 +330,10 @@ class BookingController extends Controller
         $return_loc = $response_return["destination_addresses"][0];
         $rounded_distance_return = round($distance_return);
 
-        $pickup_date = new DateTime($booking['pick_up_datetime']);
-        $return_date = new DateTime($booking['return_datetime']);
+        $pickup_date = new DateTime($booking['pick_up_date']);
+        $return_date = new DateTime($booking['return_date']);
         $total_days_rent = $pickup_date->diff($return_date)->format('%a');
-        $vehicle = Vehicle::where('id', $request->vehicle_id)->get();
+        $vehicle = Vehicle::where('id', $request->vehicle_id)->first();
 //        dd($total_days_rent);
         $month_rent = 0;
         $monthly_rent_price = 0;
@@ -341,15 +352,15 @@ class BookingController extends Controller
 //        }
         if ($total_days_rent >= 30){
             $month_rent = floor($total_days_rent/30);
-            $monthly_rent_price = $vehicle[0]['monthly_price'] * $month_rent;
+            $monthly_rent_price = $vehicle['monthly_price'] * $month_rent;
 
             $days_rent = $total_days_rent-($month_rent*30);
-            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+            $daily_rent_price = $vehicle['daily_price'] * $days_rent;
 
             $rent_price = $monthly_rent_price + $daily_rent_price;
         } else {
             $days_rent = $total_days_rent;
-            $daily_rent_price = $vehicle[0]['daily_price'] * $days_rent;
+            $daily_rent_price = $vehicle['daily_price'] * $days_rent;
 
             $rent_price = $daily_rent_price;
         }
@@ -394,8 +405,10 @@ class BookingController extends Controller
         $data['longitude_pickup'] = $booking['longitude_pickup'];
         $data['latitude_return'] = $booking['latitude_return'];
         $data['longitude_return'] = $booking['longitude_return'];
-        $data['pick_up_datetime'] = $booking['pick_up_datetime'];
-        $data['return_datetime'] = $booking['return_datetime'];
+        $data['pick_up_date'] = $booking['pick_up_date'];
+        $data['pick_up_time'] = $booking['pick_up_time'];
+        $data['return_date'] = $booking['return_date'];
+        $data['return_time'] = $booking['return_time'];
         $data['pickup_location_type'] = $booking['pickup_location_type'];
         $data['return_location_type'] = $booking['return_location_type'];
 
@@ -419,9 +432,24 @@ class BookingController extends Controller
     }
 
     public function postUserPageBooking3(Request $request){
-        $data = $request->all();
+        $data = $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'no_hp_wa' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'instagram' => 'string',
+            'facebook' => 'string',
+            'telegram' => 'string',
+            'country' => 'required|string',
+            'home_address' => 'required|string',
+            'hotel_booking_name' => 'string',
+            'room_number' => '',
+            'note' => 'string',
+            'transaction_type' => 'required',
+        ],[
+            'transaction_type.required' => 'Please choose payment method!'
+        ]);
         $data['country_code'] = strtoupper($request->country_code);
-//        dd($data);
         $booking = $request->session()->get('booking');
 
         if ($request->transaction_type == 'COD') {

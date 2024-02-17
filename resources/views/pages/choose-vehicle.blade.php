@@ -36,63 +36,52 @@
                     <form name="contactForm" id="contact_form" class="form-border" action="{{ route('choose-vehicle.post') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <h2 class="border-bottom-padding mb-4">Choose Your Vehicle</h2>
+                            <h2 class="border-bottom-padding pt-lg-5 mb-4">Choose Your Vehicle</h2>
                             <div class="de_form de_radio row d-flex justify-content-center">
                                 @foreach($vehicles as $vehicle)
                                     <div class="radio-img col-xl-4 col-lg-6">
                                         <div class="de-item mb30">
                                             <div class="d-img">
-                                                {{--                                            {{ dd(Storage::url($vehicle->photos->first()->photo_url)) }}--}}
-                                                <img
-                                                    src="{{ Storage::url($vehicle->thumbnail) }}"
-                                                    class="img-fluid"
-                                                    alt=""
-                                                />
+                                                <img src="{{ Storage::url($vehicle->thumbnail) }}" class="img-fluid" alt="vehicle_thumbnail"/>
                                             </div>
                                             <div class="d-info">
                                                 <div class="d-text">
                                                     <h4>{{ $vehicle->vehicle_name }}</h4>
-                                                    <!-- <div class="d-item_like">
-                                                    <i class="fa fa-heart"></i><span>74</span>
-                                                  </div> -->
                                                     <div class="d-atr-group">
-                                                <span class="d-atr"
-                                                ><img src="images/icons/1.svg" alt="" />{{ $vehicle->passenger }}</span
-                                                >
-                                                        <span class="d-atr"
-                                                        ><img
-                                                                src="images/icons/engine.svg"
-                                                                alt=""
-                                                            />{{ $vehicle->engine_capacity }}</span
-                                                        >
                                                         <span class="d-atr">
-                                                            <img
-                                                                src="images/icons/transmission.svg"
-                                                                alt=""
+                                                            <img src="images/icons/1.svg" alt="" />
+                                                            {{ $vehicle->passenger }}
+                                                        </span>
+                                                        <span class="d-atr">
+                                                            <img src="images/icons/engine.svg" alt=""/>
+                                                            {{ $vehicle->engine_capacity }}
+                                                        </span>
+                                                        <span class="d-atr">
+                                                            <img src="images/icons/transmission.svg" alt=""/>
                                                             @php
-                                                                $transmission = \App\Models\Transmission::findOrFail($vehicle->transmission_id)
+                                                                $transmission = \App\Models\Transmission::findOrFail($vehicle->transmission_id);
                                                             @endphp
                                                             {{ $transmission->transmission_type }}
                                                         </span>
                                                         <span class="d-atr">
-                                                            <img
-                                                                src="images/icons/scooter.svg"
-                                                                alt=""
-                                                                height="25px"
-                                                            />
+                                                            <img class="pt-0" src="images/icons/scooter.svg" alt="" height="30px"/>
                                                             @php
-                                                                $vehicle_type = \App\Models\VehicleType::findOrFail($vehicle->vehicle_type_id)
+                                                                $vehicle_type = \App\Models\VehicleType::findOrFail($vehicle->vehicle_type_id);
                                                             @endphp
                                                             {{ $vehicle_type->vehicle_type_name }}
                                                         </span>
                                                     </div>
                                                     <div class="d-price">
                                                         <div class="row d-flex align-items-center">
-                                                            <div class="col-6 mt-n2">
-                                                                Daily rate from <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                            <div class="d-price">
+                                                                Daily rate <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="d-price-month">
+                                                                Monthly rate <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
+                                                            </div>
+                                                            <div class="mt-4">
                                                                 <input
+                                                                    class="vehicle"
                                                                     id="{{ $vehicle->id }}"
                                                                     name="vehicle_id"
                                                                     type="radio"
@@ -111,246 +100,196 @@
                                     </div>
                                 @endforeach
                             </div>
-
-                            <h2 class="border-bottom-padding mb-4">Additional Features</h2>
                             <div class="row">
-                                <div class="col-8 col-lg-3">
-                                    <label class="form-check-label" for="insurance"><h3>Insurance</h3></label>
-                                </div>
-                                <div class="form-check col-2 pt-2">
-                                    <input class="form-check-input mx-1" type="checkbox" value="include" id="insurance" name="insurance">
-                                </div>
-
-                            </div>
-                            {{--                        <h4>@php $insurance_price = $rent_price * 25/100; @endphp</h4>--}}
-                            <div class="border-bottom w-50 mb-2"></div>
-                            <p>Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.</p>
-
-                            <div class="row">
-                                <div class="col-8 col-lg-3">
-                                    <h3>Helmet</h3>
-                                </div>
-                                <div class="col-4 col-lg-5">
+                                <div class="col-lg-8">
+                                    <h2 class="border-top pt-3 mb-0">Additional Features</h2>
+                                    <p>*Check the checkbox if want to add the additional feature</p>
+                                    <div class="border-bottom w-100 mb-3"></div>
                                     <div class="row">
-                                        <div class="nice-number">
-                                            <input class="form-control" name="helmet" id="helmet" min="1" max="2" value="1" type="number">
+                                        <div class="col-7 col-lg-4 pb-2">
+                                            <label class="form-check-label" for="insurance"><h3>Insurance</h3></label>
                                         </div>
-{{--                                        <div class="input-group">--}}
-{{--                                            <div class="col-1">--}}
-{{--                                            <span class="input-group-btn">--}}
-{{--                                                  <button type="button" class="btn btn-default btn-number p-2" disabled="disabled" data-type="minus" data-field="quant[1]">--}}
-{{--                                                      <img src="/images/icons/minus.png" height="20px">--}}
-{{--                                                  </button>--}}
-{{--                                            </span>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="col-1">--}}
-{{--                                                <input type="number" name="helmet" class="form-control input-number" value="1" min="1" max="2" style="border: 1px solid #dddddd">--}}
-{{--                                            </div>--}}
-{{--                                            <div class="col-1">--}}
-{{--                                            <span class="input-group-btn">--}}
-{{--                                                <button type="button" class="btn btn-default btn-number p-2" data-type="plus" data-field="quant[1]">--}}
-{{--                                                    <img src="/images/icons/plus.png" height="20px">--}}
-{{--                                                </button>--}}
-{{--                                            </span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        <div class="form-check col-3 col-lg-2 d-flex justify-content-center">
+                                            <input class="form-check-input mx-1" type="checkbox" value="include" id="insurance" name="insurance">
+                                        </div>
+                                        <div class="border-bottom w-75 mb-2"></div>
+                                        <div id="summary">
+                                            <p class="collapse mb-0" id="collapseSummary">
+                                                Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.
+                                            </p>
+                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapseSummary" role="button" aria-expanded="false" aria-controls="collapseSummary"></a>
+                                        </div>
+{{--                                        <p>Insurance Covering Damage & Theft to the Motorcycle only 25% from total bike rent rate. With this insurance, you will be free from the risk If your motorcycle is stolen, gets damaged in an accident, or is otherwise engaged in an incident, you won't have to worry about paying hefty repair bills thanks to our motorcycle insurance. Regarding any repair or motorcycle repatriation costs beyond USD 95,- (excess/own risk), we have you completely covered.</p>--}}
+                                    </div>
+                                    <div class="border-bottom w-100 mt-3 mb-3"></div>
+                                    <div class="row">
+                                        <div class="col-7 col-lg-4">
+                                            <h3>Helmet</h3>
+                                        </div>
+                                        <div class="col-3 col-lg-2 mx-2">
+                                            <div class="row">
+                                                <div class="nice-number d-flex justify-content-center">
+                                                    <input class="form-control" name="helmet" id="helmet" min="1" max="2" value="1" type="number" style="width: 30px; height: 30px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border-bottom w-75 mt-3 mb-3"></div>
+                                        <h4>Free</h4>
+                                        <p>You will get free one or two helmet, Our helmet are already cleaned and sanitized, so you dont have to worry if you get stinky helmet</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-top w-100 mb-3"></div>
+                                        <div class="col-7 col-lg-4">
+                                            <label class="form-check-label" for="first_aid_kit"><h3>First Aid Kit</h3></label>
+                                        </div>
+                                        <div class="form-check col-3 col-lg-2 d-flex justify-content-center">
+                                            <input class="form-check-input mx-1" type="checkbox" value="include" id="first_aid_kit" name="first_aid_kit">
+                                        </div>
+                                        <div class="border-bottom w-75 mt-2 mb-3"></div>
+                                        <h4 class="mt-0">Free</h4>
+                                        <p>High Quality International ISO approved First Aid Kit</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-top w-100 mb-3"></div>
+                                        <div class="col-8 col-lg-5">
+                                            <label class="form-check-label" for="phone_holder"><h3>Phone Holder</h3></label>
+                                        </div>
+                                        <div class="form-check col-2 col-lg-1 d-flex justify-content-start px-1 px-lg-0">
+                                            <input class="form-check-input mx-1" type="checkbox" value="include" id="phone_holder" name="phone_holder">
+                                        </div>
+                                        <div class="border-bottom w-75 mt-2 mb-3"></div>
+                                        <h4>Free</h4>
+                                        <p>With our smartphone holders, you may now travel the island with ease and reach your goal while carrying a fully charged phone!</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-top w-100 mb-3"></div>
+                                        <div class="col-7 col-lg-4">
+                                            <label class="form-check-label" for="raincoat"><h3>Raincoat</h3></label>
+                                        </div>
+                                        <div class="form-check col-3 col-lg-2 d-flex justify-content-center">
+                                            <input class="form-check-input mx-1" type="checkbox" value="include" id="raincoat" name="raincoat">
+                                        </div>
+                                        <div class="border-bottom w-75 mt-2 mb-3"></div>
+                                        <h4>Free</h4>
+                                        <p>You dont have to worry if you getting wet in the rainy season, we have raincoat to cover you from rain</p>
                                     </div>
                                 </div>
-
-                            </div>
-                            <h4>Free</h4>
-                            <div class="border-bottom w-50 mb-2"></div>
-                            <p>You will get free one or two helmet, Our helmet are already cleaned and sanitized, so you dont have to worry if you get stinky helmet</p>
-
-                            <div class="row">
-                                <div class="col-8 col-lg-3">
-                                    <label class="form-check-label" for="first_aid_kit"><h3>First Aid Kit</h3></label>
-                                </div>
-                                <div class="form-check col-1 pt-2">
-                                    <input class="form-check-input mx-1" type="checkbox" value="include" id="first_aid_kit" name="first_aid_kit">
-                                </div>
-
-                            </div>
-                            <h4>Free</h4>
-                            <div class="border-bottom w-50 mb-2"></div>
-                            <p>High Quality International ISO approved First Aid Kit</p>
-
-                            <div class="row">
-                                <div class="col-8 col-lg-3">
-                                    <label class="form-check-label" for="phone_holder"><h3>Phone Holder</h3></label>
-                                </div>
-                                <div class="form-check col-1 pt-2">
-                                    <input class="form-check-input mx-1" type="checkbox" value="include" id="phone_holder" name="phone_holder">
-                                </div>
-
-                            </div>
-                            <h4>Free</h4>
-                            <div class="border-bottom w-50 mb-2"></div>
-                            <p>With our smartphone holders, you may now travel the island with ease and reach your goal while carrying a fully charged phone!</p>
-
-                            <div class="row">
-                                <div class="col-8 col-lg-3">
-                                    <label class="form-check-label" for="raincoat"><h3>Raincoat</h3></label>
-                                </div>
-                                <div class="form-check col-1 pt-2">
-                                    <input class="form-check-input mx-1" type="checkbox" value="include" id="raincoat" name="raincoat">
-                                </div>
-
-                            </div>
-                            <h4>Free</h4>
-                            <div class="border-bottom w-50 mb-2"></div>
-                            <p>You dont have to worry if you getting wet in the rainy season, we have raincoat to cover you from rain</p>
-
-{{--                            <h2 class="border-bottom-padding mb-4">Customer Information</h2>--}}
-{{--                            <div class="row">--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>First Name:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Nama Depan"--}}
-{{--                                               id="first_name" name="first_name">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Last Name:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Nama Belakang"--}}
-{{--                                               id="last_name" name="last_name">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Phone Number (Whatsapp):</label>--}}
-{{--                                        <input type="tel" class="form-control" placeholder="Masukan No. HP/WA"--}}
-{{--                                               id="no_hp_wa" name="no_hp_wa">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Email Address:</label>--}}
-{{--                                        <input type="email" class="form-control" placeholder="Masukan Email"--}}
-{{--                                               id="email" name="email">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Instagram Account:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Instagram"--}}
-{{--                                               id="instagram" name="instagram">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Facebook Account:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Akun Facebook"--}}
-{{--                                               id="facebook" name="facebook">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Home Address:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Alamat Asal"--}}
-{{--                                               id="home_address" name="home_address">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Country:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Asal Negara"--}}
-{{--                                               id="country" name="country">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Name on Hotel Booking:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Nama di Booking Hotel"--}}
-{{--                                               id="hotel_booking_name" name="hotel_booking_name">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                        <label>Room Number:</label>--}}
-{{--                                        <input type="text" class="form-control" placeholder="Masukan Nomor Kamar"--}}
-{{--                                               id="room_number" name="room_number">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <label>Booking Note:</label>--}}
-{{--                                <div class="col-12">--}}
-{{--                                    <div class="field-set">--}}
-{{--                                    <textarea  class="form-control w-100"--}}
-{{--                                               id="note" name="note"></textarea>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-                            {{--                        <h2 class="border-bottom-padding mb-4">Summary</h2>--}}
-                            {{--                        <h3>Delivery/Pickup</h3>--}}
-                            {{--                        <p>Sunday, Nov 26, 2023 @ 5:00 PM</p>--}}
-                            {{--                        <p>Location: hotel vila lumbung, jalan raya petitenget, no. 1000 x petitenget bali, tua, marga, tabanan regency, bali 82191, indonesia</p>--}}
-
-                            {{--                        <h3>Return/Collection</h3>--}}
-                            {{--                        <p>Sunday, Nov 29, 2023 @ 5:00 PM</p>--}}
-                            {{--                        <p>Location: hotel vila lumbung, jalan raya petitenget, no. 1000 x petitenget bali, tua, marga, tabanan regency, bali 82191, indonesia</p>--}}
-
-                            {{--                        <h3>Yamaha NMAX 150</h3>--}}
-                            {{--                        <div class="row">--}}
-                            {{--                            <div class="col-4">--}}
-                            {{--                                <p>3X Days :</p>--}}
-                            {{--                                <p>Insurances :</p>--}}
-                            {{--                                <p>Accessories - Helmet :</p>--}}
-                            {{--                                <p>Accessories - First Aid Kit :</p>--}}
-                            {{--                                <p>Accessories - Phone Holder :</p>--}}
-                            {{--                                <p>Accessories - Raincoat :</p>--}}
-                            {{--                                <p>Delivery Charge :</p>--}}
-                            {{--                                <p>Collection Charge :</p>--}}
-                            {{--                            </div>--}}
-                            {{--                            <div class="col-4">--}}
-                            {{--                                <p>Rp. 450K</p>--}}
-                            {{--                                <p>Rp. 112,5K</p>--}}
-                            {{--                                <p>Rp. 0</p>--}}
-                            {{--                                <p>Rp. 0</p>--}}
-                            {{--                                <p>Rp. 0</p>--}}
-                            {{--                                <p>Rp. 0</p>--}}
-                            {{--                                <p>Rp. 50K</p>--}}
-                            {{--                                <p>Rp. 50K</p>--}}
-                            {{--                            </div>--}}
-                            {{--                        </div>--}}
-                            {{--                        <div class="border-bottom w-50 mb-2"></div>--}}
-                            {{--                        <div class="row">--}}
-                            {{--                            <div class="col-4">--}}
-                            {{--                                <h3>Total :</h3>--}}
-                            {{--                            </div>--}}
-                            {{--                            <div class="col-4">--}}
-                            {{--                                <h3>Rp. 662,5K</h3>--}}
-                            {{--                            </div>--}}
-                            {{--                        </div>--}}
-                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                <div class="btn-group mx-2" role="group" aria-label="First group">
-                                    <a class="btn-main color-2 ml-5" href="{{ url()->previous() }}">Back</a>
-                                </div>
-                                <div class="btn-group" role="group" aria-label="First group">
-                                    <input
-                                        type="submit"
-                                        id="send_message"
-                                        value="Next to Payment"
-                                        class="btn-main pull-right"
-                                    />
+                                <div class="col-lg-4">
+                                    <h2 class="border-bottom-padding border-top pt-3 mb-2">Booking Summary</h2>
+                                    <div class="text-muted">
+                                        <h3 class="font-size-16 mt-3 mb-2">Delivery :</h3>
+                                        @php $pick_up_date = strtotime($booking['pick_up_date']) @endphp
+                                        @php $pick_up_time = strtotime($booking['pick_up_time']) @endphp
+                                        <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }}
+                                            @ {{ date('g:i A',$pick_up_time) }}</p>
+                                        <p class="mb-0">{{ $booking['pick_up_loc'] }}</p>
+                                        <h3 class="font-size-16 mt-3 mb-2">Return :</h3>
+                                        @php $return_date = strtotime($booking['return_date']) @endphp
+                                        @php $return_time = strtotime($booking['return_time']) @endphp
+                                        <p class="mb-0">{{ date('D, M d, Y',$return_date) }}
+                                            @ {{ date('g:i A',$return_time) }}</p>
+                                        <p class="mb-0">{{ $booking['return_loc'] }}</p>
+                                    </div>
+                                    <h3 class="text-truncate font-size-14 mt-3 mb-0" id="vehicleName"></h3>
+                                    <p class="text-muted mb-0" id="vehicleColorYear"></p>
+                                    <h5 class="font-size-15 mt-3 mb-1">Total Days Rent:</h5>
+                                    <p class="text-muted mb-0" id="rentDays"></p>
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-nowrap table-centered my-0">
+                                            <thead>
+                                            <tr>
+                                                <th class="fw-bold p-1">Rate</th>
+                                                <th class="fw-bold p-1">Price</th>
+                                                <th class="fw-bold p-1">Total Rent</th>
+                                                <th class="fw-bold p-1">Total</th>
+                                            </tr>
+                                            </thead><!-- end thead -->
+                                            <tbody>
+                                            <tr>
+                                                <td class="p-1">
+                                                    <div>
+                                                        <p class="text-muted mb-0">Daily</p>
+                                                    </div>
+                                                </td>
+                                                <td id="vehiclePrice" class="p-1"></td>
+                                                <td id="rentDays2" class="p-1"></td>
+                                                <td class="text-end p-1" id="dailyRentPrice"></td>
+                                            </tr>
+                                            <tr id="monthRow">
+                                                <td class="p-1">
+                                                    <div>
+                                                        <p class="text-muted mb-0" id="monthRate"></p>
+                                                    </div>
+                                                </td>
+                                                <td id="monthPrice" class="p-1"></td>
+                                                <td id="monthRent" class="p-1"></td>
+                                                <td id="monthRentTotal" class="p-1"></td>
+                                            </tr>
+                                            <tr class="py-0">
+                                                <th scope="row" colspan="3" class="text-end fw-bold p-1">Sub Total :</th>
+                                                <td class="text-end p-1" id="bookingPrice"></td>
+                                            </tr>
+                                            <tr class="py-0" id="insuranceRow">
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">
+                                                    Insurance (25%) :
+                                                </th>
+                                                <td class="border-0 text-end p-1" id="rentInsurance"></td>
+                                            </tr>
+                                            <tr class="py-0" id="first_aid_kit_row">
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">
+                                                    Accessory - First Aid Kit :
+                                                </th>
+                                                <td class="border-0 p-1">Rp. 0</td>
+                                            </tr>
+                                            <tr id="phone_holder_row">
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">
+                                                    Accessory - Phone Holder :
+                                                </th>
+                                                <td class="border-0 p-1">Rp. 0</td>
+                                            </tr>
+                                            <tr id="raincoat_row">
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">
+                                                    Accessory - Raincoat :
+                                                </th>
+                                                <td class="border-0 p-1">Rp. 0</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1">Accessory -
+                                                    Helmet :
+                                                </th>
+                                                <td class="border-0 p-1">Rp. 0</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1"
+                                                    id="pickup_distance"></th>
+                                                <td class="border-0 text-end p-1" id="delivery_charge"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" colspan="3" class="border-0 text-end fw-bold p-1"><h4
+                                                        class="m-0 fw-semibold">Total :</h4></th>
+                                                <td class="border-0 text-start p-1">
+                                                    <h4 class="m-0 fw-semibold" id="total_price"></h4>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mt-5 d-flex justify-content-center">
+                                        <a class="btn-main color-2 mx-2" href="{{ url()->previous() }}">Back</a>
+                                        <input
+                                            type="submit"
+                                            id="send_message"
+                                            value="Next to Payment"
+                                            class="btn-main"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 @else
                     <div class="row">
-                        <h2 class="border-bottom-padding mb-4 text-center">Sorry, we dont have the vehicle you want :(</h2>
+                        <h2 class="border-bottom-padding pt-lg-5 mb-4 text-center">Sorry, we dont have the vehicle you want :(</h2>
                     </div>
                 @endif
             </div>
@@ -360,6 +299,138 @@
 @endsection
 
 @push('addon-script')
+    <script>
+        $(document).ready(function () {
+            const pick_up_loc = "{{$booking['pick_up_loc']}}";
+            const return_loc = "{{$booking['return_loc']}}";
+            const pick_up_date = "{!! $booking['pick_up_date'] !!}";
+            const return_date = "{!! $booking['return_date'] !!}";
+            const helmet = document.getElementById('helmet').value;
+            $("#vehicleName").html('');
+            $("#vehicleColorYear").html('');
+            $("#rentDays").html('');
+            $("#vehiclePrice").html('');
+            $("#rentDays2").html('');
+            $("#dailyRentPrice").html('');
+            $("#monthlyRentPrice").html('');
+            $("#monthRow").hide();
+            $("#insuranceRow").hide();
+            $("#first_aid_kit_row").hide();
+            $("#phone_holder_row").hide();
+            $("#raincoat_row").hide();
+            $("#pickup_distance").html('');
+            $("#delivery_charge").html('');
+            $("#total_price").html('');
+            $('.vehicle').on('change', function () {
+                const vehicle_id = $('.vehicle').val();
+                $.ajax({
+                    url: "{{ url()->route('get-rent-price')}}",
+                    type: "POST",
+                    data: {
+                        pick_up_loc: pick_up_loc,
+                        return_loc: return_loc,
+                        pick_up_date: pick_up_date,
+                        return_date: return_date,
+                        vehicle_id: vehicle_id,
+                        helmet: helmet,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#vehicleName').html('<h4 class="text-truncate mb-0">' + result.vehicle_name + '</h4>');
+                        $('#vehicleColorYear').html('<p class="text-muted mb-0">' + result.vehicle_color + ', '+result.vehicle_year+'</p>');
+                        $('#rentDays').html('<p>' + result.total_days_rent + ' Days</p>');
+                        $('#vehiclePrice').html(result.vehicle_daily_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }));
+                        $('#rentDays2').html('<td>' + result.total_days_rent + ' Days</td>');
+                        $('#dailyRentPrice').html('<td>' + result.daily_rent_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</td>');
+                        $('#bookingPrice').html('<td>' + result.booking_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</td>');
+                        $("#pickup_distance").html('Delivery Charge (' + result.rounded_distance_pickup + ' KM x Rp. 10.000):');
+                        $("#delivery_charge").html('<td class="border-0 text-end" id="delivery_charge">' + result.shipping_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</td>');
+                        $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result.total_price.toLocaleString('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR'
+                        }) + '</h4>')
+                        if (result.monthly_rent_price > 0) {
+                            $("#monthRow").show();
+                            $('#monthRate').html('<p>Monthly</p>');
+                            $('#monthPrice').html('<td>Rp. {{ number_format($vehicle->monthly_price ?? 0) }}</td>');
+                            $('#monthRent').html('<td>' + result.month_rent + ' Month</td>');
+                            $('#monthRentTotal').html(result.monthly_rent_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }));
+                        }
+                    }
+                });
+            });
+            $('#insurance').on('change', function () {
+                if (this.checked) {
+                    const insurance = this.value;
+                    const vehicle_id = $('.vehicle').val();
+                    $.ajax({
+                        url: "{{ url()->route('get-rent-price')}}",
+                        type: "POST",
+                        data: {
+                            insurance: insurance,
+                            pick_up_loc: pick_up_loc,
+                            return_loc: return_loc,
+                            pick_up_date: pick_up_date,
+                            return_date: return_date,
+                            vehicle_id: vehicle_id,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType: 'json',
+                        success: function (result) {
+                            $("#insuranceRow").show();
+                            $('#rentInsurance').html('<td>' + result.insurance_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }) + '</td>');
+                            $("#total_price").html('<h4 class="m-0 fw-semibold" id="total_price">' + result.total_price.toLocaleString('id-ID', {
+                                style: 'currency',
+                                currency: 'IDR'
+                            }) + '</h4>')
+                        }
+                    });
+                } else {
+                    $("#insuranceRow").hide();
+                }
+            });
+            $('#first_aid_kit').on('change', function () {
+                if (this.checked) {
+                    $("#first_aid_kit_row").show();
+                } else {
+                    $("#first_aid_kit_row").hide();
+                }
+            });
+            $('#raincoat').on('change', function () {
+                if (this.checked) {
+                    $("#raincoat_row").show();
+                } else {
+                    $("#raincoat_row").hide();
+                }
+            });
+            $('#phone_holder').on('change', function () {
+                if (this.checked) {
+                    $("#phone_holder_row").show();
+                } else {
+                    $("#phone_holder_row").hide();
+                }
+            });
+        });
+    </script>
     <script src="/js/jquery.nice-number.js"></script>
     <script>
         $('#helmet').niceNumber();
