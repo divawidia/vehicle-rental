@@ -442,14 +442,8 @@ class BookingController extends Controller
             'last_name' => 'required|string',
             'no_hp_wa' => 'required',
             'email' => 'required|email:rfc,dns',
-            'instagram' => 'string',
-            'facebook' => 'string',
-            'telegram' => 'string',
             'country' => 'required|string',
             'home_address' => 'required|string',
-            'hotel_booking_name' => 'string',
-            'room_number' => '',
-            'note' => 'string',
             'transaction_type' => 'required',
         ],[
             'transaction_type.required' => 'Please choose payment method!'
