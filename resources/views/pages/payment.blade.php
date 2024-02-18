@@ -199,11 +199,13 @@
                             <div class="text-muted">
                                 <h3 class="font-size-16 mt-3 mb-2">Delivery :</h3>
                                 @php $pick_up_date = strtotime($booking->pick_up_datetime) @endphp
-                                <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }} @ {{ date('g:i A',$pick_up_date) }}</p>
+                                @php $pick_up_time = strtotime($booking->pick_up_time) @endphp
+                                <p class="mb-0">{{ date('D, M d, Y',$pick_up_date) }} @ {{ date('g:i A',$pick_up_time) }}</p>
                                 <p class="mb-0">{{ $booking->pick_up_loc }}</p>
                                 <h3 class="font-size-16 mt-3 mb-2">Return :</h3>
                                 @php $return_date = strtotime($booking->return_datetime) @endphp
-                                <p class="mb-0">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_date) }}</p>
+                                @php $return_time = strtotime($booking->return_time) @endphp
+                                <p class="mb-0">{{ date('D, M d, Y',$return_date) }} @ {{ date('g:i A',$return_time) }}</p>
                                 <p class="mb-0">{{ $booking->return_loc }}</p>
                             </div>
                             <h3 class="text-truncate font-size-14 mt-3 mb-0">{{ $booking->vehicle->vehicle_name }}</h3>

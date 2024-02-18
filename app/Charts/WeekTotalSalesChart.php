@@ -16,8 +16,8 @@ class WeekTotalSalesChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('WEEKOFYEAR(pick_up_datetime)'))->get();
-        $week = DB::table('bookings')->select(DB::raw('WEEKOFYEAR(pick_up_datetime) as week'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('WEEKOFYEAR(pick_up_datetime)'))->get();
+        $salesData = DB::table('bookings')->select(DB::raw('SUM(total_price) as total_sales'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('WEEKOFYEAR(pick_up_date)'))->get();
+        $week = DB::table('bookings')->select(DB::raw('WEEKOFYEAR(pick_up_date) as week'))->where('transaction_status', 'Sudah Dibayar')->groupBy(DB::raw('WEEKOFYEAR(pick_up_date)'))->get();
 //        dd(array_column($month->toArray(), 'month'));
         return $this->chart->barChart()
             ->setTitle('Total Pendapatan per Minggu')
