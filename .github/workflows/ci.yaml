@@ -88,7 +88,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            sudo su batursarirental2
+            sudo su root
             cd /
             cd home/batursarirental2/htdocs/batursarirental.com
             ls
