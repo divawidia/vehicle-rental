@@ -90,4 +90,5 @@ jobs:
           script: |
             sudo su batursarirental2
             cd /
+            cd home/batursarirental2/htdocs/batursarirental.com
             ls
