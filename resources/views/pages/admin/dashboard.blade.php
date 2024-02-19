@@ -55,9 +55,9 @@
                                             </div>
                                         </div>
                                         <h4 class="mb-0 font-size-22">Rp. {{ number_format($yearlyTotalSales[0]->total_sales ?? 0) }}
-                                            {{--                                            <span class="text-success fw-medium font-size-13 align-middle"> --}}
-                                            {{--                                                <i class="mdi mdi-arrow-up"></i> 8.34% --}}
-                                            {{--                                            </span> --}}
+{{--                                                                                        <span class="text-success fw-medium font-size-13 align-middle">--}}
+{{--                                                                                            <i class="mdi mdi-arrow-up"></i> 8.34%--}}
+{{--                                                                                        </span>--}}
                                         </h4>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                                         </div>
 
                                         <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0 font-size-15">Total Booking</h6>
+                                            <h6 class="mb-0 font-size-15">Total Kendaraan</h6>
                                         </div>
 
                                         <div class="flex-shrink-0">
@@ -197,7 +197,7 @@
                                     <div>
                                         <div class="d-flex mt-3 mb-0 align-items-end overflow-hidden">
                                             <div class="flex-grow-1">
-                                                <p class="text-muted text-truncate">Total Booking</p>
+                                                <p class="text-muted text-truncate">Total Kendaraan Disewa</p>
                                             </div>
                                         </div>
                                         <h4 class="mb-0 font-size-22">{{ number_format($totalBooking) }}
