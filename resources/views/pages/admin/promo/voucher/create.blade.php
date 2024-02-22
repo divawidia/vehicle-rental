@@ -1,9 +1,9 @@
 @extends('layouts.admin.master')
 @section('title')
-    Tambah Tag Artikel Blog
+    Tambah Promo Voucher
 @endsection
 @section('page-title')
-    Tambah Tag Artikel Blog
+    Tambah Promo Voucher
 @endsection
 @section('body')
 
@@ -12,7 +12,7 @@
     @section('content')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('tags.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('vouchers.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
