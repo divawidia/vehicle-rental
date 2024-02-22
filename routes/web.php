@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BookingController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\VehicleBrandController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehiclePhotoController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehiclePageBookingController;
 use App\Models\Booking;
@@ -116,6 +118,9 @@ Route::prefix('admin')
         Route::resource('bookings', BookingController::class);
         Route::post('api/fetch-vehicleDetail', [BookingController::class, 'fetchVehicleDetail'])->name('fetch-vehicle-detail');
         Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
+
+        Route::resource('vouchers', VoucherController::class);
+        Route::resource('sale', SaleController::class);
 
         Route::prefix('blogs')
             ->group(function () {

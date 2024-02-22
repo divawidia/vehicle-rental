@@ -62,6 +62,18 @@
                         <li><a href="{{ route('kendaraan.index') }}">List Kendaraan</a></li>
                     </ul>
                 </li>
+                <li class="menu-title" data-key="t-applications">Promo</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx-car icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-vehicle">Promo</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('vehicle-category-index') }}">Voucher Kupon</a></li>
+                        <li><a href="{{ route('kendaraan.index') }}">Diskon Kendaraan</a></li>
+                    </ul>
+                </li>
 
                 <li class="menu-title" data-key="t-applications">Blog</li>
 

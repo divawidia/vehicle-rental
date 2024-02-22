@@ -11,20 +11,28 @@ class Promo extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id','tag_name', 'slug'
+        'code',
+        'name',
+        'description',
+        'type',
+        'uses',
+        'max_uses',
+        'discount_amount',
+        'starts_at',
+        'expires_at'
     ];
 
     protected $hidden = [
 
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
+    public function bookings(){
+        return $this->hasMany(Booking::class, 'promo_id', 'id');
     }
 
-    public function blogs()
+    public function vehicles()
     {
-        return $this->belongsToMany(Blog::class, 'blog_tag', 'tag_id', 'blog_id', 'id');
+        return $this->belongsToMany(Vehicle::class, 'vehicle_promo', 'promo_id', 'vehicle_id', 'id');
     }
 
 }
