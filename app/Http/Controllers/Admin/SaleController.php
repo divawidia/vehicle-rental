@@ -51,7 +51,15 @@ class SaleController extends Controller
                     $date = strtotime($item->expires_at);
                     return date('l, M d, Y',$date);
                 })
-                ->rawColumns(['action', 'starts_at', 'expires_at'])
+                ->editColumn('status', function ($item){
+                    if ($item->status == 1) {
+                        $badge = '<span class="badge bg-success">Aktif</span>';
+                    }else{
+                        $badge = '<span class="badge badge-warning">Tidak Aktif</span>';
+                    }
+                    return $badge;
+                })
+                ->rawColumns(['action', 'starts_at', 'expires_at', 'status'])
                 ->make();
         }
 
