@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         if (request()->ajax()) {
             $query = User::query();
-
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -61,7 +60,6 @@ class UserController extends Controller
                 ->rawColumns(['action', 'photo_url', 'created_at', 'status'])
                 ->make();
         }
-
         return view('pages.admin.user.index');
     }
 

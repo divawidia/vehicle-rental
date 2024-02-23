@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Promo;
+use App\Models\Vehicle;
 use App\Models\VehicleBrand;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,8 +17,7 @@ class SaleController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Promo::with('vehicles')->where('type', 'sale')->get();
-
+            $query = Promo::query()->where('type', '=','sale')->latest()->get();
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -27,13 +27,13 @@ class SaleController extends Controller
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.edit', $item->id) . '">Edit</a>
+                                    <a class="dropdown-item" href="' . route('sales.edit', $item->id) . '">Edit</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.show', $item->id) . '">Detail</a>
+                                    <a class="dropdown-item" href="' . route('sales.show', $item->id) . '">Detail</a>
                                 </li>
                                 <li>
-                                <form action="' . route('bookings.destroy', $item->id) . '" method="POST">
+                                <form action="' . route('sales.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
                                     <button type="submit" class="dropdown-item">
                                         Hapus
@@ -63,7 +63,10 @@ class SaleController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.promo.sale.create');
+        $vehicles = Vehicle::all();
+        return view('pages.admin.promo.sale.create',[
+            'vehicles' => $vehicles
+        ]);
     }
 
     /**
@@ -74,8 +77,9 @@ class SaleController extends Controller
         $data = $request->all();
 
         $data['type'] = 'sale';
-
-        Promo::create($data);
+        $data['uses'] = 0;
+        $sale = Promo::create($data);
+        $sale->vehicles()->sync((array)$request->input('vehicle_id'));
 
         return redirect()->route('promo-index')->with('status', 'Promo diskon kendaraan berhasil ditambahkan!');
     }
@@ -108,8 +112,9 @@ class SaleController extends Controller
         $data = $request->all();
 
         $data['type'] = 'sale';
-        $item = Promo::findOrFail($id);
-        $item->update($data);
+        $sale = Promo::findOrFail($id);
+        $sale->update($data);
+        $sale->vehicles()->sync((array)$request->input('vehicle_id'));
 
         return redirect()->route('promo-index')->with('status', 'Promo diskon kendaraan berhasil ditambahkan!');
     }

@@ -65,8 +65,8 @@
                 <li class="menu-title" data-key="t-applications">Promo</li>
 
                 <li>
-                    <a href="{{ route('promo-index') }}" class="has-arrow">
-                        <i class="bx bx-car icon nav-icon"></i>
+                    <a href="{{ route('promo-index') }}">
+                        <i class="bx bxs-discount icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Promo</span>
                     </a>
                 </li>
@@ -101,9 +101,6 @@
                         <span class="menu-item" data-key="t-gallery">User</span>
                     </a>
                 </li>
-
-
-
             </ul>
         </div>
         <!-- Sidebar -->

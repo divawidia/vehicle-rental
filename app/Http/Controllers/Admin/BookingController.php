@@ -31,7 +31,7 @@ class BookingController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Booking::with(['vehicle', 'vehicle_detail']);
+            $query = Booking::with(['vehicle', 'vehicle_detail'])->latest()->get();
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
