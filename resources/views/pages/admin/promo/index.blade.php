@@ -38,6 +38,7 @@
                                     <th>Diskon</th>
                                     <th>Mulai Berlaku</th>
                                     <th>Akhir Berlaku</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -66,6 +67,7 @@
                                     <th>Diskon</th>
                                     <th>Mulai Berlaku</th>
                                     <th>Akhir Berlaku</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
@@ -99,6 +101,7 @@
                     { data: 'discount_amount', name: 'discount_amount' },
                     { data: 'starts_at', name: 'starts_at' },
                     { data: 'expires_at', name: 'expires_at' },
+                    { data: 'status', name: 'status' },
                     {
                         data: 'action',
                         name: 'action',
@@ -126,6 +129,7 @@
                     { data: 'discount_amount', name: 'discount_amount' },
                     { data: 'starts_at', name: 'starts_at' },
                     { data: 'expires_at', name: 'expires_at' },
+                    { data: 'status', name: 'status' },
                     {
                         data: 'action',
                         name: 'action',
