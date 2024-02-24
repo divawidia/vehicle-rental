@@ -3979,7 +3979,6 @@ hr {
 .form-border select {
     padding: 8px;
     margin-bottom: 10px;
-    border: solid 2px #eeeeee;
     background: rgba(0, 0, 0, .025);
     border-radius: 6px;
     -moz-border-radius: 6px;

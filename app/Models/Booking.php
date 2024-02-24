@@ -71,7 +71,10 @@ class Booking extends Model
         'snap_token',
         'pickup_location_type',
         'return_location_type',
-        'telegram'
+        'telegram',
+        'promo_id',
+        'discount',
+        'discount_price'
     ];
 
     protected $hidden = [
@@ -84,5 +87,9 @@ class Booking extends Model
 
     public function vehicle_detail(){
         return $this->belongsTo(VehicleDetail::class, 'vehicle_detail_id', 'id');
+    }
+
+    public function promo(){
+        return $this->belongsTo(Promo::class, 'promo_id', 'id');
     }
 }
