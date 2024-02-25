@@ -11978,7 +11978,7 @@ input[type="range"]::-moz-range-thumb {
     padding-left: 30px;
 }
 
-.de-item-list .d-price{
+.de-item-list . {
     width:30%;
     padding-left: 30px;
     text-align: center;
