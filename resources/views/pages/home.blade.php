@@ -370,7 +370,7 @@
                                                                 $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
                                                                 $daily_price = $vehicle->daily_price - $discount_daily;
                                                                 $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
-                                                                $monthly_price = $vehicle->monthly_price - $discount_daily;
+                                                                $monthly_price = $vehicle->monthly_price - $discount_monthly;
                                                             }
                                                         }else{
                                                             $discount_status = '0';
