@@ -150,12 +150,13 @@ class BookingController extends Controller
      */
     public function create()
     {
-        $vehicles = DB::table('vehicles')
-            ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
-            ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
-            ->where('vehicle_details.status', '=', 'tersedia')
-            ->groupBy('vehicles.id')
-            ->get();
+//        $vehicles = DB::table('vehicles')
+//            ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
+//            ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
+//            ->where('vehicle_details.status', '=', 'tersedia')
+//            ->groupBy('vehicles.id')
+//            ->get();
+        $vehicles = Vehicle::where('unit_quantity', '>', 0)->get();
 
         return view('pages.admin.booking.create', [
             'vehicles' => $vehicles
@@ -200,13 +201,14 @@ class BookingController extends Controller
     public function userPageBooking2(Request $request){
         $booking = $request->session()->get('booking');
 
-        $vehicles = DB::table('vehicles')
-                        ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
-                        ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
-                        ->where('vehicle_details.status', '=', 'tersedia')
-                        ->where('vehicles.vehicle_type_id', '=', $booking['vehicle_type_id'])
-                        ->groupBy('vehicles.id')
-                        ->get();
+//        $vehicles = DB::table('vehicles')
+//                        ->join('vehicle_details', 'vehicles.id','=','vehicle_details.vehicle_id')
+//                        ->select('vehicles.*', DB::raw('COUNT(vehicle_details.id) as unit_available'))
+//                        ->where('vehicle_details.status', '=', 'tersedia')
+//                        ->where('vehicles.vehicle_type_id', '=', $booking['vehicle_type_id'])
+//                        ->groupBy('vehicles.id')
+//                        ->get();
+        $vehicles = Vehicle::where('unit_quantity', '>', 0)->get();
 
         return view('pages.choose-vehicle', compact('booking', 'vehicles'));
     }
