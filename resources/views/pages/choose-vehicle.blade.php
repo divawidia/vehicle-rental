@@ -37,10 +37,11 @@
                         @csrf
                         <div class="row">
                             <h2 class="border-bottom-padding pt-lg-5 mb-4">Choose Your Vehicle</h2>
-                            <div class="de_form de_radio row d-flex justify-content-center">
-                                @foreach($vehicles as $vehicle)
-                                    <div class="radio-img col-xl-4 col-lg-6">
-                                        <div class="de-item mb30">
+                                <div class="de_form de_radio row d-flex justify-content-center">
+                                    <div id="items-carousel" class="owl-carousel wow fadeIn">
+                                        @foreach($vehicles as $vehicle)
+                                        <div class="radio-img col-lg-12">
+                                            <div class="de-item mb30">
                                             <div class="d-img">
                                                 <img src="{{ Storage::url($vehicle->thumbnail) }}" class="img-fluid" alt="vehicle_thumbnail"/>
                                             </div>
@@ -140,7 +141,8 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
+                                    </div>
+                                </div>
                             <div class="row">
                                 <div class="col-lg-8">
                                     <h2 class="border-top pt-3 mb-0">Additional Features</h2>
