@@ -361,11 +361,58 @@
                                                     />{{ $vehicle->vehicle_type->vehicle_type_name }}</span
                                                 >
                                             </div>
-                                            <div class="d-price">
-                                                Daily rate from <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
-                                                <a class="btn-main" href="{{ route('vehicle-detail', $vehicle->slug) }}"
-                                                >Rent Now</a
-                                                >
+                                                <div class="row d-flex align-items-center">
+                                                    @php
+                                                        if (!$vehicle->promos->isEmpty()){
+                                                            foreach ($vehicle->promos as $promo){
+                                                                $discount_status = $promo->status;
+                                                                $discount_percentage = $promo->discount_amount;
+                                                                $discount_daily = $vehicle->daily_price * $discount_percentage / 100;
+                                                                $daily_price = $vehicle->daily_price - $discount_daily;
+                                                                $discount_monthly = $vehicle->monthly_price * $discount_percentage / 100;
+                                                                $monthly_price = $vehicle->monthly_price - $discount_daily;
+                                                            }
+                                                        }else{
+                                                            $discount_status = '0';
+                                                        }
+                                                    @endphp
+                                                    @if($discount_status == '1')
+                                                        <div class="d-price">
+                                                            Daily rate
+                                                            <div class="d-flex justify-content-start">
+                                                                <span
+                                                                    class="text-danger">Rp. {{ number_format($daily_price) }}</span>
+                                                                <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                    -{{ $discount_percentage }}%</h4>
+                                                            </div>
+                                                            <div class="d-price-old">
+                                                                Rp. {{ number_format($vehicle->daily_price) }}</div>
+                                                        </div>
+                                                        <div class="d-price-month">
+                                                            Monthly rate
+                                                            <div class="d-flex justify-content-start">
+                                                                <span
+                                                                    class="text-danger">Rp. {{ number_format($monthly_price) }}</span>
+                                                                <h4 class="badge bg-danger w-25 text-white mx-3">
+                                                                    -{{ $discount_percentage }}%</h4>
+                                                            </div>
+                                                            <div class="d-price-month-old">
+                                                                Rp. {{ number_format($vehicle->monthly_price) }}</div>
+                                                        </div>
+                                                    @elseif($discount_status == '0')
+                                                        <div class="d-price">
+                                                            Daily rate
+                                                            <span>Rp. {{ number_format($vehicle->daily_price) }}</span>
+                                                        </div>
+                                                        <div class="d-price-month">
+                                                            Monthly rate
+                                                            <span>Rp. {{ number_format($vehicle->monthly_price) }}</span>
+                                                        </div>
+                                                    @endif
+                                                    <a class="btn-main w-100 mt-3"
+                                                       href="{{ route('vehicle-detail', $vehicle->slug) }}">
+                                                        Rent Now
+                                                    </a>
                                             </div>
                                         </div>
                                     </div>
