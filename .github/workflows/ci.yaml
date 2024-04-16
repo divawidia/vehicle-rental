@@ -1,20 +1,20 @@
-name: Testing Laravel
+name: CI/CD
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 jobs:
   laravel:
     name: Laravel (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
     env:
-      DB_DATABASE: baturSariRental
-      DB_USERNAME: admin
-      DB_PASSWORD: MRdJoFT419yqWd3sFBtv
+      DB_DATABASE: laravel
+      DB_USERNAME: root
+      DB_PASSWORD: password
       BROADCAST_DRIVER: log
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
@@ -24,8 +24,8 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: MRdJoFT419yqWd3sFBtv
-          MYSQL_DATABASE: baturSariRental
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: laravel
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.1']
+        php-versions: ['8.2']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
 
 
       - name: Install Composer dependencies
-        run: composer update --no-progress --prefer-dist --optimize-autoloader
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Prepare Laravel Application
         run: |
@@ -74,6 +74,18 @@ jobs:
 
       - name: Clear Config
         run: php artisan config:clear
+
+      - name: Run Migration
+        run: php artisan migrate -v
+        env:
+          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+
+      #      - name: Test with phpunit
+      #        run: vendor/bin/phpunit --coverage-text
+      #        env:
+      #          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+      #          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
 
       - name: Install Yarn dependencies
         run: yarn
@@ -85,9 +97,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
-          key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
-          script: |
-            sudo su
-            cd /home/rental/htdocs/batursarirental.com/
-            ls
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          #          script: whoami
+          script: cd ${{ secrets.SSH_PATH }} && chmod -v +x ./.scripts/deploy.sh && ./.scripts/deploy.sh
