@@ -101,4 +101,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           #          script: whoami
-          script: cd htdocs/vehicle-rental/ && ./.scripts/deploy.sh
+          script: cd /home/batursarirental.com/vehicle-rental/ && ./.scripts/deploy.sh
