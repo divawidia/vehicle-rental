@@ -55,4 +55,4 @@ RUN php artisan config:clear \
 RUN chown -R www-data:www-data /var/www/vehicle-rental/storage /var/www/vehicle-rental/bootstrap/cache \
     && chmod -R 775 /var/www/vehicle-rental/storage /var/www/vehicle-rental/bootstrap/cache
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8000", "--https", "--http-redirect"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=vehicle-rental.divawidia.my.id", "--port=443", "--https", "--http-redirect"]
