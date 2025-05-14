@@ -5,7 +5,6 @@ ENV SERVER_NAME=vehicle-rental.divawidia.my.id
 WORKDIR /var/www/vehicle-rental
 
 COPY --chown=www-data:www-data  . .
-# USER root
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -35,22 +34,12 @@ RUN apt-get update && apt-get install -y \
         opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-
-
 # Install Node.js (change version if needed)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
-
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-
-
-# RUN git config --global --add safe.directory /var/www/vehicle-rental \
-#     && chown -R www-data:www-data /var/www/vehicle-rental
-
-    # USER www-data
 
 COPY composer.json composer.lock ./
 
@@ -62,7 +51,6 @@ RUN composer require laravel/octane \
 RUN php artisan config:clear \
     && php artisan cache:clear \
     && php artisan octane:install --server=frankenphp
-# USER root
 
 RUN chown -R www-data:www-data /var/www/vehicle-rental/storage /var/www/vehicle-rental/bootstrap/cache \
     && chmod -R 775 /var/www/vehicle-rental/storage /var/www/vehicle-rental/bootstrap/cache
