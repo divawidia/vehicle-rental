@@ -59,4 +59,4 @@ RUN chown -R www-data:www-data /var/www/vehicle-rental/storage /var/www/vehicle-
 EXPOSE 8000
 
 # Start Laravel Octane FrankenPHP server binding to all interfaces
-ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8000", "--https", "--http-redirect"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=8000"]
