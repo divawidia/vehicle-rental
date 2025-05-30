@@ -1,5 +1,4 @@
 import './bootstrap';
-import './jquery.nice-number.js'
 
 (function ($) {
     "use strict";
@@ -21,8 +20,8 @@ import './jquery.nice-number.js'
     /* predefined vars end */
 
     function de_loader() {
-        if (preloader_custom_image == "off") {
-            var myHtml = $("<div/>")
+        if (preloader_custom_image === "off") {
+            const myHtml = $("<div/>")
                 .addClass("de-preloader")
                 .append(
                     $("<div/>")
