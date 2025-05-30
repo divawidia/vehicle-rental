@@ -89,10 +89,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking');
     Route::get('/booking/invoice-generate-pdf/{id}', [BookingController::class, 'invoicePDF'])->name('invoice-pdf');
 
-    Route::prefix('admin')
-        ->namespace('App\Http\Controllers\Admin')
-        ->middleware(['auth'])
-        ->group(function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['auth'])->group(function() {
             Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
             Route::get('/api/fetch-totalRentCountry', [DashboardController::class, 'totalRentCountry'])->name('fetch-totalRentCountry');
 
@@ -117,16 +114,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
             Route::delete('/kendaraan/{vehicle_id}/vehicle-detail/{id}', [VehicleController::class, 'destroyVehicleDetail'])->name('hapus-detail-kendaraan');
 
             Route::resource('foto-kendaraan', VehiclePhotoController::class);
+
             Route::resource('bookings', BookingController::class);
+            Route::prefix('bookings')->name('bookings.')->group(function (){
+                Route::get('calendar', [BookingController::class, 'index'])->name('calendar');
+            });
+
             Route::post('api/fetch-vehicleDetail', [BookingController::class, 'fetchVehicleDetail'])->name('fetch-vehicle-detail');
             Route::get('/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('booking-invoice');
 
-            Route::prefix('promos')
-                ->group(function (){
-                    Route::get('/', function () {return view('admin.pages.promo.index');})->name('promo-index');
-                    Route::resource('vouchers', VoucherController::class);
-                    Route::resource('sales', SaleController::class);
-                });
+            Route::prefix('promos')->group(function (){
+                Route::get('/', function () {return view('admin.pages.promo.index');})->name('promo-index');
+                Route::resource('vouchers', VoucherController::class);
+                Route::resource('sales', SaleController::class);
+            });
 
             Route::prefix('blogs')
                 ->group(function () {

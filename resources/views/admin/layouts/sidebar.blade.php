@@ -41,9 +41,9 @@
                 <li>
                     <a href="{{ route('bookings.index') }}">
                         <i class='bx bx-list-check icon nav-icon'></i>
-                        <span class="menu-item" data-key="t-booking">Booking Rental</span>
+                        <span class="menu-item" data-key="t-booking">Manajemen Booking</span>
                     </a>
-                    <a href="{{ route('bookings.index') }}">
+                    <a href="{{ route('bookings.calendar') }}">
                         <i class='bx bx-calendar icon nav-icon'></i>
                         <span class="menu-item" data-key="t-booking">Kalender Booking</span>
                     </a>
