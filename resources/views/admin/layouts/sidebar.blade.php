@@ -51,7 +51,7 @@
 
                 <li class="menu-title" data-key="t-applications">Kendaraan</li>
                 <li>
-                    <a href="{{ route('admin.kendaraan.index') }}">
+                    <a href="{{ route('admin.vehicles.index') }}">
                         <i class="bx bx-car icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Kendaraan Rental</span>
                     </a>
