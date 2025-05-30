@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
-class BookingService
+class BookingService extends Service
 {
+    public function index()
+    {
 
+    }
 }
