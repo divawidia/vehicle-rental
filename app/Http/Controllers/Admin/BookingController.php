@@ -39,21 +39,21 @@ class BookingController extends Controller
                 ->addColumn('action', function ($item) {
                     return '
                         <div class="dropdown">
-                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bx bx-dots-horizontal-rounded"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.edit', $item->id) . '">Edit</a>
+                                    <a class="dropdown-item" href="' . route('admin.bookings.edit', $item->id) . '">Edit</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="' . route('bookings.show', $item->id) . '">Detail</a>
+                                    <a class="dropdown-item" href="' . route('admin.bookings.show', $item->id) . '">Detail</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="' . route('booking-invoice', $item->id) . '">Invoice</a>
+                                    <a class="dropdown-item" href="' . route('admin.bookings.invoice', $item->id) . '">Invoice</a>
                                 </li>
                                 <li>
-                                <form action="' . route('bookings.destroy', $item->id) . '" method="POST">
+                                <form action="' . route('admin.bookings.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
                                     <button type="submit" class="dropdown-item">
                                         Hapus
@@ -139,6 +139,7 @@ class BookingController extends Controller
                     return 'Rp. ' . number_format($item->total_price);
                 })
                 ->rawColumns(['action', 'rent_status', 'transaction_status', 'shipping_status', 'return_status', 'created_at', 'pick_up_datetime', 'return_datetime', 'whatsapp', 'maps_pickup', 'maps_return', 'name', 'total_days_rent'])
+                ->addIndexColumn()
                 ->make();
         }
 

@@ -11,8 +11,8 @@ class Main extends Component
     /**
      * Create a new component instance.
      */
-    public array $headers;
-    public string $tableId;
+    public $headers;
+    public $tableId;
 
     public function __construct($headers, $tableId = 'table')
     {

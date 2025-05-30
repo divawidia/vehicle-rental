@@ -23,7 +23,7 @@
                         <h4 class="card-title">Tipe Kendaraan</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('tipe.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('admin.vehicle-types.create') }}" class="btn btn-primary mb-3">
                             + Tambah Tipe Kendaraan Baru
                         </a>
                         <div class="table-responsive">
@@ -47,7 +47,7 @@
                         <h4 class="card-title">Jenis Transmisi Kendaraan</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('transmisi.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('admin.vehicle-transmission.create') }}" class="btn btn-primary mb-3">
                             + Tambah Jenis Transmisi Baru
                         </a>
                         <div class="table-responsive">
@@ -71,7 +71,7 @@
                         <h4 class="card-title">Brand Kendaraan</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('brand.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('admin.vehicle-brands.create') }}" class="btn btn-primary mb-3">
                             + Tambah Brand Kendaraan Baru
                         </a>
                         <div class="table-responsive">
