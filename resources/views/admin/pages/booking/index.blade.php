@@ -5,10 +5,7 @@
 @section('page-title')
     List Invoice Booking
 @endsection
-@section('body')
 
-    <body>
-    @endsection
     @section('content')
         @if (session('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,7 +20,7 @@
                         <h4 class="card-title">List Invoice Booking</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('bookings.create') }}" class="btn btn-primary mb-3">
+                        <a href="{{  route('admin.bookings.create') }}" class="btn btn-primary mb-3">
                             + Tambah Invoice Booking
                         </a>
                         <div class="table-responsive">
@@ -108,7 +105,3 @@
             });
         </script>
     @endpush
-    @section('scripts')
-        <!-- App js -->
-        <script src="{{ URL::asset('build/js/app.js') }}"></script>
-@endsection
