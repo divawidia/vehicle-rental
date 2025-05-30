@@ -37,75 +37,84 @@
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Booking</li>
+                <li class="menu-title" data-key="t-applications">Bookings</li>
                 <li>
                     <a href="{{ route('admin.bookings.index') }}">
                         <i class='bx bx-list-check icon nav-icon'></i>
-                        <span class="menu-item" data-key="t-booking">Manajemen Booking</span>
+                        <span class="menu-item" data-key="t-booking">Booking Management</span>
                     </a>
-                    <a href="{{ route('admin.bookings.calendar') }}">
+                    <a href="#">
                         <i class='bx bx-calendar icon nav-icon'></i>
-                        <span class="menu-item" data-key="t-booking">Kalender Booking</span>
+                        <span class="menu-item" data-key="t-booking">Booking Calendar</span>
                     </a>
                 </li>
-
-                <li class="menu-title" data-key="t-applications">Kendaraan</li>
                 <li>
+                    <a href="#">
+                        <i class="bx bx-user icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-gallery">Customer Management</span>
+                    </a>
+                </li>
+                <li class="menu-title" data-key="t-applications">Vehicles</li>
+                <li>
+                    <a href="{{ route('admin.vehicle-types.index') }}">
+                        <i class="bx bx-category icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-vehicle">Vehicle Types</span>
+                    </a>
+                    <a href="{{ route('admin.vehicle-transmissions.index') }}">
+                        <i class="bx bx-cog icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-vehicle">Vehicle Transmissions</span>
+                    </a>
+                    <a href="{{ route('admin.vehicle-brands.index') }}">
+                        <i class="bx bx-purchase-tag icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-vehicle">Vehicle Brands</span>
+                    </a>
                     <a href="{{ route('admin.vehicles.index') }}">
                         <i class="bx bx-car icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Kendaraan Rental</span>
-                    </a>
-                    <a href="{{ route('admin.vehicle-category-index') }}">
-                        <i class="bx bx-category icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Kategori Kendaraan</span>
-                    </a>
-                    <a href="{{ route('admin.vehicle-category-index') }}">
-                        <i class="bx bx-cog icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Transmisi Kendaraan</span>
-                    </a>
-                    <a href="{{ route('admin.vehicle-category-index') }}">
-                        <i class="bx bx-purchase-tag icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Merk Kendaraan</span>
+                        <span class="menu-item" data-key="t-vehicle">Vehicle Management</span>
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Promo</li>
+                <li class="menu-title" data-key="t-applications">Promos</li>
                 <li>
-                    <a href="{{ route('admin.promo-index') }}">
+                    <a href="{{ route('admin.vouchers.index') }}">
                         <i class="bx bxs-discount icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Voucher Kupon</span>
+                        <span class="menu-item" data-key="t-vehicle">Vouchers</span>
                     </a>
-                    <a href="{{ route('admin.promo-index') }}">
+                    <a href="{{ route('admin.discounts.index') }}">
                         <i class="bx bxs-discount icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-vehicle">Diskon Kendaraan</span>
+                        <span class="menu-item" data-key="t-vehicle">Discounts</span>
                     </a>
                 </li>
 
-                <li class="menu-title" data-key="t-applications">Blog</li>
+                <li class="menu-title" data-key="t-applications">Blogs</li>
                 <li>
-                    <a href="{{ route('admin.artikel.index') }}">
-                        <i class="bx bx-text icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-blog">Artikel</span>
-                    </a>
                     <a href="{{ route('admin.tags.index') }}">
                         <i class="bx bx-tag icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-blog">Tag Artikel</span>
+                        <span class="menu-item" data-key="t-blog">Tags</span>
                     </a>
-                    <a href="{{ route('admin.galleries.index') }}">
-                        <i class="bx bx-photo-album icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-gallery">Gallery</span>
+                    <a href="{{ route('admin.articles.index') }}">
+                        <i class="bx bx-text icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-blog">Articles</span>
                     </a>
                 </li>
-
-                <li class="menu-title" data-key="t-gallery">Pengaturan</li>
+                <li>
+                    <a href="{{ route('admin.galleries.index') }}">
+                        <i class="bx bx-photo-album icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-gallery">Photo Galleries</span>
+                    </a>
+                </li>
+                <li class="menu-title" data-key="t-applications">Admin Users</li>
                 <li>
                     <a href="{{ route('admin.users.index') }}">
                         <i class="bx bx-user icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-gallery">Manajemen Pengguna</span>
+                        <span class="menu-item" data-key="t-gallery">User Management</span>
                     </a>
-                    <a href="{{ route('admin.users.index') }}">
-                        <i class="bx bxs-cog icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-gallery">Pengaturan Website</span>
+                </li>
+                <li class="menu-title" data-key="t-applications">Settings</li>
+                <li>
+                    <a href="#">
+                        <i class="bx bx-user icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-gallery">General Settings</span>
                     </a>
                 </li>
             </ul>

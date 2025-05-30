@@ -111,12 +111,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::resource('vouchers', VoucherController::class);
         Route::resource('discounts', SaleController::class);
 
-        Route::prefix('blogs')->group(function () {
-            Route::resource('tags', TagController::class);
-            Route::resource('articles', BlogController::class);
-            Route::post('upload-photos', [BlogController::class, 'uploadPhoto'])->name('blog-photo-upload');
-            Route::post('upload-thumbnail', [BlogController::class, 'uploadPhotoThumbnail'])->name('blog-thumbnail-upload');
-            Route::get('delete-photos/{id}', [BlogController::class, 'deletePhoto'])->name('blog-photo-delete');
+        Route::resource('tags', TagController::class);
+        Route::resource('articles', BlogController::class);
+        Route::prefix('articles/photos')->name('articles.photos')->group(function (){
+            Route::post('upload', [BlogController::class, 'uploadPhoto'])->name('upload');
+            Route::get('delete/{id}', [BlogController::class, 'deletePhoto'])->name('delete');
         });
 
         Route::resource('galleries', GalleryController::class);
