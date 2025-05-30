@@ -3,7 +3,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{ route('admin-dashboard') }}" class="logo logo-dark">
+        <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('images/logo.png') }}" alt="" height="30">
             </span>
@@ -12,7 +12,7 @@
             </span>
         </a>
 
-        <a href="{{ route('admin-dashboard') }}" class="logo logo-light">
+        <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
             <span class="logo-lg">
                 <img src="{{ URL::asset('images/logo.png') }}" alt="" height="75">
             </span>
@@ -31,7 +31,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Dashboard</li>
                 <li>
-                    <a href="{{ route('admin-dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <i class="bx bx-home-alt icon nav-icon"></i>
                         <span class="menu-item" data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -39,11 +39,11 @@
 
                 <li class="menu-title" data-key="t-applications">Booking</li>
                 <li>
-                    <a href="{{ route('bookings.index') }}">
+                    <a href="{{ route('admin.bookings.index') }}">
                         <i class='bx bx-list-check icon nav-icon'></i>
                         <span class="menu-item" data-key="t-booking">Manajemen Booking</span>
                     </a>
-                    <a href="{{ route('bookings.calendar') }}">
+                    <a href="{{ route('admin.bookings.calendar') }}">
                         <i class='bx bx-calendar icon nav-icon'></i>
                         <span class="menu-item" data-key="t-booking">Kalender Booking</span>
                     </a>
@@ -51,19 +51,19 @@
 
                 <li class="menu-title" data-key="t-applications">Kendaraan</li>
                 <li>
-                    <a href="{{ route('kendaraan.index') }}">
+                    <a href="{{ route('admin.kendaraan.index') }}">
                         <i class="bx bx-car icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Kendaraan Rental</span>
                     </a>
-                    <a href="{{ route('vehicle-category-index') }}">
+                    <a href="{{ route('admin.vehicle-category-index') }}">
                         <i class="bx bx-category icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Kategori Kendaraan</span>
                     </a>
-                    <a href="{{ route('vehicle-category-index') }}">
+                    <a href="{{ route('admin.vehicle-category-index') }}">
                         <i class="bx bx-cog icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Transmisi Kendaraan</span>
                     </a>
-                    <a href="{{ route('vehicle-category-index') }}">
+                    <a href="{{ route('admin.vehicle-category-index') }}">
                         <i class="bx bx-purchase-tag icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Merk Kendaraan</span>
                     </a>
@@ -71,11 +71,11 @@
 
                 <li class="menu-title" data-key="t-applications">Promo</li>
                 <li>
-                    <a href="{{ route('promo-index') }}">
+                    <a href="{{ route('admin.promo-index') }}">
                         <i class="bx bxs-discount icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Voucher Kupon</span>
                     </a>
-                    <a href="{{ route('promo-index') }}">
+                    <a href="{{ route('admin.promo-index') }}">
                         <i class="bx bxs-discount icon nav-icon"></i>
                         <span class="menu-item" data-key="t-vehicle">Diskon Kendaraan</span>
                     </a>
@@ -83,15 +83,15 @@
 
                 <li class="menu-title" data-key="t-applications">Blog</li>
                 <li>
-                    <a href="{{ route('artikel.index') }}">
+                    <a href="{{ route('admin.artikel.index') }}">
                         <i class="bx bx-text icon nav-icon"></i>
                         <span class="menu-item" data-key="t-blog">Artikel</span>
                     </a>
-                    <a href="{{ route('tags.index') }}">
+                    <a href="{{ route('admin.tags.index') }}">
                         <i class="bx bx-tag icon nav-icon"></i>
                         <span class="menu-item" data-key="t-blog">Tag Artikel</span>
                     </a>
-                    <a href="{{ route('galleries.index') }}">
+                    <a href="{{ route('admin.galleries.index') }}">
                         <i class="bx bx-photo-album icon nav-icon"></i>
                         <span class="menu-item" data-key="t-gallery">Gallery</span>
                     </a>
@@ -99,11 +99,11 @@
 
                 <li class="menu-title" data-key="t-gallery">Pengaturan</li>
                 <li>
-                    <a href="{{ route('users.index') }}">
+                    <a href="{{ route('admin.users.index') }}">
                         <i class="bx bx-user icon nav-icon"></i>
                         <span class="menu-item" data-key="t-gallery">Manajemen Pengguna</span>
                     </a>
-                    <a href="{{ route('users.index') }}">
+                    <a href="{{ route('admin.users.index') }}">
                         <i class="bx bxs-cog icon nav-icon"></i>
                         <span class="menu-item" data-key="t-gallery">Pengaturan Website</span>
                     </a>

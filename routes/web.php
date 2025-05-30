@@ -89,12 +89,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking');
     Route::get('/booking/invoice-generate-pdf/{id}', [BookingController::class, 'invoicePDF'])->name('invoice-pdf');
 
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['auth'])->group(function() {
-            Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
+    Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->middleware(['auth'])->group(function() {
+            Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
             Route::get('/api/fetch-totalRentCountry', [DashboardController::class, 'totalRentCountry'])->name('fetch-totalRentCountry');
 
-            Route::prefix('kategori-kendaraaan')
-                ->group(function (){
+            Route::prefix('kategori-kendaraaan')->group(function (){
                     Route::get('/', function () {return view('admin.pages.vehicle-category.index');})->name('vehicle-category-index');
                     Route::resource('tipe', VehicleTypeController::class);
                     Route::resource('transmisi', TransmissionController::class);

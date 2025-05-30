@@ -541,9 +541,6 @@
                         <h4 class="card-title">List Invoice Booking</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{  route('bookings.create') }}" class="btn btn-primary mb-3">
-                            + Tambah Invoice Booking
-                        </a>
                         <div class="table-responsive">
                             <table class="table table-hover mb-0" id="crudTable">
                                 <thead>
@@ -584,13 +581,12 @@
     @endsection
     @push('addon-script')
         <script>
-            // AJAX DataTable
-            var datatable = $('#crudTable').DataTable({
+            $('#crudTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ordering: true,
                 ajax: {
-                    url: '{!! url()->route('bookings.index') !!}',
+                    url: '{!! url()->route('admin.bookings.index') !!}',
                 },
                 columns: [
                     {data: 'id', name: 'id'},
