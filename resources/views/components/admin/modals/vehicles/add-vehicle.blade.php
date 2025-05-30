@@ -2,13 +2,13 @@
     <x-admin.forms.input type="text" name="vehicle_name" label="Nama Kendaraan" :modal="true"/>
     <div class="row">
         <div class="col-6">
-            <x-forms.basic-input type="time" name="startTime" label="Match Start Time" placeholder="Input match start time ..." :modal="true"/>
+            <x-admin.forms.input type="time" name="startTime" label="Match Start Time" placeholder="Input match start time ..." :modal="true"/>
         </div>
         <div class="col-6">
-            <x-forms.basic-input type="time" name="endTime" label="Match End Time" placeholder="Input match end time ..." :modal="true"/>
+            <x-admin.forms.input type="time" name="endTime" label="Match End Time" placeholder="Input match end time ..." :modal="true"/>
         </div>
     </div>
-    <x-forms.basic-input type="text" name="place" label="Match Venue" placeholder="Input match venue ..." :modal="true"/>
+    <x-admin.forms.input type="text" name="place" label="Match Venue" placeholder="Input match venue ..." :modal="true"/>
 </x-admin.modals.form>
 
 @push('addon-script')

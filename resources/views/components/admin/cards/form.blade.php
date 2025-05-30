@@ -12,8 +12,8 @@
         </div>
         <div class="card-footer">
             <div class="float-end">
-                <x-button color="secondary" icon="arrow-back" text="Kembali" :route="$backRoute" :tooltipsTitle="$backButtonTolltips" />
-                <x-button2 color="primary" icon="save" text="Simpan" type="submit" :tooltipsTitle="$submitButtonTolltips" />
+                <x-admin.buttons.link-button color="secondary" icon="arrow-back" text="Kembali" :route="$backRoute" :tooltipsTitle="$backButtonTolltips" />
+                <x-admin.buttons.basic-button color="primary" icon="save" text="Simpan" type="submit" :tooltipsTitle="$submitButtonTolltips" />
             </div>
         </div>
     </div>
